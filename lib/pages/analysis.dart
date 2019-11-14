@@ -1,0 +1,350 @@
+import 'package:flutter/material.dart';
+
+import 'package:fl_chart/fl_chart.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../iconfont.dart';
+
+class Indicator extends StatelessWidget {
+  final Color color;
+  final String text;
+  final bool isSquare;
+  final double size;
+  final Color textColor;
+
+  const Indicator({
+    Key key,
+    this.color,
+    this.text,
+    this.isSquare,
+    this.size = 16,
+    this.textColor = const Color(0xff505050),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+      children: <Widget>[
+        new Container(
+          width: size,
+          height: size,
+          decoration: new BoxDecoration(
+            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
+            color: color,
+          ),
+        ),
+        new SizedBox(
+          width: 4,
+        ),
+        new Text(
+          text,
+          style: TextStyle(fontSize: 14, color: textColor),
+        )
+      ],
+    );
+  }
+}
+
+class AnalysisPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => AnalysisState();
+}
+
+class AnalysisState extends State<AnalysisPage> {
+  int touchedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 1080, allowFontScaling: true)
+      ..init(context);
+
+    return Scaffold(
+        appBar: AppBar(title: Text('分析', style: TextStyle(fontSize: 16.0))),
+        body: new Container(
+            margin: const EdgeInsets.all(8.0),
+            child: new Wrap(children: <Widget>[
+              new Container(
+                margin: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(top: 15.0, left: 10, right: 10),
+                width: ScreenUtil.getInstance().setWidth(1060),
+                decoration: new BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    boxShadow: [
+                      BoxShadow(color: const Color(0x1E000000), blurRadius: 5.0)
+                    ]),
+                child: new Column(
+                  children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('本周'),
+                        Text('支出'),
+                      ],
+                    ),
+                    AspectRatio(
+                      aspectRatio: 1.7,
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)),
+                        color: const Color(0xffffffff),
+                        child: BarChart(
+                          BarChartData(
+                              alignment: BarChartAlignment.spaceAround,
+                              maxY: 20,
+                              barTouchData: BarTouchData(
+                                enabled: false,
+                                touchTooltipData: BarTouchTooltipData(
+                                  tooltipBgColor: Colors.transparent,
+                                  tooltipPadding: const EdgeInsets.all(0),
+                                  tooltipBottomMargin: 8,
+                                  getTooltipItem: (
+                                    BarChartGroupData group,
+                                    int groupIndex,
+                                    BarChartRodData rod,
+                                    int rodIndex,
+                                  ) {
+                                    return BarTooltipItem(
+                                      rod.y.round().toString(),
+                                      TextStyle(color: const Color(0xff333333)),
+                                    );
+                                  },
+                                ),
+                              ),
+                              titlesData: FlTitlesData(
+                                show: true,
+                                bottomTitles: SideTitles(
+                                  showTitles: true,
+                                  textStyle: TextStyle(
+                                      color: const Color(0xff333333),
+                                      fontSize: 14),
+                                  margin: 20,
+                                  getTitles: (double value) {
+                                    switch (value.toInt()) {
+                                      case 0:
+                                        return '周一';
+                                      case 1:
+                                        return '周二';
+                                      case 2:
+                                        return '周三';
+                                      case 3:
+                                        return '周四';
+                                      case 4:
+                                        return '周五';
+                                      case 5:
+                                        return '周六';
+                                      case 6:
+                                        return '周日';
+                                      default:
+                                        return '';
+                                    }
+                                  },
+                                ),
+                                leftTitles: const SideTitles(showTitles: false),
+                              ),
+                              borderData: FlBorderData(
+                                show: false,
+                              ),
+                              barGroups: [
+                                BarChartGroupData(x: 0, barRods: [
+                                  BarChartRodData(y: 8, color: Colors.red)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                                BarChartGroupData(x: 1, barRods: [
+                                  BarChartRodData(
+                                      y: 10, color: Colors.lightBlueAccent)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                                BarChartGroupData(x: 2, barRods: [
+                                  BarChartRodData(
+                                      y: 14, color: Colors.lightBlueAccent)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                                BarChartGroupData(x: 3, barRods: [
+                                  BarChartRodData(
+                                      y: 15, color: Colors.lightBlueAccent)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                                BarChartGroupData(x: 3, barRods: [
+                                  BarChartRodData(
+                                      y: 13, color: Colors.lightBlueAccent)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                                BarChartGroupData(x: 3, barRods: [
+                                  BarChartRodData(
+                                      y: 10, color: Colors.lightBlueAccent)
+                                ], showingTooltipIndicators: [
+                                  0
+                                ]),
+                              ]),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              new Container(
+                  padding: const EdgeInsets.only(top: 15.0, left: 10),
+                  decoration: new BoxDecoration(
+                      color: const Color(0xFFFFFFFF),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(5.0)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: const Color(0x1E000000), blurRadius: 5.0)
+                      ]),
+                  child: new Column(children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('本周支出排行榜')
+                      ]
+                    ),
+                    new AspectRatio(
+                        aspectRatio: 1.3,
+                        child: new Container(
+                            color: Colors.white,
+                            child: new Row(children: <Widget>[
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              new Expanded(
+                                child: new AspectRatio(
+                                  aspectRatio: 1,
+                                  child: new PieChart(
+                                    new PieChartData(
+                                        pieTouchData: new PieTouchData(
+                                            touchCallback: (pieTouchResponse) {
+                                              setState(() {
+                                                if (pieTouchResponse.touchInput
+                                                is FlLongPressEnd ||
+                                                    pieTouchResponse.touchInput
+                                                    is FlPanEnd) {
+                                                  touchedIndex = -1;
+                                                } else {
+                                                  touchedIndex = pieTouchResponse
+                                                      .touchedSectionIndex;
+                                                }
+                                              });
+                                            }),
+                                        borderData: new FlBorderData(
+                                          show: false,
+                                        ),
+                                        sectionsSpace: 0,
+                                        centerSpaceRadius: 40,
+                                        sections: showingSections()),
+                                  ),
+                                ),
+                              ),
+                              new Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const <Widget>[
+                                    Indicator(
+                                      color: Color(0xff0293ee),
+                                      text: '餐饮',
+                                      isSquare: true,
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Indicator(
+                                      color: Color(0xfff8b250),
+                                      text: '交通',
+                                      isSquare: true,
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Indicator(
+                                      color: Color(0xff845bef),
+                                      text: '网购',
+                                      isSquare: true,
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Indicator(
+                                      color: Color(0xff13d38e),
+                                      text: '话费',
+                                      isSquare: true,
+                                    ),
+                                    SizedBox(
+                                      height: 18,
+                                    )
+                                  ]),
+                              SizedBox(width: 28)
+                            ])))
+                  ]))
+            ])));
+  }
+
+  List<PieChartSectionData> showingSections() {
+    return List.generate(4, (i) {
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 25 : 16;
+      final double radius = isTouched ? 60 : 50;
+      switch (i) {
+        case 0:
+          return new PieChartSectionData(
+            color: const Color(0xff0293ee),
+            value: 40,
+            title: '40%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 1:
+          return new PieChartSectionData(
+            color: const Color(0xfff8b250),
+            value: 30,
+            title: '30%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 2:
+          return new PieChartSectionData(
+            color: const Color(0xff845bef),
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 3:
+          return new PieChartSectionData(
+            color: const Color(0xff13d38e),
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        default:
+          return null;
+      }
+    });
+  }
+}
