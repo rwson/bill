@@ -23,4 +23,6 @@ class IconFont {
 
   static IconData iconLeft = IconData(0xe6ed, fontFamily: 'iconfont');
 
+  static IconData iconMore = IconData(0xe61a, fontFamily: 'iconfont');
+
 }

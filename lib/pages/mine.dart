@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 
 import '../adaptor.dart';
 import '../assets.dart';
-import '../iconfont.dart';
 import '../colors.dart';
+import '../iconfont.dart';
 import '../router.dart';
 
 class MinePage extends StatefulWidget {
@@ -20,18 +19,20 @@ class MineState extends State<MinePage> {
   }
 
   void _toTask() {
-    AppRouter.router.navigateTo(context, 'tasks', transition: TransitionType.material);
+    AppRouter.router
+        .navigateTo(context, 'tasks', transition: TransitionType.material);
   }
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)
-      ..init(context);
-
     return Scaffold(
-        appBar: AppBar(title: Text('我的', style: TextStyle(fontSize: Adaptor.px(30.0)))),
+        appBar: AppBar(
+            title: Text('我的',
+                style: TextStyle(
+                    fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            padding: EdgeInsets.only(
+                left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
             child: new SingleChildScrollView(
                 child: new Column(children: <Widget>[
               new Wrap(children: <Widget>[
@@ -39,7 +40,10 @@ class MineState extends State<MinePage> {
                     width: Adaptor.screenW(),
                     height: Adaptor.px(350.0),
                     margin: EdgeInsets.only(top: Adaptor.px(30.0)),
-                    padding: EdgeInsets.only(top: Adaptor.px(30.0), left: Adaptor.px(30.0), right: Adaptor.px(30.0)),
+                    padding: EdgeInsets.only(
+                        top: Adaptor.px(30.0),
+                        left: Adaptor.px(30.0),
+                        right: Adaptor.px(30.0)),
                     decoration: new BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
@@ -49,7 +53,7 @@ class MineState extends State<MinePage> {
                               blurRadius: 8.0,
                               offset: Offset(2.0, 1.0))
                         ],
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                             begin: Alignment.bottomLeft,
                             end: Alignment.topRight,
                             colors: [
@@ -64,12 +68,13 @@ class MineState extends State<MinePage> {
                               children: <Widget>[
                                 new Image.asset(
                                   Assets.iconAvatar,
-                                  width: Adaptor.px(100),
-                                  height: Adaptor.px(100),
+                                  width: Adaptor.px(100.0),
+                                  height: Adaptor.px(100.0),
                                 ),
                                 new Padding(
                                   padding: EdgeInsets.only(
-                                      top: Adaptor.px(10.0), bottom: Adaptor.px(20.0)),
+                                      top: Adaptor.px(10.0),
+                                      bottom: Adaptor.px(20.0)),
                                   child: new Text('未登录',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(32.0),
@@ -154,15 +159,16 @@ class MineState extends State<MinePage> {
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Image.asset(Assets.iconTask,
-                                          width: 16.0, height: 16.0),
+                                          width: Adaptor.px(32.0),
+                                          height: Adaptor.px(32.0)),
                                       new Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 6.0),
+                                        padding: EdgeInsets.only(
+                                            left: Adaptor.px(12.0)),
                                         child: new Text(
                                           '记账任务',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: AppColors.appTextDark,
-                                              fontSize: 16.0,
+                                              fontSize: Adaptor.px(32.0),
                                               fontWeight: FontWeight.normal),
                                         ),
                                       ),
@@ -174,14 +180,14 @@ class MineState extends State<MinePage> {
                                     children: <Widget>[
                                       new Text(
                                         '3个记账任务',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: AppColors.appTextLight,
-                                            fontSize: 14.0,
+                                            fontSize: Adaptor.px(28.0),
                                             fontWeight: FontWeight.normal),
                                       ),
                                       new Icon(IconFont.iconRight,
                                           color: AppColors.appTextLight,
-                                          size: 20)
+                                          size: Adaptor.px(36.0))
                                     ],
                                   )
                                 ],
@@ -204,14 +210,16 @@ class MineState extends State<MinePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     new Image.asset(Assets.iconReminder,
-                                        width: 16.0, height: 16.0),
+                                        width: Adaptor.px(32.0),
+                                        height: Adaptor.px(32.0)),
                                     new Padding(
-                                      padding: const EdgeInsets.only(left: 6.0),
+                                      padding: EdgeInsets.only(
+                                          left: Adaptor.px(12.0)),
                                       child: new Text(
                                         '存钱提醒',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: AppColors.appTextDark,
-                                            fontSize: 16.0,
+                                            fontSize: Adaptor.px(32.0),
                                             fontWeight: FontWeight.normal),
                                       ),
                                     ),
@@ -222,13 +230,14 @@ class MineState extends State<MinePage> {
                                   children: <Widget>[
                                     new Text(
                                       '每天09:00,10:00 各一次',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: AppColors.appTextLight,
-                                          fontSize: 14.0,
+                                          fontSize: Adaptor.px(28.0),
                                           fontWeight: FontWeight.normal),
                                     ),
                                     new Icon(IconFont.iconRight,
-                                        color: AppColors.appTextLight, size: 18)
+                                        color: AppColors.appTextLight,
+                                        size: Adaptor.px(36.0))
                                   ],
                                 )
                               ],
@@ -245,24 +254,24 @@ class MineState extends State<MinePage> {
                           child: new FlatButton(
                               onPressed: () => {},
                               child: new Row(
-                                  mainAxisAlignment:
+                                    mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     new Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new Image.asset(Assets.iconLimit,
-                                            width: 16.0, height: 16.0),
+                                            width: Adaptor.px(32.0),
+                                            height: Adaptor.px(32.0)),
                                         new Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 6.0),
+                                          padding: EdgeInsets.only(
+                                              left: Adaptor.px(12.0)),
                                           child: new Text(
                                             '我的预算',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: AppColors.appTextDark,
-                                                fontSize: 16.0,
+                                                fontSize: Adaptor.px(32.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                         ),
@@ -274,14 +283,14 @@ class MineState extends State<MinePage> {
                                         children: <Widget>[
                                           new Text(
                                             '￥20000',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: AppColors.appTextLight,
-                                                fontSize: 14.0,
+                                                fontSize: Adaptor.px(28.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                           new Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
-                                              size: 18)
+                                              size: Adaptor.px(36.0))
                                         ])
                                   ]))),
                       new Container(
@@ -299,15 +308,16 @@ class MineState extends State<MinePage> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new Image.asset(Assets.iconCircle,
-                                            width: 16.0, height: 16.0),
+                                            width: Adaptor.px(32.0),
+                                            height: Adaptor.px(32.0)),
                                         new Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 6.0),
+                                          padding: EdgeInsets.only(
+                                              left: Adaptor.px(12.0)),
                                           child: new Text(
                                             '记账圈子',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: AppColors.appTextDark,
-                                                fontSize: 16.0,
+                                                fontSize: Adaptor.px(32.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                         ),
@@ -319,14 +329,14 @@ class MineState extends State<MinePage> {
                                         children: <Widget>[
                                           new Text(
                                             '2个圈子',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: AppColors.appTextLight,
-                                                fontSize: 14.0,
+                                                fontSize: Adaptor.px(28.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                           new Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
-                                              size: 18)
+                                              size: Adaptor.px(36.0))
                                         ])
                                   ])))
                     ]))

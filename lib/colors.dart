@@ -4,6 +4,7 @@ class AppColors {
 
   static const Color appBorder = const Color(0xFFDBDBDB);
   static const Color appBorderLight = const Color(0xFFDFDFDF);
+  static const Color appBorderDark = const Color(0xFF222222);
 
   static const Color appWhite = const Color(0xFFFFFFFF);
 
@@ -23,5 +24,10 @@ class AppColors {
   static const Color appGreenShadow = const Color(0x7703C789);
 
   static const Color appBlackShadow = const Color(0x1E000000);
+
+  static const Color appSufficient = const Color(0xFF30F697);
+  static const Color appRegular = const Color(0xFFFED279);
+  static const Color appWarning = const Color(0xFFfDA22C);
+  static const Color appDanger = const Color(0x1FFFF401A);
 
 }

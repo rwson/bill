@@ -1,23 +1,17 @@
-import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
-
 import 'package:fluro/fluro.dart';
-
-//import 'package:flutter_jpush/flutter_jpush.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 import './bottom_navigation_widget.dart';
-import './router.dart';
-
-//import './device.dart';
-//CurrentDevice currentDevice = new CurrentDevice();
-
 import './pages/tasks.dart';
+import './pages/record.dart';
+import './router.dart';
 
 void main() {
   Router router = new Router();
 
   router.define('tasks', handler: Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => TaskPage()));
+  router.define('record', handler: Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => RecordPage()));
 
   AppRouter.router = router;
 
@@ -53,17 +47,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white
-    ));
+    FlutterStatusbarManager.setColor(Colors.white);
 
     return MaterialApp(
       title: '快记账',
       theme: ThemeData(
-        buttonTheme: ButtonThemeData(minWidth: double.infinity),
-        primaryColor: Colors.white,
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
+        buttonTheme: ButtonThemeData(
+          minWidth: double.infinity,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        primaryColor: Colors.white,
         appBarTheme: AppBarTheme(
           elevation: 0 // This removes the shadow from all App Bars.
         )

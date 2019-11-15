@@ -19,14 +19,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^0.5.3
   cupertino_icons: ^0.1.2
-  flutter_jpush: ^0.0.4
-  percent_indicator: "^2.1.1"
   fl_chart: ^0.4.1
   flutter_daydart: ^0.0.3
-  device_info : ^0.2.0
-  fluro: "^1.5.1"
+#  flutter_jpush: ^0.0.4
+#  device_info : ^0.2.0
+  fluro: ^1.5.1
+  flutter_animation_progress_bar: ^1.0.0
+  flutter_statusbar_manager : ^1.0.2
 
 dev_dependencies:
   flutter_test:

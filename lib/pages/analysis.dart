@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:fl_chart/fl_chart.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../adaptor.dart';
+import '../assets.dart';
+import '../colors.dart';
 import '../iconfont.dart';
+import '../router.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -35,11 +37,11 @@ class Indicator extends StatelessWidget {
           ),
         ),
         new SizedBox(
-          width: 4,
+          width: Adaptor.px(8.0),
         ),
         new Text(
           text,
-          style: TextStyle(fontSize: 14, color: textColor),
+          style: TextStyle(fontSize: Adaptor.px(24.0), color: textColor),
         )
       ],
     );
@@ -61,31 +63,35 @@ class AnalysisState extends State<AnalysisPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 1080, allowFontScaling: true)
-      ..init(context);
-
     return Scaffold(
-        appBar: AppBar(title: Text('分析', style: TextStyle(fontSize: 16.0))),
+        appBar: AppBar(title: Text('分析', style: TextStyle(
+            fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
-            margin: const EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(Adaptor.px(16.0)),
             child: new Wrap(children: <Widget>[
               new Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                padding: const EdgeInsets.only(top: 15.0, left: 10, right: 10),
-                width: ScreenUtil.getInstance().setWidth(1060),
+                margin: EdgeInsets.only(bottom: Adaptor.px(20.0)),
+                padding: EdgeInsets.only(top: Adaptor.px(30.0), left: Adaptor.px(20.0), right: Adaptor.px(20.0), bottom: 20.0),
+                width: Adaptor.screenW(),
                 decoration: new BoxDecoration(
-                    color: const Color(0xFFFFFFFF),
+                    color: AppColors.appWhite,
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     boxShadow: [
-                      BoxShadow(color: const Color(0x1E000000), blurRadius: 5.0)
+                      BoxShadow(color: AppColors.appBlackShadow, blurRadius: 5.0)
                     ]),
                 child: new Column(
                   children: <Widget>[
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('本周'),
-                        Text('支出'),
+                        Text('本周', style: TextStyle(
+                            color: AppColors.appTextDark,
+                            fontSize: Adaptor.px(28.0)
+                        )),
+                        Text('支出', style: TextStyle(
+                            color: AppColors.appTextDark,
+                            fontSize: Adaptor.px(28.0)
+                        )),
                       ],
                     ),
                     AspectRatio(
@@ -94,7 +100,7 @@ class AnalysisState extends State<AnalysisPage> {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)),
-                        color: const Color(0xffffffff),
+                        color: AppColors.appWhite,
                         child: BarChart(
                           BarChartData(
                               alignment: BarChartAlignment.spaceAround,
@@ -103,8 +109,7 @@ class AnalysisState extends State<AnalysisPage> {
                                 enabled: false,
                                 touchTooltipData: BarTouchTooltipData(
                                   tooltipBgColor: Colors.transparent,
-                                  tooltipPadding: const EdgeInsets.all(0),
-                                  tooltipBottomMargin: 8,
+                                  tooltipBottomMargin: Adaptor.px(8.0),
                                   getTooltipItem: (
                                     BarChartGroupData group,
                                     int groupIndex,
@@ -113,7 +118,7 @@ class AnalysisState extends State<AnalysisPage> {
                                   ) {
                                     return BarTooltipItem(
                                       rod.y.round().toString(),
-                                      TextStyle(color: const Color(0xff333333)),
+                                      TextStyle(color: AppColors.appTextDark),
                                     );
                                   },
                                 ),
@@ -123,9 +128,9 @@ class AnalysisState extends State<AnalysisPage> {
                                 bottomTitles: SideTitles(
                                   showTitles: true,
                                   textStyle: TextStyle(
-                                      color: const Color(0xff333333),
-                                      fontSize: 14),
-                                  margin: 20,
+                                      color: AppColors.appTextDark,
+                                      fontSize: Adaptor.px(24.0)),
+                                  margin: Adaptor.px(40.0),
                                   getTitles: (double value) {
                                     switch (value.toInt()) {
                                       case 0:
@@ -196,29 +201,32 @@ class AnalysisState extends State<AnalysisPage> {
                 ),
               ),
               new Container(
-                  padding: const EdgeInsets.only(top: 15.0, left: 10),
+                  padding: EdgeInsets.only(top: Adaptor.px(30.0), left: Adaptor.px(20.0)),
                   decoration: new BoxDecoration(
-                      color: const Color(0xFFFFFFFF),
+                      color: AppColors.appWhite,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
                         BoxShadow(
-                            color: const Color(0x1E000000), blurRadius: 5.0)
+                            color: AppColors.appBlackShadow, blurRadius: 5.0)
                       ]),
                   child: new Column(children: <Widget>[
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('本周支出排行榜')
+                        Text('本周支出排行榜', style: TextStyle(
+                          color: AppColors.appTextDark,
+                          fontSize: Adaptor.px(28.0)
+                        ))
                       ]
                     ),
                     new AspectRatio(
-                        aspectRatio: 1.3,
+                        aspectRatio: 1.5,
                         child: new Container(
                             color: Colors.white,
                             child: new Row(children: <Widget>[
-                              const SizedBox(
-                                height: 18,
+                              SizedBox(
+                                height: Adaptor.px(20.0),
                               ),
                               new Expanded(
                                 child: new AspectRatio(
@@ -252,14 +260,14 @@ class AnalysisState extends State<AnalysisPage> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[
+                                  children: <Widget>[
                                     Indicator(
                                       color: Color(0xff0293ee),
                                       text: '餐饮',
                                       isSquare: true,
                                     ),
                                     SizedBox(
-                                      height: 4,
+                                      height: Adaptor.px(8.0),
                                     ),
                                     Indicator(
                                       color: Color(0xfff8b250),
@@ -267,7 +275,7 @@ class AnalysisState extends State<AnalysisPage> {
                                       isSquare: true,
                                     ),
                                     SizedBox(
-                                      height: 4,
+                                      height: Adaptor.px(8.0),
                                     ),
                                     Indicator(
                                       color: Color(0xff845bef),
@@ -283,10 +291,10 @@ class AnalysisState extends State<AnalysisPage> {
                                       isSquare: true,
                                     ),
                                     SizedBox(
-                                      height: 18,
+                                      height: Adaptor.px(36.0),
                                     )
                                   ]),
-                              SizedBox(width: 28)
+                              SizedBox(width: Adaptor.px(36.0))
                             ])))
                   ]))
             ])));
@@ -295,8 +303,8 @@ class AnalysisState extends State<AnalysisPage> {
   List<PieChartSectionData> showingSections() {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 60 : 50;
+      final double fontSize = isTouched ? Adaptor.px(48.0) : Adaptor.px(28.0);
+      final double radius = isTouched ? Adaptor.px(120.0) : Adaptor.px(100.0);
       switch (i) {
         case 0:
           return new PieChartSectionData(
@@ -306,7 +314,6 @@ class AnalysisState extends State<AnalysisPage> {
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
-                fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
         case 1:
@@ -317,7 +324,6 @@ class AnalysisState extends State<AnalysisPage> {
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
-                fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
         case 2:
@@ -328,7 +334,6 @@ class AnalysisState extends State<AnalysisPage> {
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
-                fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
         case 3:
@@ -339,7 +344,6 @@ class AnalysisState extends State<AnalysisPage> {
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
-                fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
         default:

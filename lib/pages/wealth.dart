@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_daydart/flutter_daydart.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../adaptor.dart';
+import '../colors.dart';
 import '../iconfont.dart';
 
 class WealthPage extends StatefulWidget {
@@ -21,25 +20,25 @@ class WealthState extends State<WealthPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 1080, allowFontScaling: true)
-      ..init(context);
-
     return Scaffold(
-        appBar: AppBar(title: Text('资产', style: TextStyle(fontSize: 16.0))),
+        appBar: AppBar(
+            title: Text('资产',
+                style: TextStyle(
+                    fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Adaptor.px(16.0)),
             child: new SingleChildScrollView(
                 child: new Column(children: <Widget>[
               new Wrap(children: <Widget>[
                 new Container(
-                    width: ScreenUtil.getInstance().setWidth(1040),
-                    height: ScreenUtil.getInstance().setHeight(400),
+                    width: Adaptor.px(1040.0),
+                    height: Adaptor.px(350.0),
                     decoration: new BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: const Color(0x77f4b742),
+                              color: AppColors.appYellowShadow,
                               blurRadius: 8.0,
                               offset: Offset(2.0, 1.0))
                         ],
@@ -47,165 +46,184 @@ class WealthState extends State<WealthPage> {
                             begin: Alignment.bottomLeft,
                             end: Alignment.topRight,
                             colors: [
-                              const Color(0xFFf4b742),
-                              const Color(0xFFfed279)
+                              AppColors.appYellow,
+                              AppColors.appYellowLight
                             ])),
                     child: new Container(
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new Container(
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                new FlatButton(
-                                    onPressed: () => {
-                                    },
-                                    child: new Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        new Text('$currentYear年',
-                                            style: const TextStyle(
-                                                color: const Color(0xff393421),
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.normal
-                                            )),
-
-                                        new Padding(
-                                          padding: const EdgeInsets.only(left: 2.0),
-                                          child: new Icon(
-                                              IconFont.iconDown,
-                                              size: 20,
-                                              color: const Color(0xff393421)
-                                          ),
-                                        )
-                                      ],
-                                    ))
-                              ],
-                            )
-                          ),
+                            padding: EdgeInsets.only(top: Adaptor.px(10.0)),
+                              child: new FlatButton(
+                                  onPressed: () => {},
+                                  child: new Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      new Text('$currentYear年',
+                                          style: TextStyle(
+                                              color: AppColors.appTextDark,
+                                              fontSize: Adaptor.px(32.0),
+                                              fontWeight: FontWeight.normal)),
+                                      new Padding(
+                                        padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                                        child: new Icon(IconFont.iconDown,
+                                            size: Adaptor.px(40.0),
+                                            color: AppColors.appTextDark),
+                                      )
+                                    ],
+                                  ))),
                           new Container(
-                            margin:
-                                const EdgeInsets.only(bottom: 20.0),
+                            margin: EdgeInsets.only(bottom: Adaptor.px(40.0)),
                             child: new Column(children: <Widget>[
                               new Text('全年结余',
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      color: const Color(0xff393421))),
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appTextDark)),
                               new Text('0',
-                                  style: const TextStyle(
-                                      fontSize: 24.0,
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(48.0),
                                       fontWeight: FontWeight.w500,
-                                      color: const Color(0xff393421)))
+                                      color: AppColors.appTextDark))
                             ]),
                           ),
                           new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Container(
-                                  width: ScreenUtil.getInstance().setWidth(518),
-                                  decoration: new BoxDecoration(
-                                      border: const Border(
-                                          right: const BorderSide(
-                                              width: 0.5,
-                                              color: const Color(0xff393421)))),
-                                  child: new Column(
-                                    children: <Widget>[
-                                      new Text('全年支出',
-                                          style: const TextStyle(
-                                              fontSize: 14.0,
-                                              color: const Color(0xff393421))),
-                                      new Text('0.00',
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xff393421)))
-                                    ],
-                                  )),
-                              new Container(
-                                  width: ScreenUtil.getInstance().setWidth(515),
-                                  child: new Column(
+                              new Expanded(
+                                  flex: 1,
+                                  child: new Container(
+                                      width: Adaptor.px(Adaptor.screenW()),
+                                      decoration: new BoxDecoration(
+                                          border: Border(
+                                              right: BorderSide(
+                                                  width: Adaptor.onePx(),
+                                                  color: AppColors
+                                                      .appBorderDark))),
+                                      child: new Column(
+                                        children: <Widget>[
+                                          new Text('全年支出',
+                                              style: TextStyle(
+                                                  fontSize: Adaptor.px(28.0),
+                                                  color:
+                                                      AppColors.appTextDark)),
+                                          new Text('0.00',
+                                              style: TextStyle(
+                                                  fontSize: Adaptor.px(32.0),
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.appTextDark))
+                                        ],
+                                      ))),
+                              new Expanded(
+                                  flex: 1,
+                                  child: new Container(
+                                      child: new Column(
                                     children: <Widget>[
                                       new Text('全年收入',
-                                          style: const TextStyle(
-                                              fontSize: 14.0,
-                                              color: const Color(0xff393421))),
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(28.0),
+                                              color: AppColors.appTextDark)),
                                       new Text('0.00',
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(32.0),
                                               fontWeight: FontWeight.w400,
-                                              color: const Color(0xff393421)))
+                                              color: AppColors.appTextDark))
                                     ],
-                                  )),
+                                  )))
                             ],
                           )
                         ],
                       ),
                     )),
                 new Container(
-                    width: ScreenUtil.getInstance().setWidth(1060),
-                    margin: const EdgeInsets.only(top: 10.0),
-                    padding: const EdgeInsets.all(10.0),
+                    width: Adaptor.px(1060.0),
+                    margin: EdgeInsets.only(top: Adaptor.px(20.0)),
+                    padding: EdgeInsets.all(Adaptor.px(20.0)),
                     decoration: new BoxDecoration(
-                        color: const Color(0xFFFFFFFF),
+                        color: AppColors.appWhite,
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: const Color(0x1E000000), blurRadius: 5.0)
+                              color: AppColors.appBlackShadow, blurRadius: 5.0)
                         ]),
                     child: new Column(children: <Widget>[
                       new Container(
-                          width: ScreenUtil.getInstance().setWidth(1040),
-                          height: ScreenUtil.getInstance().setWidth(90.0),
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, top: 5.0),
+                          width: Adaptor.px(1040.0),
+                          height: Adaptor.px(90.0),
+                          padding: EdgeInsets.only(
+                              bottom: Adaptor.px(20.0), top: Adaptor.px(10.0)),
                           decoration: new BoxDecoration(
-                              border: const Border(
-                                  bottom: const BorderSide(
-                                      width: 0.5, color: Color(0xffdddddd)))),
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: Adaptor.onePx(),
+                                      color: AppColors.appBorder))),
                           child: new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 new Container(
-                                  child: new Text('月份'),
+                                  child: new Text('月份',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(30.0),
+                                          color: AppColors.appTextDark)),
                                 ),
                                 new Container(
-                                  child: new Text('收入'),
+                                  child: new Text('收入',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(30.0),
+                                          color: AppColors.appTextDark)),
                                 ),
                                 new Container(
-                                  child: new Text('支出'),
+                                  child: new Text('支出',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(30.0),
+                                          color: AppColors.appTextDark)),
                                 ),
                                 new Container(
-                                  child: new Text('结余'),
+                                  child: new Text('结余',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(30.0),
+                                          color: AppColors.appTextDark)),
                                 )
                               ])),
                       new Container(
-                          width: ScreenUtil.getInstance().setWidth(1040),
-                          height: ScreenUtil.getInstance().setWidth(100.0),
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, top: 10.0),
+                          width: Adaptor.px(1040.0),
+                          height: Adaptor.px(100.0),
+                          padding: EdgeInsets.only(
+                              bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                           decoration: new BoxDecoration(
-                              border: const Border(
-                                  bottom: const BorderSide(
-                                      width: 0.5, color: Color(0xffdddddd)))),
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: Adaptor.onePx(),
+                                      color: AppColors.appBorder))),
                           child: new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 new Container(
-                                  child: new Text('2019-11'),
+                                  child: new Text('2019-11',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(28.0),
+                                          color: AppColors.appTextDark)),
                                 ),
                                 new Container(
                                   child: new Text(
                                     '1000000',
-                                    style: const TextStyle(color: Colors.teal),
+                                    style: TextStyle(
+                                        fontSize: Adaptor.px(28.0),
+                                        color: AppColors.appIncome),
                                   ),
                                 ),
                                 new Container(
                                     child: new Text('1000000',
-                                        style: const TextStyle(
-                                            color: Colors.redAccent))),
+                                        style: TextStyle(
+                                            fontSize: Adaptor.px(28.0),
+                                            color: AppColors.appOutlay))),
                                 new Container(
-                                  child: new Text('800000'),
+                                  child: new Text('800000',
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(28.0),
+                                          color: AppColors.appTextDark)),
                                 ),
                               ]))
                     ]))
