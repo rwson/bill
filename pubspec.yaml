@@ -14,7 +14,7 @@ description: a bill record application build with flutter by rwson
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,6 +27,9 @@ dependencies:
   fluro: ^1.5.1
   flutter_animation_progress_bar: ^1.0.0
   flutter_statusbar_manager : ^1.0.2
+  flutter_slidable: ^0.5.4
+  flutter_swiper: ^1.1.6
+  flutter_datetime_picker: ^1.2.8
 
 dev_dependencies:
   flutter_test:
@@ -76,29 +79,6 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - lib/assets/1.png
-    - lib/assets/2.png
-    - lib/assets/3.png
-    - lib/assets/4.png
-    - lib/assets/5.png
-    - lib/assets/6.png
-    - lib/assets/7.png
-    - lib/assets/8.png
-    - lib/assets/9.png
-    - lib/assets/10.png
-    - lib/assets/11.png
-    - lib/assets/12.png
-    - lib/assets/13.png
-    - lib/assets/14.png
-    - lib/assets/15.png
-    - lib/assets/16.png
-    - lib/assets/17.png
-    - lib/assets/18.png
-    - lib/assets/19.png
-    - lib/assets/20.png
-    - lib/assets/20.png
-    - lib/assets/21.png
-    - lib/assets/22.png
     - lib/assets/avatar.png
     - lib/assets/circle.png
     - lib/assets/limit.png

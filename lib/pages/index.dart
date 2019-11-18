@@ -271,40 +271,52 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
-                                      ),
-                                      new Padding(
-                                          padding: EdgeInsets.only(
-                                              left: Adaptor.px(20.0)),
-                                          child: new Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                new Text('交通',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(30.0),
-                                                        color: AppColors
-                                                            .appTextDark)),
-                                                new Text('地铁',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(24.0),
-                                                        color: AppColors
-                                                            .appTextDark))
-                                              ]))
-                                    ])
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          new Container(
+                                            width: Adaptor.px(80.0),
+                                            height: Adaptor.px(80.0),
+                                            decoration: new BoxDecoration(
+                                                color: AppColors.appYellow,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(
+                                                        Adaptor.px(40.0)))),
+                                            child: new Center(
+                                                child: new Icon(
+                                                    IconFont.iconAlipay,
+                                                    size: Adaptor.px(60.0))),
+                                          ),
+                                          new Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: Adaptor.px(20.0)),
+                                              child: new Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    new Text('交通',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                Adaptor.px(
+                                                                    30.0),
+                                                            color: AppColors
+                                                                .appTextDark)),
+                                                    new Text('地铁',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                Adaptor.px(
+                                                                    24.0),
+                                                            color: AppColors
+                                                                .appTextDark))
+                                                  ]))
+                                        ])
                                   ]),
                                   new Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Text('3.00',
                                           style: TextStyle(
@@ -337,10 +349,17 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
+                                      new Container(
+                                        width: Adaptor.px(80.0),
+                                        height: Adaptor.px(80.0),
+                                        decoration: new BoxDecoration(
+                                            color: AppColors.appYellow,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    Adaptor.px(40.0)))),
+                                        child: new Center(
+                                            child: new Icon(IconFont.iconAlipay,
+                                                size: Adaptor.px(60.0))),
                                       ),
                                       new Padding(
                                           padding: EdgeInsets.only(
@@ -368,7 +387,8 @@ class IndexState extends State<IndexPage> {
                                     ])
                                   ]),
                                   new Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Text('3.00',
                                           style: TextStyle(
@@ -440,10 +460,17 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
+                                      new Container(
+                                        width: Adaptor.px(80.0),
+                                        height: Adaptor.px(80.0),
+                                        decoration: new BoxDecoration(
+                                            color: AppColors.appYellow,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    Adaptor.px(40.0)))),
+                                        child: new Center(
+                                            child: new Icon(IconFont.iconAlipay,
+                                                size: Adaptor.px(60.0))),
                                       ),
                                       new Padding(
                                           padding: EdgeInsets.only(
@@ -471,7 +498,8 @@ class IndexState extends State<IndexPage> {
                                     ])
                                   ]),
                                   new Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Text('3.00',
                                           style: TextStyle(
@@ -504,10 +532,17 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
+                                      new Container(
+                                        width: Adaptor.px(80.0),
+                                        height: Adaptor.px(80.0),
+                                        decoration: new BoxDecoration(
+                                            color: AppColors.appYellow,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    Adaptor.px(40.0)))),
+                                        child: new Center(
+                                            child: new Icon(IconFont.iconAlipay,
+                                                size: Adaptor.px(60.0))),
                                       ),
                                       new Padding(
                                           padding: EdgeInsets.only(
@@ -535,7 +570,8 @@ class IndexState extends State<IndexPage> {
                                     ])
                                   ]),
                                   new Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Text('3.00',
                                           style: TextStyle(
@@ -607,10 +643,17 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
+                                      new Container(
+                                        width: Adaptor.px(80.0),
+                                        height: Adaptor.px(80.0),
+                                        decoration: new BoxDecoration(
+                                            color: AppColors.appYellow,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    Adaptor.px(40.0)))),
+                                        child: new Center(
+                                            child: new Icon(IconFont.iconAlipay,
+                                                size: Adaptor.px(60.0))),
                                       ),
                                       new Padding(
                                           padding: EdgeInsets.only(
@@ -660,10 +703,17 @@ class IndexState extends State<IndexPage> {
                                 children: <Widget>[
                                   new Column(children: <Widget>[
                                     new Row(children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconSave,
-                                        width: Adaptor.px(90.0),
-                                        height: Adaptor.px(90.0),
+                                      new Container(
+                                        width: Adaptor.px(80.0),
+                                        height: Adaptor.px(80.0),
+                                        decoration: new BoxDecoration(
+                                            color: AppColors.appYellow,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    Adaptor.px(40.0)))),
+                                        child: new Center(
+                                            child: new Icon(IconFont.iconAlipay,
+                                                size: Adaptor.px(60.0))),
                                       ),
                                       new Padding(
                                           padding: EdgeInsets.only(
