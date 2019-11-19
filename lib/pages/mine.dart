@@ -77,7 +77,7 @@ class MineState extends State<MinePage> {
                                       bottom: Adaptor.px(20.0)),
                                   child: new Text('未登录',
                                       style: TextStyle(
-                                          fontSize: Adaptor.px(32.0),
+                                          fontSize: Adaptor.px(30.0),
                                           color: AppColors.appTextDark)),
                                 )
                               ],
@@ -99,7 +99,7 @@ class MineState extends State<MinePage> {
                                   child: new Text(
                                     '记账天数',
                                     style: TextStyle(
-                                        fontSize: Adaptor.px(32.0),
+                                        fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark),
                                   ),
                                 )
@@ -117,7 +117,7 @@ class MineState extends State<MinePage> {
                                   child: new Text(
                                     '记账笔数',
                                     style: TextStyle(
-                                        fontSize: Adaptor.px(32.0),
+                                        fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark),
                                   ),
                                 )
@@ -140,7 +140,7 @@ class MineState extends State<MinePage> {
                         ]),
                     child: new Wrap(children: <Widget>[
                       new Container(
-                          height: Adaptor.px(100.0),
+                          height: Adaptor.px(80.0),
                           decoration: new BoxDecoration(
                               color: Colors.white,
                               border: Border(
@@ -148,6 +148,7 @@ class MineState extends State<MinePage> {
                                       width: Adaptor.onePx(),
                                       color: AppColors.appBorderLight))),
                           child: new FlatButton(
+                              padding: EdgeInsets.all(5.0),
                               onPressed: _toTask,
                               child: new Row(
                                 mainAxisAlignment:
@@ -159,8 +160,8 @@ class MineState extends State<MinePage> {
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       new Image.asset(Assets.iconTask,
-                                          width: Adaptor.px(32.0),
-                                          height: Adaptor.px(32.0)),
+                                          width: Adaptor.px(28.0),
+                                          height: Adaptor.px(28.0)),
                                       new Padding(
                                         padding: EdgeInsets.only(
                                             left: Adaptor.px(12.0)),
@@ -168,7 +169,7 @@ class MineState extends State<MinePage> {
                                           '记账任务',
                                           style: TextStyle(
                                               color: AppColors.appTextDark,
-                                              fontSize: Adaptor.px(32.0),
+                                              fontSize: Adaptor.px(26.0),
                                               fontWeight: FontWeight.normal),
                                         ),
                                       ),
@@ -182,18 +183,18 @@ class MineState extends State<MinePage> {
                                         '3个记账任务',
                                         style: TextStyle(
                                             color: AppColors.appTextLight,
-                                            fontSize: Adaptor.px(28.0),
+                                            fontSize: Adaptor.px(24.0),
                                             fontWeight: FontWeight.normal),
                                       ),
                                       new Icon(IconFont.iconRight,
                                           color: AppColors.appTextLight,
-                                          size: Adaptor.px(36.0))
+                                          size: Adaptor.px(28.0))
                                     ],
                                   )
                                 ],
                               ))),
                       new Container(
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(80.0),
                         decoration: new BoxDecoration(
                             color: Colors.white,
                             border: Border(
@@ -201,6 +202,7 @@ class MineState extends State<MinePage> {
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorderLight))),
                         child: new FlatButton(
+                            padding: EdgeInsets.all(5.0),
                             onPressed: () => {},
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,8 +212,8 @@ class MineState extends State<MinePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     new Image.asset(Assets.iconReminder,
-                                        width: Adaptor.px(32.0),
-                                        height: Adaptor.px(32.0)),
+                                        width: Adaptor.px(28.0),
+                                        height: Adaptor.px(28.0)),
                                     new Padding(
                                       padding: EdgeInsets.only(
                                           left: Adaptor.px(12.0)),
@@ -219,7 +221,7 @@ class MineState extends State<MinePage> {
                                         '存钱提醒',
                                         style: TextStyle(
                                             color: AppColors.appTextDark,
-                                            fontSize: Adaptor.px(32.0),
+                                            fontSize: Adaptor.px(26.0),
                                             fontWeight: FontWeight.normal),
                                       ),
                                     ),
@@ -232,19 +234,19 @@ class MineState extends State<MinePage> {
                                       '每天09:00,10:00 各一次',
                                       style: TextStyle(
                                           color: AppColors.appTextLight,
-                                          fontSize: Adaptor.px(28.0),
+                                          fontSize: Adaptor.px(24.0),
                                           fontWeight: FontWeight.normal),
                                     ),
                                     new Icon(IconFont.iconRight,
                                         color: AppColors.appTextLight,
-                                        size: Adaptor.px(36.0))
+                                        size: Adaptor.px(28.0))
                                   ],
                                 )
                               ],
                             )),
                       ),
                       new Container(
-                          height: Adaptor.px(100.0),
+                          height: Adaptor.px(80.0),
                           decoration: new BoxDecoration(
                               color: Colors.white,
                               border: Border(
@@ -252,6 +254,7 @@ class MineState extends State<MinePage> {
                                       width: Adaptor.onePx(),
                                       color: AppColors.appBorderLight))),
                           child: new FlatButton(
+                              padding: EdgeInsets.all(5.0),
                               onPressed: () => {},
                               child: new Row(
                                     mainAxisAlignment:
@@ -262,8 +265,8 @@ class MineState extends State<MinePage> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new Image.asset(Assets.iconLimit,
-                                            width: Adaptor.px(32.0),
-                                            height: Adaptor.px(32.0)),
+                                            width: Adaptor.px(28.0),
+                                            height: Adaptor.px(28.0)),
                                         new Padding(
                                           padding: EdgeInsets.only(
                                               left: Adaptor.px(12.0)),
@@ -271,7 +274,7 @@ class MineState extends State<MinePage> {
                                             '我的预算',
                                             style: TextStyle(
                                                 color: AppColors.appTextDark,
-                                                fontSize: Adaptor.px(32.0),
+                                                fontSize: Adaptor.px(26.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                         ),
@@ -285,18 +288,19 @@ class MineState extends State<MinePage> {
                                             '￥20000',
                                             style: TextStyle(
                                                 color: AppColors.appTextLight,
-                                                fontSize: Adaptor.px(28.0),
+                                                fontSize: Adaptor.px(24.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                           new Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
-                                              size: Adaptor.px(36.0))
+                                              size: Adaptor.px(28.0))
                                         ])
                                   ]))),
                       new Container(
-                          height: Adaptor.px(100.0),
+                          height: Adaptor.px(80.0),
                           decoration: new BoxDecoration(color: Colors.white),
                           child: new FlatButton(
+                              padding: EdgeInsets.all(5.0),
                               onPressed: () => {},
                               child: new Row(
                                   mainAxisAlignment:
@@ -308,8 +312,8 @@ class MineState extends State<MinePage> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new Image.asset(Assets.iconCircle,
-                                            width: Adaptor.px(32.0),
-                                            height: Adaptor.px(32.0)),
+                                            width: Adaptor.px(28.0),
+                                            height: Adaptor.px(28.0)),
                                         new Padding(
                                           padding: EdgeInsets.only(
                                               left: Adaptor.px(12.0)),
@@ -317,7 +321,7 @@ class MineState extends State<MinePage> {
                                             '记账圈子',
                                             style: TextStyle(
                                                 color: AppColors.appTextDark,
-                                                fontSize: Adaptor.px(32.0),
+                                                fontSize: Adaptor.px(26.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                         ),
@@ -331,12 +335,12 @@ class MineState extends State<MinePage> {
                                             '2个圈子',
                                             style: TextStyle(
                                                 color: AppColors.appTextLight,
-                                                fontSize: Adaptor.px(28.0),
+                                                fontSize: Adaptor.px(24.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
                                           new Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
-                                              size: Adaptor.px(36.0))
+                                              size: Adaptor.px(28.0))
                                         ])
                                   ])))
                     ]))

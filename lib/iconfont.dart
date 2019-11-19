@@ -107,4 +107,6 @@ class IconFont {
 
   static IconData iconCircle = IconData(0xe626, fontFamily: 'iconfont');
 
+  static IconData iconTask = IconData(0xe750, fontFamily: 'iconfont');
+
 }

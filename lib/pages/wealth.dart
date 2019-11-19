@@ -146,7 +146,10 @@ class WealthState extends State<WealthPage> {
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(2.0, 1.0)
+                          )
                         ]),
                     child: new Column(children: <Widget>[
                       new Container(

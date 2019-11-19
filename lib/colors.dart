@@ -14,6 +14,7 @@ class AppColors {
 
   static const Color appIncome = const Color(0xFF03C789);
   static const Color appOutlay = const Color(0xFFFF5252);
+  static const Color appOutlayLight = const Color(0x9FFF5252);
 
   static const Color appYellow = const Color(0xFFF4B742);
   static const Color appYellowLight = const Color(0xFFFED279);
