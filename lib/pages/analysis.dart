@@ -1,12 +1,8 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fl_chart/fl_chart.dart';
-
 import '../adaptor.dart';
-import '../assets.dart';
 import '../colors.dart';
-import '../iconfont.dart';
-import '../router.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -64,34 +60,41 @@ class AnalysisState extends State<AnalysisPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('分析', style: TextStyle(
-            fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
+        appBar: AppBar(
+            title: Text('分析',
+                style: TextStyle(
+                    fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
             margin: EdgeInsets.all(Adaptor.px(16.0)),
             child: new Wrap(children: <Widget>[
               new Container(
                 margin: EdgeInsets.only(bottom: Adaptor.px(20.0)),
-                padding: EdgeInsets.only(top: Adaptor.px(30.0), left: Adaptor.px(20.0), right: Adaptor.px(20.0), bottom: 20.0),
+                padding: EdgeInsets.only(
+                    top: Adaptor.px(30.0),
+                    left: Adaptor.px(20.0),
+                    right: Adaptor.px(20.0),
+                    bottom: 20.0),
                 width: Adaptor.screenW(),
                 decoration: new BoxDecoration(
                     color: AppColors.appWhite,
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     boxShadow: [
-                      BoxShadow(color: AppColors.appBlackShadow, blurRadius: 5.0)
+                      BoxShadow(
+                          color: AppColors.appBlackShadow, blurRadius: 5.0)
                     ]),
                 child: new Column(
                   children: <Widget>[
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('本周', style: TextStyle(
-                            color: AppColors.appTextDark,
-                            fontSize: Adaptor.px(28.0)
-                        )),
-                        Text('支出', style: TextStyle(
-                            color: AppColors.appTextDark,
-                            fontSize: Adaptor.px(28.0)
-                        )),
+                        Text('本周',
+                            style: TextStyle(
+                                color: AppColors.appTextDark,
+                                fontSize: Adaptor.px(28.0))),
+                        Text('支出',
+                            style: TextStyle(
+                                color: AppColors.appTextDark,
+                                fontSize: Adaptor.px(28.0))),
                       ],
                     ),
                     AspectRatio(
@@ -201,7 +204,8 @@ class AnalysisState extends State<AnalysisPage> {
                 ),
               ),
               new Container(
-                  padding: EdgeInsets.only(top: Adaptor.px(30.0), left: Adaptor.px(20.0)),
+                  padding: EdgeInsets.only(
+                      top: Adaptor.px(30.0), left: Adaptor.px(20.0)),
                   decoration: new BoxDecoration(
                       color: AppColors.appWhite,
                       borderRadius:
@@ -212,14 +216,13 @@ class AnalysisState extends State<AnalysisPage> {
                       ]),
                   child: new Column(children: <Widget>[
                     new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('本周支出排行榜', style: TextStyle(
-                          color: AppColors.appTextDark,
-                          fontSize: Adaptor.px(28.0)
-                        ))
-                      ]
-                    ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('本周支出排行榜',
+                              style: TextStyle(
+                                  color: AppColors.appTextDark,
+                                  fontSize: Adaptor.px(28.0)))
+                        ]),
                     new AspectRatio(
                         aspectRatio: 1.5,
                         child: new Container(
@@ -235,18 +238,18 @@ class AnalysisState extends State<AnalysisPage> {
                                     new PieChartData(
                                         pieTouchData: new PieTouchData(
                                             touchCallback: (pieTouchResponse) {
-                                              setState(() {
-                                                if (pieTouchResponse.touchInput
-                                                is FlLongPressEnd ||
-                                                    pieTouchResponse.touchInput
+                                          setState(() {
+                                            if (pieTouchResponse.touchInput
+                                                    is FlLongPressEnd ||
+                                                pieTouchResponse.touchInput
                                                     is FlPanEnd) {
-                                                  touchedIndex = -1;
-                                                } else {
-                                                  touchedIndex = pieTouchResponse
-                                                      .touchedSectionIndex;
-                                                }
-                                              });
-                                            }),
+                                              touchedIndex = -1;
+                                            } else {
+                                              touchedIndex = pieTouchResponse
+                                                  .touchedSectionIndex;
+                                            }
+                                          });
+                                        }),
                                         borderData: new FlBorderData(
                                           show: false,
                                         ),
@@ -312,9 +315,8 @@ class AnalysisState extends State<AnalysisPage> {
             value: 40,
             title: '40%',
             radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                color: const Color(0xffffffff)),
+            titleStyle:
+                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 1:
           return new PieChartSectionData(
@@ -322,9 +324,8 @@ class AnalysisState extends State<AnalysisPage> {
             value: 30,
             title: '30%',
             radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                color: const Color(0xffffffff)),
+            titleStyle:
+                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 2:
           return new PieChartSectionData(
@@ -332,9 +333,8 @@ class AnalysisState extends State<AnalysisPage> {
             value: 15,
             title: '15%',
             radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                color: const Color(0xffffffff)),
+            titleStyle:
+                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 3:
           return new PieChartSectionData(
@@ -342,9 +342,8 @@ class AnalysisState extends State<AnalysisPage> {
             value: 15,
             title: '15%',
             radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                color: const Color(0xffffffff)),
+            titleStyle:
+                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         default:
           return null;

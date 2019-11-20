@@ -23,6 +23,11 @@ class MineState extends State<MinePage> {
         .navigateTo(context, 'tasks', transition: TransitionType.material);
   }
 
+  void _toSaveReminder() {
+    AppRouter.router.navigateTo(context, 'save-reminder',
+        transition: TransitionType.material);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,7 +208,7 @@ class MineState extends State<MinePage> {
                                     color: AppColors.appBorderLight))),
                         child: new FlatButton(
                             padding: EdgeInsets.all(5.0),
-                            onPressed: () => {},
+                            onPressed: _toSaveReminder,
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,12 +262,13 @@ class MineState extends State<MinePage> {
                               padding: EdgeInsets.all(5.0),
                               onPressed: () => {},
                               child: new Row(
-                                    mainAxisAlignment:
+                                  mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     new Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         new Image.asset(Assets.iconLimit,
                                             width: Adaptor.px(28.0),

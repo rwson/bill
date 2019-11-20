@@ -15,12 +15,12 @@ class MethodItem {
   MethodItem({this.checked, this.icon, this.desc, this.type});
 }
 
-class CreateTaskPage extends StatefulWidget {
+class CreateReminderPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CreateTaskState();
+  State<StatefulWidget> createState() => CreateReminderState();
 }
 
-class CreateTaskState extends State<CreateTaskPage> {
+class CreateReminderState extends State<CreateReminderPage> {
   final int _precision = 2;
 
   final _amountController = TextEditingController();
@@ -95,14 +95,14 @@ class CreateTaskState extends State<CreateTaskPage> {
   void _frequencySelectOk() {
     List<String> res = [];
     Iterable<int>.generate(_frequencies.length).forEach((int index) {
-      bool item = _frequencies[index];
-      String str = _frequencieStrArr[index];
-      if (item) {
-        res.add(str);
-      }
+    bool item = _frequencies[index];
+    String str = _frequencieStrArr[index];
+    if (item) {
+    res.add(str);
+    }
     });
     setState(() {
-      _frequencyStr = res.join(' ');
+    _frequencyStr = res.join(' ');
     });
     Navigator.of(context).pop();
   }
@@ -142,27 +142,27 @@ class CreateTaskState extends State<CreateTaskPage> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
+            new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   child: new Wrap(
-                children: List.generate(_frequencies.length, (int index) {
-                  return new Container(
-                    height: Adaptor.px(66.0),
-                    child: new CheckboxListTile(
-                        title: new Text(_frequencieStrArr[index],
-                            style: TextStyle(
-                                fontSize: Adaptor.px(28.0),
-                                color: AppColors.appTextDark)),
-                        activeColor: AppColors.appYellow,
-                        value: _frequencies[index],
-                        onChanged: (bool value) {
-                          setState(() {
-                            _frequencies[index] = value;
-                          });
-                        }),
-                  );
-                }).toList(),
-              ));
+                    children: List.generate(_frequencies.length, (int index) {
+                      return new Container(
+                        height: Adaptor.px(66.0),
+                        child: new CheckboxListTile(
+                            title: new Text(_frequencieStrArr[index],
+                                style: TextStyle(
+                                    fontSize: Adaptor.px(28.0),
+                                    color: AppColors.appTextDark)),
+                            activeColor: AppColors.appYellow,
+                            value: _frequencies[index],
+                            onChanged: (bool value) {
+                              setState(() {
+                                _frequencies[index] = value;
+                              });
+                            }),
+                      );
+                    }).toList(),
+                  ));
             }),
             actions: <Widget>[
               new FlatButton(
@@ -212,7 +212,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
+            new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   height: Adaptor.px(350.0),
                   child: new Center(
@@ -237,15 +237,15 @@ class CreateTaskState extends State<CreateTaskPage> {
                                       });
                                     },
                                     children: List.generate(_clocks.length,
-                                        (int index) {
-                                      return new Center(
-                                          child: new Text(_clocks[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
+                                            (int index) {
+                                          return new Center(
+                                              child: new Text(_clocks[index],
+                                                  style: TextStyle(
+                                                      color: AppColors.appTextDark,
+                                                      fontSize: Adaptor.px(32.0),
+                                                      fontWeight:
                                                       FontWeight.normal)));
-                                    }).toList(),
+                                        }).toList(),
                                   )),
                               new Container(
                                   width: Adaptor.px(180.0),
@@ -262,15 +262,15 @@ class CreateTaskState extends State<CreateTaskPage> {
                                       });
                                     },
                                     children: List.generate(_minutes.length,
-                                        (int index) {
-                                      return new Center(
-                                          child: new Text(_minutes[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
+                                            (int index) {
+                                          return new Center(
+                                              child: new Text(_minutes[index],
+                                                  style: TextStyle(
+                                                      color: AppColors.appTextDark,
+                                                      fontSize: Adaptor.px(32.0),
+                                                      fontWeight:
                                                       FontWeight.normal)));
-                                    }).toList(),
+                                        }).toList(),
                                   )),
                             ],
                           ))));
@@ -323,29 +323,29 @@ class CreateTaskState extends State<CreateTaskPage> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
+            new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   height: Adaptor.px(400.0),
                   margin: EdgeInsets.only(top: Adaptor.px(40.0)),
                   child: new SingleChildScrollView(
                     child: new Wrap(
                         children: List.generate(_types.length, (int index) {
-                      return new Container(
-                          height: Adaptor.px(66.0),
-                          child: new RadioListTile(
-                              title: new Text(_types[index].desc,
-                                  style: TextStyle(
-                                      fontSize: Adaptor.px(28.0),
-                                      color: AppColors.appTextDark)),
-                              activeColor: AppColors.appYellow,
-                              value: index,
-                              groupValue: _selectedIndex,
-                              onChanged: (int value) {
-                                setState(() {
-                                  _selectedIndex = value;
-                                });
-                              }));
-                    }).toList()),
+                          return new Container(
+                              height: Adaptor.px(66.0),
+                              child: new RadioListTile(
+                                  title: new Text(_types[index].desc,
+                                      style: TextStyle(
+                                          fontSize: Adaptor.px(28.0),
+                                          color: AppColors.appTextDark)),
+                                  activeColor: AppColors.appYellow,
+                                  value: index,
+                                  groupValue: _selectedIndex,
+                                  onChanged: (int value) {
+                                    setState(() {
+                                      _selectedIndex = value;
+                                    });
+                                  }));
+                        }).toList()),
                   ));
             }),
             actions: <Widget>[

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../adaptor.dart';
-import '../assets.dart';
 import '../colors.dart';
-import '../iconfont.dart';
-import '../router.dart';
 
 class TaskPage extends StatefulWidget {
   @override
@@ -23,6 +20,7 @@ class TaskState extends State<TaskPage> {
         appBar: AppBar(
             title: Text('账单详情',
                 style: TextStyle(
-                    fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))));
+                    fontSize: Adaptor.px(32.0),
+                    color: AppColors.appTextDark))));
   }
 }

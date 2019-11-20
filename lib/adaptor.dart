@@ -1,7 +1,8 @@
 // 屏幕适配
 
-import 'package:flutter/material.dart';
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 
 class Adaptor {
   static MediaQueryData mediaQuery = MediaQueryData.fromWindow(window);

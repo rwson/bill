@@ -3,17 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 import './bottom_navigation_widget.dart';
-import './pages/tasks.dart';
-import './pages/record.dart';
+import './pages/create-reminder.dart';
 import './pages/create-task.dart';
+import './pages/record.dart';
+import './pages/save-reminder.dart';
+import './pages/tasks.dart';
 import './router.dart';
 
 void main() {
   Router router = new Router();
 
-  router.define('tasks', handler: Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => TaskPage()));
-  router.define('create-task', handler: Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => CreateTaskPage()));
-  router.define('record', handler: Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => RecordPage()));
+  router.define('tasks',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              TaskPage()));
+  router.define('create-task',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              CreateTaskPage()));
+  router.define('record',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              RecordPage()));
+  router.define('save-reminder',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              SaveReminderPage()));
+  router.define('create-reminder',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              CreateReminderPage()));
 
   AppRouter.router = router;
 
@@ -21,7 +40,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
 //  com.rwson.bill
 
 //  void _initJPush() async {
@@ -52,21 +70,19 @@ class MyApp extends StatelessWidget {
     FlutterStatusbarManager.setColor(Colors.white);
 
     return MaterialApp(
-      title: '快记账',
-      theme: ThemeData(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        buttonTheme: ButtonThemeData(
-          minWidth: double.infinity,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        primaryColor: Colors.white,
-        appBarTheme: AppBarTheme(
-          elevation: 0 // This removes the shadow from all App Bars.
-        )
-      ),
-      home: BottomNavigationWidget()
-    );
+        title: '快记账',
+        theme: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            buttonTheme: ButtonThemeData(
+              minWidth: double.infinity,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            primaryColor: Colors.white,
+            appBarTheme: AppBarTheme(
+                elevation: 0 // This removes the shadow from all App Bars.
+                )),
+        home: BottomNavigationWidget());
   }
 }

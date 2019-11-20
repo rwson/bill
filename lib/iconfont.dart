@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 class IconFont {
-
   static IconData iconSesameCredit = IconData(0xe60e, fontFamily: 'iconfont');
 
   static IconData iconAsset = IconData(0xe668, fontFamily: 'iconfont');
@@ -15,9 +14,11 @@ class IconFont {
 
   static IconData iconOtherIncome = IconData(0xe661, fontFamily: 'iconfont');
 
-  static IconData iconFinancialIncome = IconData(0xe660, fontFamily: 'iconfont');
+  static IconData iconFinancialIncome =
+      IconData(0xe660, fontFamily: 'iconfont');
 
-  static IconData iconPluralismIncome = IconData(0xe65f, fontFamily: 'iconfont');
+  static IconData iconPluralismIncome =
+      IconData(0xe65f, fontFamily: 'iconfont');
 
   static IconData iconSalaryIncome = IconData(0xe65e, fontFamily: 'iconfont');
 
@@ -109,4 +110,5 @@ class IconFont {
 
   static IconData iconTask = IconData(0xe750, fontFamily: 'iconfont');
 
+  static IconData iconReminder = IconData(0xe61b, fontFamily: 'iconfont');
 }

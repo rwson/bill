@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   static const Color appBorder = const Color(0xFFDBDBDB);
   static const Color appBorderLight = const Color(0xFFDFDFDF);
   static const Color appBorderDark = const Color(0xFF222222);
@@ -30,5 +29,4 @@ class AppColors {
   static const Color appRegular = const Color(0xFFFED279);
   static const Color appWarning = const Color(0xFFfDA22C);
   static const Color appDanger = const Color(0x1FFFF401A);
-
 }

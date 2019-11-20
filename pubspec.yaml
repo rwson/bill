@@ -30,6 +30,7 @@ dependencies:
   flutter_slidable: ^0.5.4
   flutter_swiper: ^1.1.6
   flutter_datetime_picker: ^1.2.8
+  openinstall_flutter_plugin: ^1.0.0
 
 dev_dependencies:
   flutter_test:

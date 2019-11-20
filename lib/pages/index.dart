@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 import '../adaptor.dart';
-import '../assets.dart';
 import '../colors.dart';
 import '../iconfont.dart';
 import '../router.dart';

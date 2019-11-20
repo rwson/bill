@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import '../adaptor.dart';
 import '../colors.dart';
@@ -61,14 +61,11 @@ class RecordState extends State<RecordPage>
         locale: LocaleType.zh,
         theme: new DatePickerTheme(
             cancelStyle: TextStyle(
-                fontSize: Adaptor.px(28.0),
-                color: AppColors.appTextDark),
+                fontSize: Adaptor.px(28.0), color: AppColors.appTextDark),
             doneStyle: TextStyle(
-                fontSize: Adaptor.px(28.0),
-                color: AppColors.appYellow),
+                fontSize: Adaptor.px(28.0), color: AppColors.appYellow),
             itemStyle: TextStyle(
-                fontSize: Adaptor.px(24.0),
-                color: AppColors.appTextDark)));
+                fontSize: Adaptor.px(24.0), color: AppColors.appTextDark)));
   }
 
   @override
@@ -232,48 +229,45 @@ class RecordState extends State<RecordPage>
                 BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
           )),
           child: new Flex(
-            direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Container(
-                child: new Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new Icon(
-                      IconFont.iconCalendar,
-                      size: Adaptor.px(28.0),
-                      color: AppColors.appTextDark,
-                    ),
-                    new Padding(
-                      padding: EdgeInsets.only(left: Adaptor.px(10.0)),
-                      child: new Text(
-                        '记账日期',
-                        style: TextStyle(
-                          fontSize: Adaptor.px(26.0),
-                          color: AppColors.appTextDark,
-                        ),
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Container(
+                  child: new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Icon(
+                        IconFont.iconCalendar,
+                        size: Adaptor.px(28.0),
+                        color: AppColors.appTextDark,
                       ),
-                    )
-                  ],
+                      new Padding(
+                        padding: EdgeInsets.only(left: Adaptor.px(10.0)),
+                        child: new Text(
+                          '记账日期',
+                          style: TextStyle(
+                            fontSize: Adaptor.px(26.0),
+                            color: AppColors.appTextDark,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              new Row(
-                children: <Widget>[
-                  new FlatButton(
-                      onPressed: () => _showDatePicker(''),
-                      child: new Text('2019-11-18', style: TextStyle(
-                          color: AppColors.appTextDark,
-                          fontSize: Adaptor.px(24.0),
-                          fontWeight: FontWeight.normal
-                      ))
-                  )
-                ],
-              )
-            ]
-          ),
+                new Row(
+                  children: <Widget>[
+                    new FlatButton(
+                        onPressed: () => _showDatePicker(''),
+                        child: new Text('2019-11-18',
+                            style: TextStyle(
+                                color: AppColors.appTextDark,
+                                fontSize: Adaptor.px(24.0),
+                                fontWeight: FontWeight.normal)))
+                  ],
+                )
+              ]),
         ),
-
       ],
     ));
   }

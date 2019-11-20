@@ -54,7 +54,7 @@ class WealthState extends State<WealthPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new Container(
-                            padding: EdgeInsets.only(top: Adaptor.px(10.0)),
+                              padding: EdgeInsets.only(top: Adaptor.px(10.0)),
                               child: new FlatButton(
                                   onPressed: () => {},
                                   child: new Row(
@@ -68,7 +68,8 @@ class WealthState extends State<WealthPage> {
                                               fontSize: Adaptor.px(32.0),
                                               fontWeight: FontWeight.normal)),
                                       new Padding(
-                                        padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                                        padding: EdgeInsets.only(
+                                            left: Adaptor.px(4.0)),
                                         child: new Icon(IconFont.iconDown,
                                             size: Adaptor.px(40.0),
                                             color: AppColors.appTextDark),
@@ -148,8 +149,7 @@ class WealthState extends State<WealthPage> {
                           BoxShadow(
                               color: AppColors.appBlackShadow,
                               blurRadius: 5.0,
-                              offset: Offset(2.0, 1.0)
-                          )
+                              offset: Offset(2.0, 1.0))
                         ]),
                     child: new Column(children: <Widget>[
                       new Container(
