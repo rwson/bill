@@ -52,10 +52,9 @@ class MineState extends State<MinePage> {
                           width: Adaptor.px(1040.0),
                           height: Adaptor.px(350.0),
                           margin: EdgeInsets.only(
-                              top: Adaptor.px(30.0),
+                              top: Adaptor.px(10.0),
                               left: Adaptor.px(10.0),
-                              right: Adaptor.px(10.0)
-                          ),
+                              right: Adaptor.px(10.0)),
                           padding: EdgeInsets.only(
                               top: Adaptor.px(30.0),
                               left: Adaptor.px(30.0),
@@ -150,9 +149,9 @@ class MineState extends State<MinePage> {
                               top: Adaptor.px(20.0),
                               left: Adaptor.px(10.0),
                               right: Adaptor.px(10.0),
-                              bottom: Adaptor.px(20.0)
-                          ),
-                          padding: EdgeInsets.only(left: Adaptor.px(14.0), right: 6.0),
+                              bottom: Adaptor.px(20.0)),
+                          padding: EdgeInsets.only(
+                              left: Adaptor.px(14.0), right: 6.0),
                           decoration: new BoxDecoration(
                               color: AppColors.appWhite,
                               borderRadius:
@@ -172,7 +171,8 @@ class MineState extends State<MinePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: new FlatButton(
-                                    padding: EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding:
+                                        EdgeInsets.only(left: Adaptor.px(20.0)),
                                     onPressed: _toTask,
                                     child: new Row(
                                       mainAxisAlignment:
@@ -230,7 +230,8 @@ class MineState extends State<MinePage> {
                                           width: Adaptor.onePx(),
                                           color: AppColors.appBorderLight))),
                               child: new FlatButton(
-                                  padding: EdgeInsets.only(left: Adaptor.px(20.0)),
+                                  padding:
+                                      EdgeInsets.only(left: Adaptor.px(20.0)),
                                   onPressed: _toSaveReminder,
                                   child: new Row(
                                     mainAxisAlignment:
@@ -287,7 +288,8 @@ class MineState extends State<MinePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: new FlatButton(
-                                    padding: EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding:
+                                        EdgeInsets.only(left: Adaptor.px(20.0)),
                                     onPressed: _toSetLimit,
                                     child: new Row(
                                         mainAxisAlignment:
@@ -340,10 +342,11 @@ class MineState extends State<MinePage> {
                                         ]))),
                             new Container(
                                 height: Adaptor.px(80.0),
-                                decoration:
-                                    new BoxDecoration(color: AppColors.appWhite),
+                                decoration: new BoxDecoration(
+                                    color: AppColors.appWhite),
                                 child: new FlatButton(
-                                    padding: EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding:
+                                        EdgeInsets.only(left: Adaptor.px(20.0)),
                                     onPressed: () => {},
                                     child: new Row(
                                         mainAxisAlignment:

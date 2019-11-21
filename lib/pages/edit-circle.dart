@@ -5,12 +5,12 @@ import '../adaptor.dart';
 import '../colors.dart';
 import '../util.dart';
 
-class LimitSetPage extends StatefulWidget {
+class EditCirclePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => LimitSetState();
+  State<StatefulWidget> createState() => EditCircleState();
 }
 
-class LimitSetState extends State<LimitSetPage> {
+class EditCircleState extends State<EditCirclePage> {
   final int _precision = 2;
 
   final _amountController = TextEditingController();

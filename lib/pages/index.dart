@@ -174,7 +174,8 @@ class IndexState extends State<IndexPage> {
                                   color: AppColors.appTextDark,
                                 ),
                                 new Padding(
-                                  padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                                  padding:
+                                      EdgeInsets.only(left: Adaptor.px(4.0)),
                                   child: new Text('设置预算',
                                       style: TextStyle(
                                           color: AppColors.appTextDark,

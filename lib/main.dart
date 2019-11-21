@@ -5,10 +5,10 @@ import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import './bottom_navigation_widget.dart';
 import './pages/create-reminder.dart';
 import './pages/create-task.dart';
+import './pages/limit-set.dart';
 import './pages/record.dart';
 import './pages/save-reminder.dart';
 import './pages/tasks.dart';
-import './pages/limit-set.dart';
 import './router.dart';
 
 void main() {

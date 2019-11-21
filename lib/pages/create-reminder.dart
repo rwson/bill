@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../adaptor.dart';
 import '../colors.dart';
-import '../methods-icons.dart';
 
 class ReminderRuleItem {
   String type;
@@ -63,13 +62,9 @@ class CreateReminderState extends State<CreateReminderPage> {
     ReminderRuleItem(
         type: '1',
         name: '每天递增',
-        desc: '每天递增递一元, 如遇当天未存钱, 则下一天继续提醒存当天所需的金额, 到达一定天数后自动折返'
-    ),
+        desc: '每天递增递一元, 如遇当天未存钱, 则下一天继续提醒存当天所需的金额, 到达一定天数后自动折返'),
     ReminderRuleItem(
-        type: '2',
-        name: '金额不变',
-        desc: '每天存固定金额, 如遇当天未存钱, 则下一天提醒存入两天需要存的金额之和'
-    )
+        type: '2', name: '金额不变', desc: '每天存固定金额, 如遇当天未存钱, 则下一天提醒存入两天需要存的金额之和')
   ];
 
   ReminderRuleItem _selectedRule;
@@ -327,10 +322,10 @@ class CreateReminderState extends State<CreateReminderPage> {
                                   style: TextStyle(
                                       fontSize: Adaptor.px(32.0),
                                       color: AppColors.appTextDark)),
-                              subtitle: new Text(_rules[index].desc, style: TextStyle(
-                                fontSize: Adaptor.px(26.0),
-                                color: AppColors.appTextNormal
-                              )),
+                              subtitle: new Text(_rules[index].desc,
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(26.0),
+                                      color: AppColors.appTextNormal)),
                               activeColor: AppColors.appYellow,
                               value: index,
                               groupValue: _selectedIndex,
