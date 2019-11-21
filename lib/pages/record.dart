@@ -4,11 +4,11 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
-import '../iconfont.dart';
-import '../methods-icons.dart';
-import '../util.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/iconfont.dart';
+import 'package:bill/methods-icons.dart';
+import 'package:bill/util.dart';
 
 class RecordPage extends StatefulWidget {
   @override

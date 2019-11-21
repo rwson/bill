@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
-import '../methods-icons.dart';
-import '../util.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/methods-icons.dart';
+import 'package:bill/util.dart';
 
 class MethodItem {
   IconData icon;
@@ -14,12 +14,12 @@ class MethodItem {
   MethodItem({this.icon, this.desc, this.type});
 }
 
-class CreateTaskPage extends StatefulWidget {
+class EditTaskPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CreateTaskState();
+  State<StatefulWidget> createState() => EditTaskState();
 }
 
-class CreateTaskState extends State<CreateTaskPage> {
+class EditTaskState extends State<EditTaskPage> {
   final int _precision = 2;
 
   final _amountController = TextEditingController();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './iconfont.dart';
-import 'pages/analysis.dart';
-import 'pages/index.dart';
-import 'pages/mine.dart';
-import 'pages/wealth.dart';
+import 'package:bill/iconfont.dart';
+import 'package:bill/pages/analysis.dart';
+import 'package:bill/pages/index.dart';
+import 'package:bill/pages/mine.dart';
+import 'package:bill/pages/wealth.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override

@@ -2,14 +2,18 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
-import './bottom_navigation_widget.dart';
-import './pages/create-reminder.dart';
-import './pages/create-task.dart';
-import './pages/limit-set.dart';
-import './pages/record.dart';
-import './pages/save-reminder.dart';
-import './pages/tasks.dart';
-import './router.dart';
+import 'package:bill/bottom_navigation_widget.dart';
+import 'package:bill/pages/circles/circles.dart';
+import 'package:bill/pages/circles/create-circle.dart';
+import 'package:bill/pages/reminder/create-reminder.dart';
+import 'package:bill/pages/task/create-task.dart';
+import 'package:bill/pages/circles/edit-circle.dart';
+import 'package:bill/pages/limit/limit-set.dart';
+import 'package:bill/pages/record.dart';
+import 'package:bill/pages/reminder/save-reminder.dart';
+import 'package:bill/pages/task/tasks.dart';
+import 'package:bill/pages/task/edit-task.dart';
+import 'package:bill/router.dart';
 
 void main() {
   Router router = new Router();
@@ -22,6 +26,10 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               CreateTaskPage()));
+  router.define('edit-task',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              EditTaskPage()));
   router.define('record',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -38,14 +46,52 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               LimitSetPage()));
+  router.define('circles',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              CirclesPage()));
+  router.define('create-circle',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              CreateCirclePage()));
+  router.define('edit-circle',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              EditCirclePage()));
 
   AppRouter.router = router;
 
-  runApp(MyApp());
+  runApp(BillApp());
 }
 
-class MyApp extends StatelessWidget {
+class BillApp extends StatefulWidget {
+  @override
+  BillAppState createState() => BillAppState();
+}
+
+class BillAppState extends State<BillApp> {
 //  com.rwson.bill
+
+//  Future<void> initMobileNumberState() async {
+//    String mobileNumber = '';
+//    try {
+//      mobileNumber = await MobileNumber.mobileNumber;
+//    } catch (e) {
+//      debugPrint("Failed to get mobile number because of '${e.message}'");
+//    }
+//
+//    if (!mounted) {
+//      return;
+//    }
+//
+//    print(mobileNumber);
+//  }
+
+  @override
+  void initState() {
+    super.initState();
+//    initMobileNumberState();
+  }
 
 //  void _initJPush() async {
 //    await FlutterJPush.startup();
@@ -73,7 +119,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarManager.setColor(Colors.white);
-
     return MaterialApp(
         title: '快记账',
         theme: ThemeData(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
 
 class TaskPage extends StatefulWidget {
   @override

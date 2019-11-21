@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_daydart/flutter_daydart.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
-import '../iconfont.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/iconfont.dart';
 
 class WealthPage extends StatefulWidget {
   @override

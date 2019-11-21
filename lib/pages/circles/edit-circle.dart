@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
-import '../util.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/util.dart';
 
-class CirclesPage extends StatefulWidget {
+class EditCirclePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CirclesState();
+  State<StatefulWidget> createState() => EditCircleState();
 }
 
-class CirclesState extends State<CirclesPage> {
+class EditCircleState extends State<EditCirclePage> {
   final int _precision = 2;
 
   final _amountController = TextEditingController();

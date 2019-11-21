@@ -1,11 +1,11 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
-import '../adaptor.dart';
-import '../assets.dart';
-import '../colors.dart';
-import '../iconfont.dart';
-import '../router.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/assets.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/iconfont.dart';
+import 'package:bill/router.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -31,6 +31,11 @@ class MineState extends State<MinePage> {
   void _toSetLimit() {
     AppRouter.router
         .navigateTo(context, 'limit-set', transition: TransitionType.material);
+  }
+
+  void _toCircles() {
+    AppRouter.router
+        .navigateTo(context, 'circles', transition: TransitionType.material);
   }
 
   @override
@@ -347,7 +352,7 @@ class MineState extends State<MinePage> {
                                 child: new FlatButton(
                                     padding:
                                         EdgeInsets.only(left: Adaptor.px(20.0)),
-                                    onPressed: () => {},
+                                    onPressed: _toCircles,
                                     child: new Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,

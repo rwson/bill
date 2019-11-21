@@ -1,10 +1,10 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
-import '../adaptor.dart';
-import '../colors.dart';
-import '../iconfont.dart';
-import '../router.dart';
+import 'package:bill/adaptor.dart';
+import 'package:bill/colors.dart';
+import 'package:bill/iconfont.dart';
+import 'package:bill/router.dart';
 
 class MethodItem {
   bool checked;

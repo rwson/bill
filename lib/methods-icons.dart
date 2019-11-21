@@ -1,7 +1,7 @@
 //  Iconfont 分类以及icon
 import 'package:flutter/material.dart';
 
-import './iconfont.dart';
+import 'package:bill/iconfont.dart';
 
 class IconItem {
   String type;
