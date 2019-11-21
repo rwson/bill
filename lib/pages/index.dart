@@ -23,6 +23,11 @@ class IndexState extends State<IndexPage> {
         .navigateTo(context, 'record', transition: TransitionType.material);
   }
 
+  void _toLimitset() {
+    AppRouter.router
+        .navigateTo(context, 'limit-set', transition: TransitionType.material);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,10 +163,26 @@ class IndexState extends State<IndexPage> {
                                 color: AppColors.appTextDark,
                                 fontSize: Adaptor.px(28.0)),
                           ),
-                          new Text('设置预算',
-                              style: TextStyle(
+                          new GestureDetector(
+                            onTap: _toLimitset,
+                            child: new Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                new Icon(
+                                  IconFont.iconSettings,
+                                  size: Adaptor.px(26.0),
                                   color: AppColors.appTextDark,
-                                  fontSize: Adaptor.px(28.0)))
+                                ),
+                                new Padding(
+                                  padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                                  child: new Text('设置预算',
+                                      style: TextStyle(
+                                          color: AppColors.appTextDark,
+                                          fontSize: Adaptor.px(28.0))),
+                                )
+                              ],
+                            ),
+                          )
                         ]),
                     new Container(
                       margin: const EdgeInsets.only(top: 6.0, bottom: 6.0),
@@ -214,7 +235,7 @@ class IndexState extends State<IndexPage> {
                         ],
                       ))),
               new Container(
-                  child: Expanded(
+                  child: new Expanded(
                       child: new ListView(children: <Widget>[
                 new Container(
                     margin: EdgeInsets.only(

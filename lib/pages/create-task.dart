@@ -7,12 +7,11 @@ import '../methods-icons.dart';
 import '../util.dart';
 
 class MethodItem {
-  bool checked;
   IconData icon;
   String desc;
   String type;
 
-  MethodItem({this.checked, this.icon, this.desc, this.type});
+  MethodItem({this.icon, this.desc, this.type});
 }
 
 class CreateTaskPage extends StatefulWidget {
@@ -70,8 +69,7 @@ class CreateTaskState extends State<CreateTaskPage> {
   int _selectedIndex;
 
   List<MethodItem> _types = MethodsIcons.paymentIcons.map((icon) {
-    return MethodItem(
-        checked: false, icon: icon.icon, desc: icon.desc, type: icon.type);
+    return MethodItem(icon: icon.icon, desc: icon.desc, type: icon.type);
   }).toList();
 
   MethodItem _selectedType;

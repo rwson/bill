@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import '../adaptor.dart';
 import '../colors.dart';
 import '../methods-icons.dart';
-import '../util.dart';
 
-class MethodItem {
-  bool checked;
-  IconData icon;
-  String desc;
+class ReminderRuleItem {
   String type;
+  String name;
+  String desc;
 
-  MethodItem({this.checked, this.icon, this.desc, this.type});
+  ReminderRuleItem({this.type, this.name, this.desc});
 }
 
 class CreateReminderPage extends StatefulWidget {
@@ -21,14 +19,6 @@ class CreateReminderPage extends StatefulWidget {
 }
 
 class CreateReminderState extends State<CreateReminderPage> {
-  final int _precision = 2;
-
-  final _amountController = TextEditingController();
-
-  final _desController = TextEditingController();
-
-  bool _switchValue = false;
-
   String _frequencyStr = '请选择';
 
   String _timeStr = '09:00';
@@ -69,12 +59,20 @@ class CreateReminderState extends State<CreateReminderPage> {
 
   int _selectedIndex;
 
-  List<MethodItem> _types = MethodsIcons.paymentIcons.map((icon) {
-    return MethodItem(
-        checked: false, icon: icon.icon, desc: icon.desc, type: icon.type);
-  }).toList();
+  List<ReminderRuleItem> _rules = [
+    ReminderRuleItem(
+        type: '1',
+        name: '每天递增',
+        desc: '每天递增递一元, 如遇当天未存钱, 则下一天继续提醒存当天所需的金额, 到达一定天数后自动折返'
+    ),
+    ReminderRuleItem(
+        type: '2',
+        name: '金额不变',
+        desc: '每天存固定金额, 如遇当天未存钱, 则下一天提醒存入两天需要存的金额之和'
+    )
+  ];
 
-  MethodItem _selectedType;
+  ReminderRuleItem _selectedRule;
 
   @override
   void initState() {
@@ -85,24 +83,17 @@ class CreateReminderState extends State<CreateReminderPage> {
     _selectedIndex = 0;
   }
 
-  @override
-  void dispose() {
-    _amountController.dispose();
-    _desController.dispose();
-    super.dispose();
-  }
-
   void _frequencySelectOk() {
     List<String> res = [];
     Iterable<int>.generate(_frequencies.length).forEach((int index) {
-    bool item = _frequencies[index];
-    String str = _frequencieStrArr[index];
-    if (item) {
-    res.add(str);
-    }
+      bool item = _frequencies[index];
+      String str = _frequencieStrArr[index];
+      if (item) {
+        res.add(str);
+      }
     });
     setState(() {
-    _frequencyStr = res.join(' ');
+      _frequencyStr = res.join(' ');
     });
     Navigator.of(context).pop();
   }
@@ -114,9 +105,9 @@ class CreateReminderState extends State<CreateReminderPage> {
     Navigator.of(context).pop();
   }
 
-  void _typeSelectOk() {
+  void _ruleSelectOk() {
     setState(() {
-      _selectedType = _types[_selectedIndex];
+      _selectedRule = _rules[_selectedIndex];
     });
     Navigator.of(context).pop();
   }
@@ -142,27 +133,27 @@ class CreateReminderState extends State<CreateReminderPage> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-            new StatefulBuilder(builder: (context, StateSetter setState) {
+                new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   child: new Wrap(
-                    children: List.generate(_frequencies.length, (int index) {
-                      return new Container(
-                        height: Adaptor.px(66.0),
-                        child: new CheckboxListTile(
-                            title: new Text(_frequencieStrArr[index],
-                                style: TextStyle(
-                                    fontSize: Adaptor.px(28.0),
-                                    color: AppColors.appTextDark)),
-                            activeColor: AppColors.appYellow,
-                            value: _frequencies[index],
-                            onChanged: (bool value) {
-                              setState(() {
-                                _frequencies[index] = value;
-                              });
-                            }),
-                      );
-                    }).toList(),
-                  ));
+                children: List.generate(_frequencies.length, (int index) {
+                  return new Container(
+                    height: Adaptor.px(66.0),
+                    child: new CheckboxListTile(
+                        title: new Text(_frequencieStrArr[index],
+                            style: TextStyle(
+                                fontSize: Adaptor.px(28.0),
+                                color: AppColors.appTextDark)),
+                        activeColor: AppColors.appYellow,
+                        value: _frequencies[index],
+                        onChanged: (bool value) {
+                          setState(() {
+                            _frequencies[index] = value;
+                          });
+                        }),
+                  );
+                }).toList(),
+              ));
             }),
             actions: <Widget>[
               new FlatButton(
@@ -206,13 +197,13 @@ class CreateReminderState extends State<CreateReminderPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择记账时间',
+            title: new Text('选择提醒时间',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-            new StatefulBuilder(builder: (context, StateSetter setState) {
+                new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   height: Adaptor.px(350.0),
                   child: new Center(
@@ -237,15 +228,15 @@ class CreateReminderState extends State<CreateReminderPage> {
                                       });
                                     },
                                     children: List.generate(_clocks.length,
-                                            (int index) {
-                                          return new Center(
-                                              child: new Text(_clocks[index],
-                                                  style: TextStyle(
-                                                      color: AppColors.appTextDark,
-                                                      fontSize: Adaptor.px(32.0),
-                                                      fontWeight:
+                                        (int index) {
+                                      return new Center(
+                                          child: new Text(_clocks[index],
+                                              style: TextStyle(
+                                                  color: AppColors.appTextDark,
+                                                  fontSize: Adaptor.px(32.0),
+                                                  fontWeight:
                                                       FontWeight.normal)));
-                                        }).toList(),
+                                    }).toList(),
                                   )),
                               new Container(
                                   width: Adaptor.px(180.0),
@@ -262,15 +253,15 @@ class CreateReminderState extends State<CreateReminderPage> {
                                       });
                                     },
                                     children: List.generate(_minutes.length,
-                                            (int index) {
-                                          return new Center(
-                                              child: new Text(_minutes[index],
-                                                  style: TextStyle(
-                                                      color: AppColors.appTextDark,
-                                                      fontSize: Adaptor.px(32.0),
-                                                      fontWeight:
+                                        (int index) {
+                                      return new Center(
+                                          child: new Text(_minutes[index],
+                                              style: TextStyle(
+                                                  color: AppColors.appTextDark,
+                                                  fontSize: Adaptor.px(32.0),
+                                                  fontWeight:
                                                       FontWeight.normal)));
-                                        }).toList(),
+                                    }).toList(),
                                   )),
                             ],
                           ))));
@@ -302,7 +293,7 @@ class CreateReminderState extends State<CreateReminderPage> {
         });
   }
 
-  void _typeSelect(BuildContext context) {
+  void _ruleSelect(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
@@ -317,40 +308,43 @@ class CreateReminderState extends State<CreateReminderPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择账单类型',
+            title: new Text('选择存钱规则',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-            new StatefulBuilder(builder: (context, StateSetter setState) {
+                new StatefulBuilder(builder: (context, StateSetter setState) {
               return new Container(
                   height: Adaptor.px(400.0),
                   margin: EdgeInsets.only(top: Adaptor.px(40.0)),
                   child: new SingleChildScrollView(
                     child: new Wrap(
-                        children: List.generate(_types.length, (int index) {
-                          return new Container(
-                              height: Adaptor.px(66.0),
-                              child: new RadioListTile(
-                                  title: new Text(_types[index].desc,
-                                      style: TextStyle(
-                                          fontSize: Adaptor.px(28.0),
-                                          color: AppColors.appTextDark)),
-                                  activeColor: AppColors.appYellow,
-                                  value: index,
-                                  groupValue: _selectedIndex,
-                                  onChanged: (int value) {
-                                    setState(() {
-                                      _selectedIndex = value;
-                                    });
-                                  }));
-                        }).toList()),
+                        children: List.generate(_rules.length, (int index) {
+                      return new Container(
+                          child: new RadioListTile(
+                              title: new Text(_rules[index].name,
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appTextDark)),
+                              subtitle: new Text(_rules[index].desc, style: TextStyle(
+                                fontSize: Adaptor.px(26.0),
+                                color: AppColors.appTextNormal
+                              )),
+                              activeColor: AppColors.appYellow,
+                              value: index,
+                              groupValue: _selectedIndex,
+                              onChanged: (int value) {
+                                setState(() {
+                                  _selectedIndex = value;
+                                });
+                              }));
+                    }).toList()),
                   ));
             }),
             actions: <Widget>[
               new FlatButton(
-                onPressed: _typeSelectOk,
+                onPressed: _ruleSelectOk,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 child: new Text('确定',
@@ -379,7 +373,7 @@ class CreateReminderState extends State<CreateReminderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('添加记账任务',
+            title: Text('添加存钱提醒',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
@@ -405,7 +399,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账频率',
+                      new Text('提醒频率',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(24.0))),
@@ -440,7 +434,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账时间',
+                      new Text('提醒时间',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(24.0))),
@@ -475,54 +469,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账金额',
-                          style: TextStyle(
-                              color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
-                      new Expanded(
-                          flex: 1,
-                          child: new Container(
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          right: Adaptor.px(6.0)),
-                                      hintText: '请输入金额',
-                                      fillColor: Colors.transparent,
-                                      filled: true,
-                                      border: InputBorder.none),
-                                  inputFormatters: [
-                                    PrecisionLimitFormatter(_precision)
-                                  ],
-                                  keyboardType: TextInputType.numberWithOptions(
-                                      decimal: true),
-                                  style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
-                                    color: AppColors.appTextDark,
-                                  ),
-                                  cursorWidth: 1.0,
-                                  cursorColor: AppColors.appTextDark,
-                                  textAlign: TextAlign.right,
-                                  controller: _amountController)))
-                    ],
-                  ),
-                ),
-                new Container(
-                  width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
-                  padding: EdgeInsets.only(
-                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
-                  margin: EdgeInsets.only(
-                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
-                      color: AppColors.appWhite,
-                      border: Border(
-                          bottom: BorderSide(
-                              width: Adaptor.onePx(),
-                              color: AppColors.appBorder))),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Text('账单分类',
+                      new Text('提醒规则',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(24.0))),
@@ -530,95 +477,17 @@ class CreateReminderState extends State<CreateReminderPage> {
                           flex: 1,
                           child: new FlatButton(
                               padding: EdgeInsets.all(0),
-                              onPressed: () => _typeSelect(context),
+                              onPressed: () => _ruleSelect(context),
                               child: new Align(
                                   alignment: Alignment.centerRight,
                                   child: new Text(
-                                      _selectedType != null
-                                          ? _selectedType.desc
+                                      _selectedRule != null
+                                          ? _selectedRule.name
                                           : '请选择',
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
                                           fontSize: Adaptor.px(24.0),
                                           fontWeight: FontWeight.normal)))))
-                    ],
-                  ),
-                ),
-                new Container(
-                  width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
-                  padding: EdgeInsets.only(
-                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
-                  margin: EdgeInsets.only(
-                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
-                      color: AppColors.appWhite,
-                      border: Border(
-                          bottom: BorderSide(
-                              width: Adaptor.onePx(),
-                              color: AppColors.appBorder))),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Text('账单备注',
-                          style: TextStyle(
-                              color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
-                      new Expanded(
-                          flex: 1,
-                          child: new Container(
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          right: Adaptor.px(6.0)),
-                                      hintText: '请输入备注',
-                                      fillColor: Colors.transparent,
-                                      filled: true,
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.text,
-                                  style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
-                                    color: AppColors.appTextDark,
-                                  ),
-                                  cursorWidth: 1.0,
-                                  cursorColor: AppColors.appTextDark,
-                                  textAlign: TextAlign.right,
-                                  controller: _desController)))
-                    ],
-                  ),
-                ),
-                new Container(
-                  width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
-                  padding: EdgeInsets.only(
-                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
-                  margin: EdgeInsets.only(
-                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
-                      color: AppColors.appWhite,
-                      border: Border(
-                          bottom: BorderSide(
-                              width: Adaptor.onePx(),
-                              color: AppColors.appBorder))),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Text('是否确认',
-                          style: TextStyle(
-                              color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
-                      new Container(
-                          child: new Switch.adaptive(
-                              value: _switchValue,
-                              activeColor: AppColors.appGreen,
-                              activeTrackColor: AppColors.appGreenLight,
-                              inactiveThumbColor: AppColors.appOutlay,
-                              inactiveTrackColor: AppColors.appOutlayLight,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  _switchValue = value;
-                                });
-                              }))
                     ],
                   ),
                 ),

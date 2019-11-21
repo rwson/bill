@@ -8,6 +8,7 @@ import './pages/create-task.dart';
 import './pages/record.dart';
 import './pages/save-reminder.dart';
 import './pages/tasks.dart';
+import './pages/limit-set.dart';
 import './router.dart';
 
 void main() {
@@ -33,6 +34,10 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               CreateReminderPage()));
+  router.define('limit-set',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              LimitSetPage()));
 
   AppRouter.router = router;
 

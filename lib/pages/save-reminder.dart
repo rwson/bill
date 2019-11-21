@@ -64,8 +64,7 @@ class SaveReminderState extends State<SaveReminderPage> {
                               boxShadow: [
                                 BoxShadow(
                                     color: AppColors.appBlackShadow,
-                                    blurRadius: 5.0,
-                                    offset: Offset(2.0, 1.0))
+                                    blurRadius: 5.0)
                               ]),
                           child: new Wrap(
                             children: <Widget>[
@@ -136,8 +135,7 @@ class SaveReminderState extends State<SaveReminderPage> {
                               boxShadow: [
                                 BoxShadow(
                                     color: AppColors.appBlackShadow,
-                                    blurRadius: 5.0,
-                                    offset: Offset(2.0, 1.0))
+                                    blurRadius: 5.0)
                               ]),
                           child: new Wrap(
                             children: <Widget>[

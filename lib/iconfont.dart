@@ -111,4 +111,6 @@ class IconFont {
   static IconData iconTask = IconData(0xe750, fontFamily: 'iconfont');
 
   static IconData iconReminder = IconData(0xe61b, fontFamily: 'iconfont');
+
+  static IconData iconSettings = IconData(0xe70a, fontFamily: 'iconfont');
 }
