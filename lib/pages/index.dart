@@ -1,11 +1,10 @@
-import 'package:fluro/fluro.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
-
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -230,6 +229,7 @@ class IndexState extends State<IndexPage> {
                             padding: EdgeInsets.only(left: Adaptor.px(10.0)),
                             child: new Text('记一笔',
                                 style: TextStyle(
+                                    fontWeight: FontWeight.normal,
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0))),
                           )

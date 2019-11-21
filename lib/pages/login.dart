@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/util.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -51,7 +50,7 @@ class LoginState extends State<LoginPage> {
                     decoration: new BoxDecoration(
                         color: AppColors.appWhite,
                         borderRadius:
-                        BorderRadius.all(Radius.circular(Adaptor.px(10.0))),
+                            BorderRadius.all(Radius.circular(Adaptor.px(10.0))),
                         border: Border.all(
                             width: Adaptor.onePx(), color: AppColors.appBorder),
                         boxShadow: [
@@ -66,7 +65,7 @@ class LoginState extends State<LoginPage> {
                             border: InputBorder.none),
                         inputFormatters: [PrecisionLimitFormatter(_precision)],
                         keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                            TextInputType.numberWithOptions(decimal: true),
                         style: TextStyle(
                             fontSize: Adaptor.px(32.0),
                             color: AppColors.appTextDark),

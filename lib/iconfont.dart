@@ -40,7 +40,7 @@ class IconFont {
 
   static IconData iconHome = IconData(0xe654, fontFamily: 'iconfont');
 
-  static IconData iconOffice = IconData(0xe653, fontFamily: 'iconfont');
+  static IconData iconOffice = IconData(0xe669, fontFamily: 'iconfont');
 
   static IconData iconCar = IconData(0xe652, fontFamily: 'iconfont');
 
@@ -113,4 +113,18 @@ class IconFont {
   static IconData iconReminder = IconData(0xe61b, fontFamily: 'iconfont');
 
   static IconData iconSettings = IconData(0xe625, fontFamily: 'iconfont');
+
+  static IconData iconShare = IconData(0xe68d, fontFamily: 'iconfont');
+
+  static IconData iconRenting = IconData(0xe77a, fontFamily: 'iconfont');
+
+  static IconData iconClass = IconData(0xe69a, fontFamily: 'iconfont');
+
+  static IconData iconDormRoom = IconData(0xe68a, fontFamily: 'iconfont');
+
+  static IconData iconFamily = IconData(0xe620, fontFamily: 'iconfont');
+
+  static IconData iconBusiness = IconData(0xe718, fontFamily: 'iconfont');
+
+  static IconData iconSkirt = IconData(0xe66a, fontFamily: 'iconfont');
 }

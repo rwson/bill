@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class RecordPage extends StatefulWidget {
   @override
@@ -212,7 +211,6 @@ class RecordState extends State<RecordPage>
                       activeSize: Size(18, 3),
                       space: 0.2)),
               autoplay: false,
-              duration: 300,
               scrollDirection: Axis.horizontal,
             )),
         new Container(

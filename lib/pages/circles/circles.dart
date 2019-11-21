@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
-
 import 'package:bill/adaptor.dart';
+import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CirclesPage extends StatefulWidget {
   @override
@@ -23,11 +24,15 @@ class CirclesState extends State<CirclesPage> {
         transition: TransitionType.material);
   }
 
+  void _share() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('我的圈子',
+            title: Text('记账圈子',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
@@ -45,11 +50,12 @@ class CirclesState extends State<CirclesPage> {
                               new Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
-                                    top: Adaptor.px(20.0),
+                                    top: Adaptor.px(10.0),
                                     left: Adaptor.px(10.0),
                                     right: Adaptor.px(10.0),
+                                    bottom: Adaptor.px(10.0)
                                   ),
-                                  padding: EdgeInsets.all(Adaptor.px(10.0)),
+                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
                                   decoration: new BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
@@ -59,82 +65,62 @@ class CirclesState extends State<CirclesPage> {
                                             color: AppColors.appBlackShadow,
                                             blurRadius: 5.0)
                                       ]),
-                                  child: new Wrap(
+                                  child: new Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Container(
-                                          padding: EdgeInsets.only(
-                                              left: Adaptor.px(10.0),
-                                              right: Adaptor.px(10.0),
-                                              bottom: Adaptor.px(10.0)),
-                                          decoration: new BoxDecoration(
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                                      width: Adaptor.onePx(),
-                                                      color: AppColors
-                                                          .appBorder))),
-                                          child: new Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: <Widget>[
-                                                new Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    new Icon(
-                                                      IconFont.iconTask,
-                                                      size: Adaptor.px(32.0),
-                                                      color:
-                                                      AppColors.appYellow,
-                                                    ),
-                                                    new Text('自动记账',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                26.0),
-                                                            color: AppColors
-                                                                .appTextDark)),
-                                                    new Text('(记账前跟我确认)',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                20.0),
-                                                            color: AppColors
-                                                                .appIncome))
-                                                  ],
-                                                ),
-                                                new Text('09:00',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                        Adaptor.px(26.0),
-                                                        color: AppColors
-                                                            .appTextDark))
-                                              ])),
-                                      new Container(
-                                          padding:
-                                          EdgeInsets.all(Adaptor.px(10.0)),
-                                          child: new Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      new Row(
+                                        children: <Widget>[
+                                          new Container(
+                                            width: Adaptor.px(100.0),
+                                            height: Adaptor.px(100.0),
+                                            margin: EdgeInsets.only(
+                                              right: Adaptor.px(18.0)
+                                            ),
+                                            decoration: new BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(Adaptor.px(80.0))),
+                                              border: Border.all(
+                                                width: Adaptor.px(4.0),
+                                                color: AppColors.appBorder
+                                              )
+                                            ),
+                                            child: new ClipOval(
+                                              child: new Image.asset(
+                                                Assets.testImage,
+                                                width: Adaptor.px(100.0),
+                                                height: Adaptor.px(100.0),
+                                              )
+                                            )
+                                          ),
+                                          new Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('上班地铁费',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                      Adaptor.px(24.0),
-                                                      color: AppColors
-                                                          .appTextNormal))
+                                              new Text('个人账单', style: TextStyle(
+                                                fontSize: Adaptor.px(32.0),
+                                                color: AppColors.appTextDark
+                                              )),
+                                              new Padding(
+                                                padding: EdgeInsets.only(top: Adaptor.px(0)),
+                                                child: new Text('创建于 2019-11-21', style: TextStyle(
+                                                    fontSize: Adaptor.px(28.0),
+                                                    color: AppColors.appTextNormal
+                                                )),
+                                              )
                                             ],
-                                          ))
+                                          )
+                                        ],
+                                      )
                                     ],
                                   )),
                               new Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
-                                    top: Adaptor.px(20.0),
-                                    left: Adaptor.px(10.0),
-                                    right: Adaptor.px(10.0),
+                                      top: Adaptor.px(10.0),
+                                      left: Adaptor.px(10.0),
+                                      right: Adaptor.px(10.0),
+                                      bottom: Adaptor.px(10.0)
                                   ),
-                                  padding: EdgeInsets.all(Adaptor.px(10.0)),
+                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
                                   decoration: new BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
@@ -144,82 +130,76 @@ class CirclesState extends State<CirclesPage> {
                                             color: AppColors.appBlackShadow,
                                             blurRadius: 5.0)
                                       ]),
-                                  child: new Wrap(
+                                  child: new Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Container(
-                                          padding: EdgeInsets.only(
-                                              left: Adaptor.px(10.0),
-                                              right: Adaptor.px(10.0),
-                                              bottom: Adaptor.px(10.0)),
-                                          decoration: new BoxDecoration(
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                                      width: Adaptor.onePx(),
-                                                      color: AppColors
-                                                          .appBorder))),
-                                          child: new Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: <Widget>[
-                                                new Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    new Icon(
-                                                      IconFont.iconTask,
-                                                      size: Adaptor.px(32.0),
-                                                      color:
-                                                      AppColors.appYellow,
-                                                    ),
-                                                    new Text('自动记账',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                26.0),
-                                                            color: AppColors
-                                                                .appTextDark)),
-                                                    new Text('(记账前跟我确认)',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                20.0),
-                                                            color: AppColors
-                                                                .appIncome))
-                                                  ],
-                                                ),
-                                                new Text('09:00',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                        Adaptor.px(26.0),
-                                                        color: AppColors
-                                                            .appTextDark))
-                                              ])),
-                                      new Container(
-                                          padding:
-                                          EdgeInsets.all(Adaptor.px(10.0)),
-                                          child: new Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      new Row(
+                                        children: <Widget>[
+                                          new Container(
+                                              width: Adaptor.px(130.0),
+                                              height: Adaptor.px(130.0),
+                                              margin: EdgeInsets.only(
+                                                  right: Adaptor.px(18.0)
+                                              ),
+                                              decoration: new BoxDecoration(
+                                                  borderRadius: BorderRadius.all(Radius.circular(Adaptor.px(80.0))),
+                                                  border: Border.all(
+                                                      width: Adaptor.px(4.0),
+                                                      color: AppColors.appBorder
+                                                  ),
+                                                  color: AppColors.appBorder
+                                              ),
+                                              child: new ClipOval(
+                                                  child: new Image.asset(
+                                                    Assets.testImage,
+                                                    width: Adaptor.px(130.0),
+                                                    height: Adaptor.px(130.0),
+                                                  )
+                                              )
+                                          ),
+                                          new Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('上班地铁费',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                      Adaptor.px(24.0),
-                                                      color: AppColors
-                                                          .appTextNormal))
+                                              new Text('合租', style: TextStyle(
+                                                  fontSize: Adaptor.px(32.0),
+                                                  color: AppColors.appTextDark
+                                              )),
+                                              new Padding(
+                                                padding: EdgeInsets.only(top: Adaptor.px(0)),
+                                                child: new Text('创建于 2019-11-21', style: TextStyle(
+                                                    fontSize: Adaptor.px(28.0),
+                                                    color: AppColors.appTextNormal
+                                                )),
+                                              )
                                             ],
-                                          ))
+                                          )
+                                        ],
+                                      ),
+                                      new Container(
+                                          width: Adaptor.px(40.0),
+                                          height: Adaptor.px(40.0),
+                                          child: new FlatButton(
+                                              padding: EdgeInsets.all(0),
+                                              onPressed: _share,
+                                              child: new Icon(
+                                                IconFont.iconShare,
+                                                size: Adaptor.px(40.0),
+                                                color: AppColors.appYellow,
+                                              )
+                                          )
+                                      )
                                     ],
                                   )),
                               new Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
-                                    top: Adaptor.px(20.0),
-                                    left: Adaptor.px(10.0),
-                                    right: Adaptor.px(10.0),
+                                      top: Adaptor.px(10.0),
+                                      left: Adaptor.px(10.0),
+                                      right: Adaptor.px(10.0),
+                                      bottom: Adaptor.px(10.0)
                                   ),
-                                  padding: EdgeInsets.all(Adaptor.px(10.0)),
+                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
                                   decoration: new BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
@@ -229,72 +209,99 @@ class CirclesState extends State<CirclesPage> {
                                             color: AppColors.appBlackShadow,
                                             blurRadius: 5.0)
                                       ]),
-                                  child: new Wrap(
+                                  child: new Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Container(
-                                          padding: EdgeInsets.only(
-                                              left: Adaptor.px(10.0),
-                                              right: Adaptor.px(10.0),
-                                              bottom: Adaptor.px(10.0)),
-                                          decoration: new BoxDecoration(
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                                      width: Adaptor.onePx(),
-                                                      color: AppColors
-                                                          .appBorder))),
-                                          child: new Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: <Widget>[
-                                                new Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    new Icon(
-                                                      IconFont.iconTask,
-                                                      size: Adaptor.px(32.0),
-                                                      color:
-                                                      AppColors.appYellow,
-                                                    ),
-                                                    new Text('自动记账',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                26.0),
-                                                            color: AppColors
-                                                                .appTextDark)),
-                                                    new Text('(记账前跟我确认)',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                            Adaptor.px(
-                                                                20.0),
-                                                            color: AppColors
-                                                                .appIncome))
-                                                  ],
-                                                ),
-                                                new Text('09:00',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                        Adaptor.px(26.0),
-                                                        color: AppColors
-                                                            .appTextDark))
-                                              ])),
-                                      new Container(
-                                          padding:
-                                          EdgeInsets.all(Adaptor.px(10.0)),
-                                          child: new Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      new Row(
+                                        children: <Widget>[
+                                          new Container(
+                                              width: Adaptor.px(130.0),
+                                              height: Adaptor.px(130.0),
+                                              margin: EdgeInsets.only(
+                                                  right: Adaptor.px(18.0)
+                                              ),
+                                              decoration: new BoxDecoration(
+                                                  borderRadius: BorderRadius.all(Radius.circular(Adaptor.px(80.0))),
+                                                  border: Border.all(
+                                                      width: Adaptor.px(4.0),
+                                                      color: AppColors.appBorder
+                                                  )
+                                              ),
+                                              child: new ClipOval(
+                                                  child: new Stack(
+                                                    children: <Widget>[
+                                                      new Positioned(
+                                                          left: 0,
+                                                          top: 0,
+                                                          child: new Image.asset(
+                                                            Assets.testImage,
+                                                            width: Adaptor.px(60.0),
+                                                            height: Adaptor.px(60.0),
+                                                          )
+                                                      ),
+                                                      new Positioned(
+                                                          right: 0,
+                                                          top: 0,
+                                                          child: new Image.asset(
+                                                            Assets.test2Image,
+                                                            width: Adaptor.px(60.0),
+                                                            height: Adaptor.px(60.0),
+                                                          )
+                                                      ),
+                                                      new Positioned(
+                                                          left: 0,
+                                                          bottom: 0,
+                                                          child: new Image.asset(
+                                                            Assets.test3Image,
+                                                            width: Adaptor.px(60.0),
+                                                            height: Adaptor.px(60.0),
+                                                          )
+                                                      ),
+                                                      new Positioned(
+                                                          right: 0,
+                                                          bottom: 0,
+                                                          child: new Image.asset(
+                                                            Assets.testImage,
+                                                            width: Adaptor.px(60.0),
+                                                            height: Adaptor.px(60.0),
+                                                          )
+                                                      )
+                                                    ],
+                                                  )
+                                              )
+                                          ),
+                                          new Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('上班地铁费',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                      Adaptor.px(24.0),
-                                                      color: AppColors
-                                                          .appTextNormal))
+                                              new Text('宿舍', style: TextStyle(
+                                                  fontSize: Adaptor.px(32.0),
+                                                  color: AppColors.appTextDark
+                                              )),
+                                              new Padding(
+                                                padding: EdgeInsets.only(top: Adaptor.px(0)),
+                                                child: new Text('创建于 2019-11-21', style: TextStyle(
+                                                    fontSize: Adaptor.px(28.0),
+                                                    color: AppColors.appTextNormal
+                                                )),
+                                              )
                                             ],
-                                          ))
+                                          )
+                                        ],
+                                      ),
+                                      new Container(
+                                          width: Adaptor.px(40.0),
+                                          height: Adaptor.px(40.0),
+                                          child: new FlatButton(
+                                              padding: EdgeInsets.all(0),
+                                              onPressed: _share,
+                                              child: new Icon(
+                                                IconFont.iconShare,
+                                                size: Adaptor.px(40.0),
+                                                color: AppColors.appYellow,
+                                              )
+                                          )
+                                      )
                                     ],
                                   ))
                             ],
@@ -308,8 +315,8 @@ class CirclesState extends State<CirclesPage> {
                       color: AppColors.appYellow,
                       child: new Center(
                           child: new FlatButton(
-                              onPressed: () {},
-                              child: new Text('添加记账任务',
+                              onPressed: _createCircle,
+                              child: new Text('新建圈子',
                                   style: new TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appWhite))))))

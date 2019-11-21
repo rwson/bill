@@ -87,6 +87,9 @@ flutter:
     - lib/assets/limit.png
     - lib/assets/reminder.png
     - lib/assets/task.png
+    - lib/assets/test.jpeg
+    - lib/assets/test2.jpeg
+    - lib/assets/test3.jpeg
 
   fonts:
     - family: iconfont

@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/util.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MethodItem {
   IconData icon;
@@ -24,7 +23,7 @@ class EditTaskState extends State<EditTaskPage> {
 
   final _amountController = TextEditingController();
 
-  final _desController = TextEditingController();
+  final _descController = TextEditingController();
 
   bool _switchValue = false;
 
@@ -86,7 +85,7 @@ class EditTaskState extends State<EditTaskPage> {
   @override
   void dispose() {
     _amountController.dispose();
-    _desController.dispose();
+    _descController.dispose();
     super.dispose();
   }
 
@@ -581,7 +580,7 @@ class EditTaskState extends State<EditTaskPage> {
                                   cursorWidth: 1.0,
                                   cursorColor: AppColors.appTextDark,
                                   textAlign: TextAlign.right,
-                                  controller: _desController)))
+                                  controller: _descController)))
                     ],
                   ),
                 ),
