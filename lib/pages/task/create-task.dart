@@ -389,7 +389,7 @@ class CreateTaskState extends State<CreateTaskPage> {
               children: <Widget>[
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -405,7 +405,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('记账频率',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Expanded(
                           flex: 1,
                           child: new FlatButton(
@@ -416,14 +416,14 @@ class CreateTaskState extends State<CreateTaskPage> {
                                   child: new Text(_frequencyStr,
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
-                                          fontSize: Adaptor.px(24.0),
+                                          fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal)))))
                     ],
                   ),
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -440,7 +440,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('记账时间',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Expanded(
                           flex: 1,
                           child: new FlatButton(
@@ -451,14 +451,14 @@ class CreateTaskState extends State<CreateTaskPage> {
                                   child: new Text(_timeStr,
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
-                                          fontSize: Adaptor.px(24.0),
+                                          fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal)))))
                     ],
                   ),
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -475,7 +475,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('记账金额',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Expanded(
                           flex: 1,
                           child: new Container(
@@ -493,7 +493,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                                   keyboardType: TextInputType.numberWithOptions(
                                       decimal: true),
                                   style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
+                                    fontSize: Adaptor.px(26.0),
                                     color: AppColors.appTextDark,
                                   ),
                                   cursorWidth: 1.0,
@@ -505,7 +505,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -522,7 +522,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('账单分类',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Expanded(
                           flex: 1,
                           child: new FlatButton(
@@ -536,14 +536,14 @@ class CreateTaskState extends State<CreateTaskPage> {
                                           : '请选择',
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
-                                          fontSize: Adaptor.px(24.0),
+                                          fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal)))))
                     ],
                   ),
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -560,7 +560,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('账单备注',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Expanded(
                           flex: 1,
                           child: new Container(
@@ -574,7 +574,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                                       border: InputBorder.none),
                                   keyboardType: TextInputType.text,
                                   style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
+                                    fontSize: Adaptor.px(26.0),
                                     color: AppColors.appTextDark,
                                   ),
                                   cursorWidth: 1.0,
@@ -586,7 +586,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -603,7 +603,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                       new Text('是否确认',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(26.0))),
                       new Container(
                           child: new Switch.adaptive(
                               value: _switchValue,
@@ -621,7 +621,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                 ),
                 new Container(
                     width: Adaptor.px(1000.0),
-                    height: Adaptor.px(80.0),
+                    height: Adaptor.px(90.0),
                     padding: EdgeInsets.only(
                         left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                     margin: EdgeInsets.only(

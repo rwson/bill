@@ -9,6 +9,9 @@ import 'package:bill/pages/reminder/save-reminder.dart';
 import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
 import 'package:bill/pages/task/tasks.dart';
+import 'package:bill/pages/task/task-detail.dart';
+import 'package:bill/pages/reminder/reminder-detail.dart';
+import 'package:bill/pages/reminder/edit-reminder.dart';
 import 'package:bill/router.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +32,10 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               EditTaskPage()));
+  router.define('task-detail',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              TaskDetailPage()));
   router.define('record',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -41,6 +48,14 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               CreateReminderPage()));
+  router.define('reminder-detail',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              ReminderDetailPage()));
+  router.define('edit-reminder',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              EditReminderPage()));
   router.define('limit-set',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>

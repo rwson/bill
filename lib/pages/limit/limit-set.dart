@@ -46,7 +46,7 @@ class LimitSetState extends State<LimitSetPage> {
               children: <Widget>[
                 new Container(
                     width: Adaptor.px(1040.0),
-                    height: Adaptor.px(100.0),
+                    height: Adaptor.px(80.0),
                     decoration: new BoxDecoration(
                         color: AppColors.appWhite,
                         borderRadius:
@@ -55,7 +55,10 @@ class LimitSetState extends State<LimitSetPage> {
                             width: Adaptor.onePx(), color: AppColors.appBorder),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(0, 1.0)
+                          )
                         ]),
                     child: new TextField(
                         decoration: InputDecoration(
@@ -67,7 +70,7 @@ class LimitSetState extends State<LimitSetPage> {
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         style: TextStyle(
-                            fontSize: Adaptor.px(32.0),
+                            fontSize: Adaptor.px(28.0),
                             color: AppColors.appTextDark),
                         cursorWidth: 1.0,
                         cursorColor: AppColors.appTextDark,
