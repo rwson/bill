@@ -1,16 +1,35 @@
 # bill
 
-a bill record application build with flutter by rwson
+基于Flutter开发的一款记账
 
-## Getting Started
+## 所需依赖
 
-This project is a starting point for a Flutter application.
+- fl_chart: Flutter图表
 
-A few resources to get you started if this is your first Flutter project:
+- flutter_daydart: Flutter端的moment
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- fluro: Flutter页面路由
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- flutter_animation_progress_bar: Flutter进度条
+
+- flutter_statusbar_manager: Flutter状态栏管理器
+
+- flutter_swiper: Flutter端的swiper
+
+- flutter_datetime_picker: Flutter日期选择器
+
+
+
+## 主要界面
+
+![index](screenshoots/index.png)
+
+![analysis](screenshoots/analysis.png)
+
+![wealth](screenshoots/wealth.png)
+
+![mine](screenshoots/mine.png)
+
+
+
+

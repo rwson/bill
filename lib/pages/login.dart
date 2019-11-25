@@ -55,7 +55,9 @@ class LoginState extends State<LoginPage> {
                             width: Adaptor.onePx(), color: AppColors.appBorder),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(0, 1.0))
                         ]),
                     child: new TextField(
                         decoration: InputDecoration(

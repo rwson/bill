@@ -14,15 +14,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
-//床是合租，
-// 办公室+办公加办公-电脑是办公室
-// 上下铺是宿舍，娱乐是一起玩
-// 家具行李箱是去旅行
-// 购物袋+钱包是姐妹淘
-// 公文包是生意场
-// 家庭是小家庭
-// 黑板和集体面试是班集体
-
 void main() {
   Router router = new Router();
 

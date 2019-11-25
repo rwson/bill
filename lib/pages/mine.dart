@@ -69,7 +69,8 @@ class MineState extends State<MinePage> {
                               boxShadow: [
                                 BoxShadow(
                                     color: AppColors.appYellowShadow,
-                                    blurRadius: 8.0)
+                                    blurRadius: 8.0,
+                                    offset: Offset(0, 1.0))
                               ],
                               gradient: LinearGradient(
                                   begin: Alignment.bottomLeft,
@@ -163,11 +164,12 @@ class MineState extends State<MinePage> {
                               boxShadow: [
                                 BoxShadow(
                                     color: AppColors.appBlackShadow,
-                                    blurRadius: 5.0)
+                                    blurRadius: 8.0,
+                                    offset: Offset(0, 1.0))
                               ]),
                           child: new Wrap(children: <Widget>[
                             new Container(
-                                height: Adaptor.px(80.0),
+                                height: Adaptor.px(84.0),
                                 decoration: new BoxDecoration(
                                     color: AppColors.appWhite,
                                     border: Border(
@@ -175,8 +177,9 @@ class MineState extends State<MinePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: new FlatButton(
-                                    padding:
-                                        EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding: EdgeInsets.only(
+                                        left: Adaptor.px(20.0),
+                                        right: Adaptor.px(10.0)),
                                     onPressed: _toTask,
                                     child: new Row(
                                       mainAxisAlignment:
@@ -220,13 +223,13 @@ class MineState extends State<MinePage> {
                                             ),
                                             new Icon(IconFont.iconRight,
                                                 color: AppColors.appTextLight,
-                                                size: Adaptor.px(28.0))
+                                                size: Adaptor.px(22.0))
                                           ],
                                         )
                                       ],
                                     ))),
                             new Container(
-                              height: Adaptor.px(80.0),
+                              height: Adaptor.px(84.0),
                               decoration: new BoxDecoration(
                                   color: AppColors.appWhite,
                                   border: Border(
@@ -234,8 +237,9 @@ class MineState extends State<MinePage> {
                                           width: Adaptor.onePx(),
                                           color: AppColors.appBorderLight))),
                               child: new FlatButton(
-                                  padding:
-                                      EdgeInsets.only(left: Adaptor.px(20.0)),
+                                  padding: EdgeInsets.only(
+                                      left: Adaptor.px(20.0),
+                                      right: Adaptor.px(10.0)),
                                   onPressed: _toSaveReminder,
                                   child: new Row(
                                     mainAxisAlignment:
@@ -277,14 +281,14 @@ class MineState extends State<MinePage> {
                                           ),
                                           new Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
-                                              size: Adaptor.px(28.0))
+                                              size: Adaptor.px(22.0))
                                         ],
                                       )
                                     ],
                                   )),
                             ),
                             new Container(
-                                height: Adaptor.px(80.0),
+                                height: Adaptor.px(84.0),
                                 decoration: new BoxDecoration(
                                     color: AppColors.appWhite,
                                     border: Border(
@@ -292,8 +296,9 @@ class MineState extends State<MinePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: new FlatButton(
-                                    padding:
-                                        EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding: EdgeInsets.only(
+                                        left: Adaptor.px(20.0),
+                                        right: Adaptor.px(10.0)),
                                     onPressed: _toSetLimit,
                                     child: new Row(
                                         mainAxisAlignment:
@@ -341,16 +346,17 @@ class MineState extends State<MinePage> {
                                                 new Icon(IconFont.iconRight,
                                                     color:
                                                         AppColors.appTextLight,
-                                                    size: Adaptor.px(28.0))
+                                                    size: Adaptor.px(22.0))
                                               ])
                                         ]))),
                             new Container(
-                                height: Adaptor.px(80.0),
+                                height: Adaptor.px(84.0),
                                 decoration: new BoxDecoration(
                                     color: AppColors.appWhite),
                                 child: new FlatButton(
-                                    padding:
-                                        EdgeInsets.only(left: Adaptor.px(20.0)),
+                                    padding: EdgeInsets.only(
+                                        left: Adaptor.px(20.0),
+                                        right: Adaptor.px(10.0)),
                                     onPressed: _toCircles,
                                     child: new Row(
                                         mainAxisAlignment:
@@ -398,7 +404,7 @@ class MineState extends State<MinePage> {
                                                 new Icon(IconFont.iconRight,
                                                     color:
                                                         AppColors.appTextLight,
-                                                    size: Adaptor.px(28.0))
+                                                    size: Adaptor.px(22.0))
                                               ])
                                         ])))
                           ]))

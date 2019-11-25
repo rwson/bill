@@ -149,7 +149,9 @@ class WealthState extends State<WealthPage> {
                           const BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
                         BoxShadow(
-                            color: AppColors.appYellowShadow, blurRadius: 8.0)
+                            color: AppColors.appYellowShadow,
+                            blurRadius: 8.0,
+                            offset: Offset(0, 1.0))
                       ],
                       gradient: const LinearGradient(
                           begin: Alignment.bottomLeft,
@@ -173,13 +175,13 @@ class WealthState extends State<WealthPage> {
                                     new Text('$_currentYear年',
                                         style: TextStyle(
                                             color: AppColors.appTextDark,
-                                            fontSize: Adaptor.px(32.0),
+                                            fontSize: Adaptor.px(28.0),
                                             fontWeight: FontWeight.normal)),
                                     new Padding(
                                       padding: EdgeInsets.only(
                                           left: Adaptor.px(4.0)),
                                       child: new Icon(IconFont.iconDown,
-                                          size: Adaptor.px(40.0),
+                                          size: Adaptor.px(20.0),
                                           color: AppColors.appTextDark),
                                     )
                                   ],
@@ -258,7 +260,9 @@ class WealthState extends State<WealthPage> {
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
                         BoxShadow(
-                            color: AppColors.appBlackShadow, blurRadius: 5.0)
+                            color: AppColors.appBlackShadow,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 1.0))
                       ]),
                   child: new Column(children: <Widget>[
                     new Container(
@@ -301,7 +305,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -340,7 +344,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -379,7 +383,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -418,7 +422,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -457,7 +461,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -496,7 +500,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -535,7 +539,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -574,7 +578,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -613,7 +617,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -652,7 +656,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -691,7 +695,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(
@@ -730,7 +734,7 @@ class WealthState extends State<WealthPage> {
                             ])),
                     new Container(
                         width: Adaptor.px(1040.0),
-                        height: Adaptor.px(100.0),
+                        height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
                         decoration: new BoxDecoration(

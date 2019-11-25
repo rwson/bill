@@ -1,6 +1,7 @@
+import 'dart:math';
+
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/iconfont.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/util.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+class TypeItem {
+  String type;
+  IconData icon;
+  String desc;
+  bool checked;
+
+  TypeItem({this.icon, this.type, this.desc, this.checked});
+}
 
 class RecordPage extends StatefulWidget {
   @override
@@ -22,13 +32,23 @@ class RecordState extends State<RecordPage>
 
   TextEditingController _incomeInputController;
 
+  TextEditingController _payMarkController;
+
+  TextEditingController _incomeMarkController;
+
   Color _mainColor = AppColors.appYellow;
 
   int _currentIndex = 0;
 
+  int _selectedIndex = 0;
+
+  List<TypeItem> _payTypes = [];
+
+  List<TypeItem> _incomeTypes = [];
+
   final int _precision = 2;
 
-//  int _paymentLength = MethodsIcons.paymentIcons.length;
+  String _currentType = 'pay';
 
   @override
   void initState() {
@@ -39,6 +59,13 @@ class RecordState extends State<RecordPage>
 
     _paymentInputController = TextEditingController();
     _incomeInputController = TextEditingController();
+    _payMarkController = TextEditingController();
+    _incomeMarkController = TextEditingController();
+
+    MethodsIcons.paymentIcons.forEach((item) {
+      _payTypes.add(TypeItem(
+          icon: item.icon, type: item.type, desc: item.desc, checked: false));
+    });
   }
 
   void _handleTabChange() {
@@ -64,7 +91,12 @@ class RecordState extends State<RecordPage>
             doneStyle: TextStyle(
                 fontSize: Adaptor.px(28.0), color: AppColors.appYellow),
             itemStyle: TextStyle(
-                fontSize: Adaptor.px(24.0), color: AppColors.appTextDark)));
+                fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)));
+    setState(() {
+      if (_currentType != type) {
+        _currentType = type;
+      }
+    });
   }
 
   @override
@@ -75,6 +107,8 @@ class RecordState extends State<RecordPage>
 
     _paymentInputController.dispose();
     _incomeInputController.dispose();
+    _payMarkController.dispose();
+    _incomeMarkController.dispose();
 
     super.dispose();
   }
@@ -110,116 +144,84 @@ class RecordState extends State<RecordPage>
               cursorColor: AppColors.appTextDark),
         ),
         new Container(
-            height: Adaptor.px(330.0),
+            margin: EdgeInsets.only(top: Adaptor.px(20.0)),
+            height: Adaptor.px(380.0),
             child: new Swiper(
-              index: 0,
-              loop: false,
-              itemBuilder: (context, index) {
-                List firstRow = [];
-                for (var i = (index * 2) * 4; i < (index * 2) * 4 + 4; ++i) {
-                  if (i >= MethodsIcons.paymentIcons.length) {
-                    break;
-                  }
-                  firstRow.add(MethodsIcons.paymentIcons[i]);
-                }
-
-                List secondRow = [];
-                for (var i = (index * 2 + 1) * 4;
-                    i < (index * 2 + 1) * 4 + 4;
-                    ++i) {
-                  //0-4,5-9,10-14,15-19
-                  if (i >= MethodsIcons.paymentIcons.length) {
-                    break;
-                  }
-                  secondRow.add(MethodsIcons.paymentIcons[i]);
-                }
-
-                return new Column(children: <Widget>[
-                  new Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: new Row(
-                        children: firstRow.map((item) {
-                          return new Container(
-                              width: Adaptor.screenW() / 4,
-                              child: new FlatButton(
-                                  onPressed: () => {print(item)},
-                                  child: new Column(
-                                    children: <Widget>[
-                                      new Container(
-                                          width: Adaptor.px(80),
-                                          height: Adaptor.px(80),
-                                          margin: EdgeInsets.only(
-                                              bottom: Adaptor.px(10.0)),
-                                          decoration: new BoxDecoration(
-//                                          color: AppColors.appBorder,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      Adaptor.px(40)))),
-                                          child: new Icon(
-                                            item.icon,
-                                            size: Adaptor.px(56.0),
-                                            color: AppColors.appTextDark,
-                                          )),
-                                      new Text(item.desc,
-                                          style: TextStyle(
-                                              fontSize: Adaptor.px(24.0),
-                                              color: AppColors.appTextDark))
-                                    ],
-                                  )));
-                        }).toList(),
-                      )),
-                  new Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: new Row(
-                        children: secondRow.map((item) {
-                          return new Container(
-                              width: Adaptor.screenW() / 4,
-                              child: new Column(
-                                children: <Widget>[
-                                  new Container(
-                                      width: Adaptor.px(80),
-                                      height: Adaptor.px(80),
-                                      margin: EdgeInsets.only(
-                                          bottom: Adaptor.px(10.0)),
-                                      decoration: new BoxDecoration(
-                                          color: AppColors.appYellow,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(Adaptor.px(40)))),
-                                      child: new Icon(
-                                        item.icon,
-                                        size: Adaptor.px(56.0),
-                                        color: AppColors.appTextDark,
-                                      )),
-                                  new Text(item.desc,
-                                      style: TextStyle(
-                                          fontSize: Adaptor.px(24.0),
-                                          color: AppColors.appTextDark))
-                                ],
-                              ));
-                        }).toList(),
-                      ))
-                ]);
-              },
-              itemCount: (MethodsIcons.paymentLength ~/ 8).toInt() +
-                  (MethodsIcons.paymentLength % 8 > 0 ? 1 : 0),
-              pagination: new SwiperPagination(
-                  alignment: Alignment.bottomCenter,
-                  builder: new RectSwiperPaginationBuilder(
-                      color: AppColors.appBorder,
-                      activeColor: AppColors.appYellow,
-                      size: Size(18, 3),
-                      activeSize: Size(18, 3),
-                      space: 0.2)),
-              autoplay: false,
-              scrollDirection: Axis.horizontal,
-            )),
+                index: _selectedIndex,
+                loop: false,
+                itemBuilder: (context, index) {
+                  List _subRow = _payTypes.sublist((index * 8),
+                      min((index + 1) * 8, MethodsIcons.paymentLength));
+                  return new Container(
+                      child: new Wrap(
+                          children: List.generate(_subRow.length, (int i) {
+                    TypeItem _item = _subRow[i];
+                    return new Container(
+                      width: Adaptor.screenW() / 4,
+                      height: Adaptor.px(170.0),
+                      child: new FlatButton(
+                          onPressed: () {
+                            int position = (index * 8) + i;
+                            setState(() {
+                              _selectedIndex = index;
+                              _payTypes.asMap().keys.forEach((int cur) => {
+                                    if (cur == position)
+                                      {_payTypes[cur].checked = true}
+                                    else
+                                      {_payTypes[cur].checked = false}
+                                  });
+                            });
+                          },
+                          child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Container(
+                                    width: Adaptor.px(100),
+                                    height: Adaptor.px(100),
+                                    margin: EdgeInsets.only(
+                                        bottom: Adaptor.px(10.0)),
+                                    decoration: new BoxDecoration(
+                                        color: _item.checked
+                                            ? AppColors.appYellow
+                                            : AppColors.appBorder,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(Adaptor.px(50)))),
+                                    child: new Icon(
+                                      _item.icon,
+                                      size: Adaptor.px(50.0),
+                                      color: AppColors.appTextDark,
+                                    )),
+                                new Text(_item.desc,
+                                    style: TextStyle(
+                                        fontSize: Adaptor.px(24.0),
+                                        color: AppColors.appTextDark))
+                              ])),
+                    );
+                  }).toList()));
+                },
+                itemCount: (MethodsIcons.paymentLength / 8).ceil(),
+                pagination: new SwiperPagination(
+                    alignment: Alignment.bottomCenter,
+                    builder: new RectSwiperPaginationBuilder(
+                        color: AppColors.appBorder,
+                        activeColor: AppColors.appYellow,
+                        size: Size(18, 3),
+                        activeSize: Size(18, 3),
+                        space: 0.2)),
+                autoplay: false,
+                scrollDirection: Axis.horizontal,
+                onIndexChanged: (int index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                })),
         new Container(
           padding: EdgeInsets.only(
               top: Adaptor.px(16.0),
               bottom: Adaptor.px(16.0),
               left: Adaptor.px(20.0),
               right: Adaptor.px(32.0)),
-          height: Adaptor.px(80.0),
+          height: Adaptor.px(100.0),
           decoration: new BoxDecoration(
               border: Border(
             top: BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
@@ -232,40 +234,76 @@ class RecordState extends State<RecordPage>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Container(
-                  child: new Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      new Icon(
-                        IconFont.iconCalendar,
-                        size: Adaptor.px(28.0),
-                        color: AppColors.appTextDark,
-                      ),
-                      new Padding(
-                        padding: EdgeInsets.only(left: Adaptor.px(10.0)),
-                        child: new Text(
-                          '记账日期',
-                          style: TextStyle(
-                            fontSize: Adaptor.px(26.0),
-                            color: AppColors.appTextDark,
-                          ),
-                        ),
-                      )
-                    ],
+                    child: new Text(
+                  '记账日期',
+                  style: TextStyle(
+                    fontSize: Adaptor.px(28.0),
+                    color: AppColors.appTextDark,
                   ),
-                ),
-                new Row(
-                  children: <Widget>[
-                    new FlatButton(
-                        onPressed: () => _showDatePicker(''),
-                        child: new Text('2019-11-18',
-                            style: TextStyle(
-                                color: AppColors.appTextDark,
-                                fontSize: Adaptor.px(24.0),
-                                fontWeight: FontWeight.normal)))
-                  ],
-                )
+                )),
+                new Expanded(
+                    child: new GestureDetector(
+                        onTap: () => _showDatePicker('pay'),
+                        child: new Align(
+                            alignment: Alignment.centerRight,
+                            child: new Text('2019-11-18',
+                                style: TextStyle(
+                                    color: AppColors.appTextDark,
+                                    fontSize: Adaptor.px(28.0),
+                                    fontWeight: FontWeight.normal)))))
               ]),
         ),
+        new Container(
+          padding: EdgeInsets.only(
+              top: Adaptor.px(16.0),
+              bottom: Adaptor.px(16.0),
+              left: Adaptor.px(20.0),
+              right: Adaptor.px(32.0)),
+          height: Adaptor.px(100.0),
+          decoration: new BoxDecoration(
+              border: Border(
+            bottom:
+                BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
+          )),
+          child: new Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Container(
+                    child: new Text(
+                  '账单备注',
+                  style: TextStyle(
+                    fontSize: Adaptor.px(28.0),
+                    color: AppColors.appTextDark,
+                  ),
+                )),
+                new Expanded(
+                    child: new Container(
+                        width: Adaptor.px(500.0),
+                        height: Adaptor.px(68.0),
+                        child: new TextField(
+                            controller: _payMarkController,
+                            decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.all(Adaptor.px(20.0)),
+                                hintText: '请输入账单备注',
+                                fillColor: Colors.transparent,
+                                filled: true,
+                                border: InputBorder.none),
+                            inputFormatters: [
+                              PrecisionLimitFormatter(_precision)
+                            ],
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            style: TextStyle(
+                                fontSize: Adaptor.px(28.0),
+                                color: AppColors.appTextDark,
+                                fontWeight: FontWeight.normal),
+                            cursorWidth: 1.0,
+                            cursorColor: AppColors.appTextDark)))
+              ]),
+        )
       ],
     ));
   }

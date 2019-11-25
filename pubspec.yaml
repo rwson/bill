@@ -19,7 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
   fl_chart: ^0.4.1
   flutter_daydart: ^0.0.3
 #  flutter_jpush: ^0.0.4
@@ -30,9 +29,9 @@ dependencies:
   flutter_slidable: ^0.5.4
   flutter_swiper: ^1.1.6
   flutter_datetime_picker: ^1.2.8
-  openinstall_flutter_plugin: ^1.0.0
-  mobile_number: ^0.0.2
-  image_picker: ^0.6.2
+#  openinstall_flutter_plugin: ^1.0.0
+#  mobile_number: ^0.0.2
+#  image_picker: ^0.6.2
 
 dev_dependencies:
   flutter_test:
@@ -89,7 +88,7 @@ flutter:
     - lib/assets/task.png
     - lib/assets/test.jpeg
     - lib/assets/test2.jpeg
-    - lib/assets/test3.jpeg
+    - lib/assets/test.jpeg
 
   fonts:
     - family: iconfont

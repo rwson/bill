@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class CircleItem {
@@ -21,26 +22,24 @@ class EditCirclePage extends StatefulWidget {
 }
 
 class EditCircleState extends State<EditCirclePage> {
-
   final _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();
 
   List<CircleItem> _circleItems = [];
 
-  int currentIndex = 0;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     MethodsIcons.circleTypes.forEach((item) => {
-        _circleItems.add(CircleItem(
-        checked: false,
-        icon: item.icon,
-        desc: item.desc,
-        type: item.type
-    ))
-  });
+          _circleItems.add(CircleItem(
+              checked: false,
+              icon: item.icon,
+              desc: item.desc,
+              type: item.type))
+        });
   }
 
   @override
@@ -67,61 +66,72 @@ class EditCircleState extends State<EditCirclePage> {
                 new Container(
                   height: Adaptor.px(380),
                   child: new Swiper(
-                      index: currentIndex,
+                      index: _currentIndex,
                       loop: false,
                       autoplay: false,
                       itemCount: (MethodsIcons.circleTypesLength / 8).ceil(),
                       itemBuilder: (context, index) {
-                        List _subRow = _circleItems.sublist((index * 8), min((index + 1) * 8, MethodsIcons.circleTypesLength));
+                        List _subRow = _circleItems.sublist(
+                            (index * 8),
+                            min((index + 1) * 8,
+                                MethodsIcons.circleTypesLength));
                         return new Container(
                             child: new Wrap(
-                                children: List.generate(_subRow.length, (int i) {
-                                  CircleItem _item = _subRow[i];
-                                  return new Container(
-                                    width: Adaptor.px(177.0),
-                                    height: Adaptor.px(170.0),
-                                    child: new FlatButton(
-                                        onPressed: () {
-                                          int position = (index * 8) + i;
-                                          setState(() {
-                                            currentIndex = index;
-                                            _circleItems.asMap().keys.forEach((int cur) => {
-                                                if (cur == position) {
-                                              _circleItems[cur].checked = true
-                                            } else {
-                                            _circleItems[cur].checked = false
-                                            }
-                                          });
-                                          });
-                                        },
-                                        child: new Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              new Container(
-                                                  width: Adaptor.px(100),
-                                                  height: Adaptor.px(100),
-                                                  margin: EdgeInsets.only(
-                                                      bottom: Adaptor.px(10.0)),
-                                                  decoration: new BoxDecoration(
-                                                      color: _item.checked ? AppColors.appYellow : AppColors.appBorder,
-                                                      borderRadius: BorderRadius.all(
-                                                          Radius.circular(Adaptor.px(50)))),
-                                                  child: new Icon(
-                                                    _item.icon,
-                                                    size: Adaptor.px(50.0),
-                                                    color: AppColors.appTextDark,
-                                                  )),
-                                              new Text(_item.desc,
-                                                  style: TextStyle(
-                                                      fontSize: Adaptor.px(24.0),
-                                                      color: AppColors.appTextDark))
-                                            ]
-                                        )
-                                    ),
-                                  );
-                                }).toList()
-                            )
-                        );
+                                children:
+                                    List.generate(_subRow.length, (int i) {
+                          CircleItem _item = _subRow[i];
+                          return new Container(
+                            width: Adaptor.px(177.0),
+                            height: Adaptor.px(170.0),
+                            child: new FlatButton(
+                                onPressed: () {
+                                  int position = (index * 8) + i;
+                                  setState(() {
+                                    _currentIndex = index;
+                                    _circleItems
+                                        .asMap()
+                                        .keys
+                                        .forEach((int cur) => {
+                                              if (cur == position)
+                                                {
+                                                  _circleItems[cur].checked =
+                                                      true
+                                                }
+                                              else
+                                                {
+                                                  _circleItems[cur].checked =
+                                                      false
+                                                }
+                                            });
+                                  });
+                                },
+                                child: new Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Container(
+                                          width: Adaptor.px(100),
+                                          height: Adaptor.px(100),
+                                          margin: EdgeInsets.only(
+                                              bottom: Adaptor.px(10.0)),
+                                          decoration: new BoxDecoration(
+                                              color: _item.checked
+                                                  ? AppColors.appYellow
+                                                  : AppColors.appBorder,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      Adaptor.px(50)))),
+                                          child: new Icon(
+                                            _item.icon,
+                                            size: Adaptor.px(50.0),
+                                            color: AppColors.appTextDark,
+                                          )),
+                                      new Text(_item.desc,
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(24.0),
+                                              color: AppColors.appTextDark))
+                                    ])),
+                          );
+                        }).toList()));
                       },
                       pagination: new SwiperPagination(
                           alignment: Alignment.bottomCenter,
@@ -131,8 +141,7 @@ class EditCircleState extends State<EditCirclePage> {
                               size: Size(18, 3),
                               activeSize: Size(18, 3),
                               space: 0.2)),
-                      scrollDirection: Axis.horizontal
-                  ),
+                      scrollDirection: Axis.horizontal),
                 ),
                 new Container(
                   width: Adaptor.px(1060.0),
@@ -179,7 +188,6 @@ class EditCircleState extends State<EditCirclePage> {
                     ],
                   ),
                 ),
-
                 new Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),

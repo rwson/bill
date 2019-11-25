@@ -150,7 +150,9 @@ class IndexState extends State<IndexPage> {
                           const BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
                         BoxShadow(
-                            color: AppColors.appBlackShadow, blurRadius: 5.0)
+                            color: AppColors.appBlackShadow,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 1.0))
                       ]),
                   child: new Wrap(children: <Widget>[
                     new Row(
@@ -214,7 +216,9 @@ class IndexState extends State<IndexPage> {
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
                         BoxShadow(
-                            color: AppColors.appBlackShadow, blurRadius: 5.0)
+                            color: AppColors.appBlackShadow,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 1.0))
                       ]),
                   child: new FlatButton(
                       onPressed: _toRecord,
@@ -250,7 +254,9 @@ class IndexState extends State<IndexPage> {
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(0, 1.0))
                         ]),
                     child: new Wrap(children: <Widget>[
                       new Container(
@@ -439,7 +445,9 @@ class IndexState extends State<IndexPage> {
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(0, 1.0))
                         ]),
                     child: new Wrap(children: <Widget>[
                       new Container(
@@ -622,7 +630,9 @@ class IndexState extends State<IndexPage> {
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: AppColors.appBlackShadow, blurRadius: 5.0)
+                              color: AppColors.appBlackShadow,
+                              blurRadius: 5.0,
+                              offset: Offset(0, 1.0))
                         ]),
                     child: new Wrap(children: <Widget>[
                       new Container(
