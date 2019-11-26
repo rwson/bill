@@ -57,8 +57,7 @@ class LimitSetState extends State<LimitSetPage> {
                           BoxShadow(
                               color: AppColors.appBlackShadow,
                               blurRadius: 5.0,
-                              offset: Offset(0, 1.0)
-                          )
+                              offset: Offset(0, 1.0))
                         ]),
                     child: new TextField(
                         decoration: InputDecoration(

@@ -1,18 +1,39 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/util.dart';
+import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:flt_telephony_info/flt_telephony_info.dart';
+
 class LoginPage extends StatefulWidget {
+  LoginPage({@required this.target});
+
+  final String target;
+
   @override
   State<StatefulWidget> createState() => LoginState();
 }
 
 class LoginState extends State<LoginPage> {
-  final int _precision = 2;
+  TelephonyInfo _info;
 
   final _amountController = TextEditingController();
+
+  Future<void> getTelephonyInfo() async {
+    TelephonyInfo info;
+    try {
+      info = await FltTelephonyInfo.info;
+    } on PlatformException {}
+
+    if (!mounted) return;
+
+    setState(() {
+      _info = info;
+    });
+  }
 
   @override
   void initState() {
@@ -25,13 +46,17 @@ class LoginState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _saveLimit() {}
+  void _toLogin() {
+    if (widget.target != '') {
+      AppRouter.redirectTo(context, widget.target);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('设置月预算',
+            title: Text('登录',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: new Container(
@@ -44,37 +69,7 @@ class LoginState extends State<LoginPage> {
             width: Adaptor.px(1040.0),
             child: new Wrap(
               children: <Widget>[
-                new Container(
-                    width: Adaptor.px(1040.0),
-                    height: Adaptor.px(100.0),
-                    decoration: new BoxDecoration(
-                        color: AppColors.appWhite,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(Adaptor.px(10.0))),
-                        border: Border.all(
-                            width: Adaptor.onePx(), color: AppColors.appBorder),
-                        boxShadow: [
-                          BoxShadow(
-                              color: AppColors.appBlackShadow,
-                              blurRadius: 5.0,
-                              offset: Offset(0, 1.0))
-                        ]),
-                    child: new TextField(
-                        decoration: InputDecoration(
-                            hintText: '请输入金额',
-                            fillColor: Colors.transparent,
-                            filled: true,
-                            border: InputBorder.none),
-                        inputFormatters: [PrecisionLimitFormatter(_precision)],
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(
-                            fontSize: Adaptor.px(32.0),
-                            color: AppColors.appTextDark),
-                        cursorWidth: 1.0,
-                        cursorColor: AppColors.appTextDark,
-                        textAlign: TextAlign.center,
-                        controller: _amountController)),
+                new Text(widget.target ?? ''),
                 new Container(
                     width: Adaptor.px(1040.0),
                     height: Adaptor.px(80.0),
@@ -84,8 +79,8 @@ class LoginState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
                     child: new FlatButton(
-                        onPressed: _saveLimit,
-                        child: new Text('保存',
+                        onPressed: _toLogin,
+                        child: new Text('一键登录',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,

@@ -1,7 +1,5 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/methods-icons.dart';
-import 'package:bill/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,6 @@ class ReminderDetailPage extends StatefulWidget {
 }
 
 class ReminderDetailState extends State<ReminderDetailPage> {
-
   @override
   void initState() {
     super.initState();
@@ -59,8 +56,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -92,8 +88,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -125,8 +120,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -158,8 +152,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -191,8 +184,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -224,8 +216,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -253,9 +244,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                       style: TextStyle(
                                           fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal,
-                                          color: AppColors.appTextDark))
-                              )
-                          ),
+                                          color: AppColors.appTextDark)))),
                         ),
                         new Container(
                             width: Adaptor.px(320.0),
@@ -271,13 +260,9 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                         style: TextStyle(
                                             fontSize: Adaptor.px(26.0),
                                             fontWeight: FontWeight.normal,
-                                            color: AppColors.appWhite))
-                                )
-                            )
-                        ),
+                                            color: AppColors.appWhite))))),
                       ],
-                    )
-                )
+                    ))
               ],
             )));
   }

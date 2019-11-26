@@ -1,7 +1,5 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/methods-icons.dart';
-import 'package:bill/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,6 @@ class TaskDetailPage extends StatefulWidget {
 }
 
 class TaskDetailState extends State<TaskDetailPage> {
-
   @override
   void initState() {
     super.initState();
@@ -59,8 +56,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -92,8 +88,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -125,8 +120,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -158,8 +152,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -191,8 +184,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -224,8 +216,7 @@ class TaskDetailState extends State<TaskDetailPage> {
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
-                                      fontWeight: FontWeight.normal)))
-                      )
+                                      fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
@@ -249,35 +240,29 @@ class TaskDetailState extends State<TaskDetailPage> {
                           child: new GestureDetector(
                               onTap: () {},
                               child: new Center(
-                                child: new Text('编辑',
-                                    style: TextStyle(
-                                        fontSize: Adaptor.px(26.0),
-                                        fontWeight: FontWeight.normal,
-                                        color: AppColors.appTextDark))
-                              )
-                          ),
-                        ),
-                        new Container(
-                          width: Adaptor.px(320.0),
-                          height: Adaptor.px(60.0),
-                          decoration: new BoxDecoration(
-                              color: AppColors.appOutlay,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(Adaptor.px(10.0)))),
-                          child: new GestureDetector(
-                              onTap: () {},
-                              child: new Center(
-                                  child: new Text('删除',
+                                  child: new Text('编辑',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal,
-                                          color: AppColors.appWhite))
-                              )
-                          )
+                                          color: AppColors.appTextDark)))),
                         ),
+                        new Container(
+                            width: Adaptor.px(320.0),
+                            height: Adaptor.px(60.0),
+                            decoration: new BoxDecoration(
+                                color: AppColors.appOutlay,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Adaptor.px(10.0)))),
+                            child: new GestureDetector(
+                                onTap: () {},
+                                child: new Center(
+                                    child: new Text('删除',
+                                        style: TextStyle(
+                                            fontSize: Adaptor.px(26.0),
+                                            fontWeight: FontWeight.normal,
+                                            color: AppColors.appWhite))))),
                       ],
-                    )
-                )
+                    ))
               ],
             )));
   }

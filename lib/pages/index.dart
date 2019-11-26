@@ -2,7 +2,6 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
@@ -18,13 +17,11 @@ class IndexState extends State<IndexPage> {
   }
 
   void _toRecord() {
-    AppRouter.router
-        .navigateTo(context, 'record', transition: TransitionType.material);
+    AppRouter.toPage(context, 'record');
   }
 
   void _toLimitset() {
-    AppRouter.router
-        .navigateTo(context, 'limit-set', transition: TransitionType.material);
+    AppRouter.toPage(context, 'limit-set');
   }
 
   @override

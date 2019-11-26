@@ -3,15 +3,16 @@ import 'package:bill/pages/circles/circles.dart';
 import 'package:bill/pages/circles/create-circle.dart';
 import 'package:bill/pages/circles/edit-circle.dart';
 import 'package:bill/pages/limit/limit-set.dart';
+import 'package:bill/pages/login.dart';
 import 'package:bill/pages/record.dart';
 import 'package:bill/pages/reminder/create-reminder.dart';
+import 'package:bill/pages/reminder/edit-reminder.dart';
+import 'package:bill/pages/reminder/reminder-detail.dart';
 import 'package:bill/pages/reminder/save-reminder.dart';
 import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
-import 'package:bill/pages/task/tasks.dart';
 import 'package:bill/pages/task/task-detail.dart';
-import 'package:bill/pages/reminder/reminder-detail.dart';
-import 'package:bill/pages/reminder/edit-reminder.dart';
+import 'package:bill/pages/task/tasks.dart';
 import 'package:bill/router.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -23,55 +24,73 @@ void main() {
   router.define('tasks',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              TaskPage()));
+              TaskPage()),
+      transitionType: TransitionType.native);
   router.define('create-task',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CreateTaskPage()));
+              CreateTaskPage()),
+      transitionType: TransitionType.native);
   router.define('edit-task',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditTaskPage()));
+              EditTaskPage()),
+      transitionType: TransitionType.native);
   router.define('task-detail',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              TaskDetailPage()));
+              TaskDetailPage()),
+      transitionType: TransitionType.native);
   router.define('record',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              RecordPage()));
+              RecordPage()),
+      transitionType: TransitionType.native);
   router.define('save-reminder',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              SaveReminderPage()));
+              SaveReminderPage()),
+      transitionType: TransitionType.native);
   router.define('create-reminder',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CreateReminderPage()));
+              CreateReminderPage()),
+      transitionType: TransitionType.native);
   router.define('reminder-detail',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              ReminderDetailPage()));
+              ReminderDetailPage()),
+      transitionType: TransitionType.native);
   router.define('edit-reminder',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditReminderPage()));
+              EditReminderPage()),
+      transitionType: TransitionType.native);
   router.define('limit-set',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              LimitSetPage()));
+              LimitSetPage()),
+      transitionType: TransitionType.native);
   router.define('circles',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CirclesPage()));
+              CirclesPage()),
+      transitionType: TransitionType.native);
   router.define('create-circle',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CreateCirclePage()));
+              CreateCirclePage()),
+      transitionType: TransitionType.native);
   router.define('edit-circle',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditCirclePage()));
+              EditCirclePage()),
+      transitionType: TransitionType.native);
+  router.define('login',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              LoginPage(target: params['target'][0])),
+      transitionType: TransitionType.native);
 
   AppRouter.router = router;
 
@@ -147,6 +166,7 @@ class BillAppState extends State<BillApp> {
             appBarTheme: AppBarTheme(
                 elevation: 0 // This removes the shadow from all App Bars.
                 )),
-        home: BottomNavigationWidget());
+        home: BottomNavigationWidget(),
+        onGenerateRoute: AppRouter.router.generator);
   }
 }

@@ -3,7 +3,6 @@ import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class MinePage extends StatefulWidget {
@@ -18,23 +17,19 @@ class MineState extends State<MinePage> {
   }
 
   void _toTask() {
-    AppRouter.router
-        .navigateTo(context, 'tasks', transition: TransitionType.material);
+    AppRouter.toPage(context, 'tasks');
   }
 
   void _toSaveReminder() {
-    AppRouter.router.navigateTo(context, 'save-reminder',
-        transition: TransitionType.material);
+    AppRouter.toPage(context, 'save-reminder');
   }
 
   void _toSetLimit() {
-    AppRouter.router
-        .navigateTo(context, 'limit-set', transition: TransitionType.material);
+    AppRouter.toPage(context, 'limit-set');
   }
 
   void _toCircles() {
-    AppRouter.router
-        .navigateTo(context, 'circles', transition: TransitionType.material);
+    AppRouter.toPage(context, 'circles');
   }
 
   @override

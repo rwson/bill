@@ -2,7 +2,6 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class MethodItem {
@@ -26,13 +25,11 @@ class SaveReminderState extends State<SaveReminderPage> {
   }
 
   void _toCreateReminder() {
-    AppRouter.router.navigateTo(context, 'create-reminder',
-        transition: TransitionType.material);
+    AppRouter.toPage(context, 'create-reminder');
   }
 
   void _toDetail() {
-    AppRouter.router.navigateTo(context, 'reminder-detail',
-        transition: TransitionType.material);
+    AppRouter.toPage(context, 'reminder-detail');
   }
 
   @override
@@ -71,16 +68,18 @@ class SaveReminderState extends State<SaveReminderPage> {
                                         new Container(
                                             width: Adaptor.px(1040.0),
                                             margin: EdgeInsets.all(
-                                                Adaptor.px(10.0)
-                                            ),
-                                            padding: EdgeInsets.all(Adaptor.px(10.0)),
+                                                Adaptor.px(10.0)),
+                                            padding: EdgeInsets.all(
+                                                Adaptor.px(10.0)),
                                             decoration: new BoxDecoration(
                                                 color: AppColors.appWhite,
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(5.0)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(5.0)),
                                                 boxShadow: [
                                                   BoxShadow(
-                                                      color: AppColors.appBlackShadow,
+                                                      color: AppColors
+                                                          .appBlackShadow,
                                                       blurRadius: 5.0,
                                                       offset: Offset(0, 1.0))
                                                 ]),
@@ -90,68 +89,78 @@ class SaveReminderState extends State<SaveReminderPage> {
                                                   children: <Widget>[
                                                     new Container(
                                                         padding: EdgeInsets.only(
-                                                            top: Adaptor.px(10.0),
-                                                            left: Adaptor.px(10.0),
-                                                            right: Adaptor.px(10.0),
-                                                            bottom: Adaptor.px(16.0)),
+                                                            top: Adaptor.px(
+                                                                10.0),
+                                                            left: Adaptor.px(
+                                                                10.0),
+                                                            right: Adaptor.px(
+                                                                10.0),
+                                                            bottom: Adaptor.px(
+                                                                16.0)),
                                                         decoration: new BoxDecoration(
                                                             border: Border(
                                                                 bottom: BorderSide(
-                                                                    width: Adaptor.onePx(),
+                                                                    width: Adaptor
+                                                                        .onePx(),
                                                                     color: AppColors
                                                                         .appBorder))),
                                                         child: new Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: <Widget>[
                                                               new Row(
                                                                 crossAxisAlignment:
-                                                                CrossAxisAlignment.center,
-                                                                children: <Widget>[
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
                                                                   new Icon(
-                                                                    IconFont.iconReminder,
-                                                                    size: Adaptor.px(28.0),
-                                                                    color:
-                                                                    AppColors.appYellow,
+                                                                    IconFont
+                                                                        .iconReminder,
+                                                                    size: Adaptor
+                                                                        .px(28.0),
+                                                                    color: AppColors
+                                                                        .appYellow,
                                                                   ),
-                                                                  new Text('自动记账',
+                                                                  new Text(
+                                                                      '自动记账',
                                                                       style: TextStyle(
-                                                                          fontSize:
-                                                                          Adaptor.px(
+                                                                          fontSize: Adaptor.px(
                                                                               24.0),
-                                                                          color: AppColors
-                                                                              .appTextDark)),
-                                                                  new Text('(已提醒)',
+                                                                          color:
+                                                                              AppColors.appTextDark)),
+                                                                  new Text(
+                                                                      '(已提醒)',
                                                                       style: TextStyle(
-                                                                          fontSize:
-                                                                          Adaptor.px(
+                                                                          fontSize: Adaptor.px(
                                                                               20.0),
-                                                                          color: AppColors
-                                                                              .appIncome))
+                                                                          color:
+                                                                              AppColors.appIncome))
                                                                 ],
                                                               ),
                                                               new Text('09:00',
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                      Adaptor.px(26.0),
+                                                                          Adaptor.px(
+                                                                              26.0),
                                                                       color: AppColors
                                                                           .appTextDark))
                                                             ])),
                                                     new Container(
-                                                        padding: EdgeInsets.all(Adaptor.px(10.0)),
+                                                        padding: EdgeInsets.all(
+                                                            Adaptor.px(10.0)),
                                                         child: new Text(
                                                             '每天递增, 如遇当日未存钱第二天还是提醒存今天的额度, 总额到100自动折返',
                                                             style: TextStyle(
-                                                                fontSize: Adaptor.px(24.0),
-                                                                color: AppColors.appTextNormal,
+                                                                fontSize:
+                                                                    Adaptor.px(
+                                                                        24.0),
+                                                                color: AppColors
+                                                                    .appTextNormal,
                                                                 height: 1.5)))
                                                   ],
-                                                )
-                                            )
-                                        )
+                                                )))
                                       ],
-                          ))))
+                                    ))))
                       ],
                     )),
               )),

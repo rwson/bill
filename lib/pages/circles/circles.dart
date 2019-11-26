@@ -3,7 +3,6 @@ import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +18,7 @@ class CirclesState extends State<CirclesPage> {
   }
 
   void _createCircle() {
-    AppRouter.router.navigateTo(context, 'create-circle',
-        transition: TransitionType.material);
+    AppRouter.toPage(context, 'create-circle');
   }
 
   void _share() {}
