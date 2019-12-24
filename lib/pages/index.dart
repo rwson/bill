@@ -5,27 +5,37 @@ import 'package:bill/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+
+import 'package:bill/models/app.dart';
+
 class IndexPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => IndexState();
 }
 
 class IndexState extends State<IndexPage> {
+
+  AppModel appModel = new AppModel();
+
   @override
   void initState() {
     super.initState();
+    appModel.getTopics();
+    print('index init');
   }
 
-  void _toRecord() {
+  void _toRecord(context) {
     AppRouter.toPage(context, 'record');
   }
 
-  void _toLimitset() {
+  void _toLimitset(context) {
     AppRouter.toPage(context, 'limit-set');
   }
 
   @override
   Widget build(BuildContext context) {
+    final topics = ScopedModel.of<AppModel>(context, rebuildOnChange: true).topics;
     return Scaffold(
         appBar: AppBar(title: Text('首页', style: TextStyle(fontSize: 16.0))),
         body: new Container(
@@ -73,7 +83,9 @@ class IndexState extends State<IndexPage> {
                                   padding: EdgeInsets.only(
                                       top: Adaptor.px(6.0),
                                       bottom: Adaptor.px(6.0)),
-                                  child: new Text('100.00',
+                                  child: new Text(
+                                    topics.topics.isEmpty ? '${topics.topics}' : '0.00',
+                                    // '100.00',
                                       style: TextStyle(
                                           color: AppColors.appWhite,
                                           fontSize: Adaptor.px(34.0),
@@ -162,7 +174,7 @@ class IndexState extends State<IndexPage> {
                                 fontSize: Adaptor.px(28.0)),
                           ),
                           new GestureDetector(
-                            onTap: _toLimitset,
+                            onTap: () => _toLimitset(context),
                             child: new Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
@@ -218,7 +230,7 @@ class IndexState extends State<IndexPage> {
                             offset: Offset(0, 1.0))
                       ]),
                   child: new FlatButton(
-                      onPressed: _toRecord,
+                      onPressed: () => _toRecord(context),
                       child: new Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

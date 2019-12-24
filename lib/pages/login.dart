@@ -4,10 +4,6 @@ import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:async';
-import 'package:flutter/services.dart';
-import 'package:flt_telephony_info/flt_telephony_info.dart';
-
 class LoginPage extends StatefulWidget {
   LoginPage({@required this.target});
 
@@ -18,22 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> {
-  TelephonyInfo _info;
-
   final _amountController = TextEditingController();
-
-  Future<void> getTelephonyInfo() async {
-    TelephonyInfo info;
-    try {
-      info = await FltTelephonyInfo.info;
-    } on PlatformException {}
-
-    if (!mounted) return;
-
-    setState(() {
-      _info = info;
-    });
-  }
 
   @override
   void initState() {
@@ -69,7 +50,6 @@ class LoginState extends State<LoginPage> {
             width: Adaptor.px(1040.0),
             child: new Wrap(
               children: <Widget>[
-                new Text(widget.target ?? ''),
                 new Container(
                     width: Adaptor.px(1040.0),
                     height: Adaptor.px(80.0),

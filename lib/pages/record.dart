@@ -77,6 +77,10 @@ class RecordState extends State<RecordPage>
             : AppColors.appGreen;
 
         FlutterStatusbarManager.setColor(_mainColor);
+
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(// navigation bar color
+          statusBarColor: _mainColor
+        ));
       });
     }
   }
@@ -102,7 +106,6 @@ class RecordState extends State<RecordPage>
   @override
   void dispose() {
     FlutterStatusbarManager.setColor(AppColors.appWhite);
-
     _tabController.dispose();
 
     _paymentInputController.dispose();
@@ -315,7 +318,6 @@ class RecordState extends State<RecordPage>
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarManager.setColor(_mainColor);
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(

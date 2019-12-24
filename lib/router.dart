@@ -16,7 +16,8 @@ class AppRouter {
     return router.navigateTo(context, path);
   }
 
-  static redirectTo(BuildContext context, String path, [bool checkLogin = false]) {
+  static redirectTo(BuildContext context, String path,
+      [bool checkLogin = false]) {
     Navigator.pop(context);
     toPage(context, path, checkLogin);
   }

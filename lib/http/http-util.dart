@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:bill/api.dart';
 
-class HttpUtils {
+class HttpUtil {
   static Dio dio;
 
-  static const String API_PREFIX = 'https://cnodejs.org/api/v1';
+  static const String API_PREFIX = Api.base;
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 3000;
 

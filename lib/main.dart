@@ -13,9 +13,11 @@ import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
 import 'package:bill/pages/task/task-detail.dart';
 import 'package:bill/pages/task/tasks.dart';
+import 'package:bill/models/app.dart';
 import 'package:bill/router.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() {
@@ -97,34 +99,8 @@ void main() {
   runApp(BillApp());
 }
 
-class BillApp extends StatefulWidget {
-  @override
-  BillAppState createState() => BillAppState();
-}
-
-class BillAppState extends State<BillApp> {
+class BillApp extends StatelessWidget {
 //  com.rwson.bill
-
-//  Future<void> initMobileNumberState() async {
-//    String mobileNumber = '';
-//    try {
-//      mobileNumber = await MobileNumber.mobileNumber;
-//    } catch (e) {
-//      debugPrint("Failed to get mobile number because of '${e.message}'");
-//    }
-//
-//    if (!mounted) {
-//      return;
-//    }
-//
-//    print(mobileNumber);
-//  }
-
-  @override
-  void initState() {
-    super.initState();
-//    initMobileNumberState();
-  }
 
 //  void _initJPush() async {
 //    await FlutterJPush.startup();
@@ -152,8 +128,12 @@ class BillAppState extends State<BillApp> {
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarManager.setColor(Colors.white);
-    return MaterialApp(
+
+    return new ScopedModel<AppModel>(
+      model: new AppModel(),
+      child: MaterialApp(
         title: '快记账',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -166,7 +146,9 @@ class BillAppState extends State<BillApp> {
             appBarTheme: AppBarTheme(
                 elevation: 0 // This removes the shadow from all App Bars.
                 )),
-        home: BottomNavigationWidget(),
-        onGenerateRoute: AppRouter.router.generator);
+            home: BottomNavigationWidget(),
+        onGenerateRoute: AppRouter.router.generator
+        )
+    );
   }
 }

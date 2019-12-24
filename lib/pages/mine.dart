@@ -5,30 +5,25 @@ import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/material.dart';
 
-class MinePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => MineState();
-}
+class MinePage extends StatelessWidget {
 
-class MineState extends State<MinePage> {
-  @override
-  void initState() {
-    super.initState();
+  void _toLogin(context) {
+    AppRouter.toPage(context, 'login');
   }
 
-  void _toTask() {
+  void _toTask(context) {
     AppRouter.toPage(context, 'tasks');
   }
 
-  void _toSaveReminder() {
+  void _toSaveReminder(context) {
     AppRouter.toPage(context, 'save-reminder');
   }
 
-  void _toSetLimit() {
+  void _toSetLimit(context) {
     AppRouter.toPage(context, 'limit-set');
   }
 
-  void _toCircles() {
+  void _toCircles(context) {
     AppRouter.toPage(context, 'circles');
   }
 
@@ -76,28 +71,31 @@ class MineState extends State<MinePage> {
                                   ])),
                           child: new Wrap(
                             children: <Widget>[
-                              new Container(
-                                child: new Center(
-                                  child: new Column(
-                                    children: <Widget>[
-                                      new Image.asset(
-                                        Assets.iconAvatar,
-                                        width: Adaptor.px(100.0),
-                                        height: Adaptor.px(100.0),
+                              new GestureDetector(
+                                  onTap: () => _toLogin(context),
+                                  child: new Container(
+                                    child: new Center(
+                                      child: new Column(
+                                        children: <Widget>[
+                                          new Image.asset(
+                                            Assets.iconAvatar,
+                                            width: Adaptor.px(100.0),
+                                            height: Adaptor.px(100.0),
+                                          ),
+                                          new Padding(
+                                            padding: EdgeInsets.only(
+                                                top: Adaptor.px(10.0),
+                                                bottom: Adaptor.px(20.0)),
+                                            child: new Text('未登录',
+                                                style: TextStyle(
+                                                    fontSize: Adaptor.px(30.0),
+                                                    color:
+                                                        AppColors.appTextDark)),
+                                          )
+                                        ],
                                       ),
-                                      new Padding(
-                                        padding: EdgeInsets.only(
-                                            top: Adaptor.px(10.0),
-                                            bottom: Adaptor.px(20.0)),
-                                        child: new Text('未登录',
-                                            style: TextStyle(
-                                                fontSize: Adaptor.px(30.0),
-                                                color: AppColors.appTextDark)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                    ),
+                                  )),
                               new Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -175,7 +173,7 @@ class MineState extends State<MinePage> {
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: _toTask,
+                                    onPressed: () => _toTask(context),
                                     child: new Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -235,7 +233,7 @@ class MineState extends State<MinePage> {
                                   padding: EdgeInsets.only(
                                       left: Adaptor.px(20.0),
                                       right: Adaptor.px(10.0)),
-                                  onPressed: _toSaveReminder,
+                                  onPressed: () => _toSaveReminder(context),
                                   child: new Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -294,7 +292,7 @@ class MineState extends State<MinePage> {
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: _toSetLimit,
+                                    onPressed: () => _toSetLimit(context),
                                     child: new Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -352,7 +350,7 @@ class MineState extends State<MinePage> {
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: _toCircles,
+                                    onPressed: () => _toCircles(context),
                                     child: new Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
