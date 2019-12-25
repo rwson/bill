@@ -26,4 +26,10 @@ abstract class _UserStore extends BaseStore with Store {
     switchLoading(false);
   }
 
+
+  @action
+  Future ensureLogin() async {
+    logined = true;
+  }
+
 }

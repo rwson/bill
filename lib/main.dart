@@ -1,7 +1,7 @@
 import 'package:bill/bottom_navigation_widget.dart';
-import 'package:bill/pages/circles/circles.dart';
-import 'package:bill/pages/circles/create-circle.dart';
-import 'package:bill/pages/circles/edit-circle.dart';
+import 'package:bill/pages/group/groups.dart';
+import 'package:bill/pages/group/create-group.dart';
+import 'package:bill/pages/group/edit-group.dart';
 import 'package:bill/pages/limit/limit-set.dart';
 import 'package:bill/pages/login.dart';
 import 'package:bill/pages/record.dart';
@@ -20,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() {
+  AppStores.initStores();
+
   Router router = new Router();
 
   router.define('tasks',
@@ -72,20 +74,20 @@ void main() {
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               LimitSetPage()),
       transitionType: TransitionType.native);
-  router.define('circles',
+  router.define('groups',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CirclesPage()),
+              GroupsPage()),
       transitionType: TransitionType.native);
-  router.define('create-circle',
+  router.define('create-group',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              CreateCirclePage()),
+              CreateGroupPage()),
       transitionType: TransitionType.native);
-  router.define('edit-circle',
+  router.define('edit-group',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditCirclePage()),
+              EditGroupPage()),
       transitionType: TransitionType.native);
   router.define('login',
       handler: Handler(
@@ -94,8 +96,6 @@ void main() {
       transitionType: TransitionType.native);
 
   AppRouter.router = router;
-
-  AppStores.initStores();
 
   runApp(BillApp());
 }

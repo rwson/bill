@@ -49,4 +49,11 @@ mixin _$UserStore on _UserStore, Store {
   Future getTopics() {
     return _$getTopicsAsyncAction.run(() => super.getTopics());
   }
+
+  final _$ensureLoginAsyncAction = AsyncAction('ensureLogin');
+
+  @override
+  Future ensureLogin() {
+    return _$ensureLoginAsyncAction.run(() => super.ensureLogin());
+  }
 }

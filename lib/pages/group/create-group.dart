@@ -16,12 +16,12 @@ class CircleItem {
   CircleItem({this.icon, this.type, this.desc, this.checked});
 }
 
-class CreateCirclePage extends StatefulWidget {
+class CreateGroupPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CreateCircleState();
+  State<StatefulWidget> createState() => CreateGroupState();
 }
 
-class CreateCircleState extends State<CreateCirclePage> {
+class CreateGroupState extends State<CreateGroupPage> {
   final _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();

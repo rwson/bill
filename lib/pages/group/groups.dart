@@ -6,12 +6,12 @@ import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CirclesPage extends StatefulWidget {
+class GroupsPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CirclesState();
+  State<StatefulWidget> createState() => GroupsState();
 }
 
-class CirclesState extends State<CirclesPage> {
+class GroupsState extends State<GroupsPage> {
   @override
   void initState() {
     super.initState();

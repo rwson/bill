@@ -13,6 +13,8 @@ class AppStores {
   static initStores() {
     _cNodeStore = new CNodeStore();
     _userStore = new UserStore();
+
+    _userStore.ensureLogin();
   }
 
 }

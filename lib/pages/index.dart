@@ -15,17 +15,9 @@ class IndexPage extends StatefulWidget {
 
 class IndexState extends State<IndexPage> {
 
-  final cNodeStore = AppStores.cNodeStore;
-
   @override
   void initState() {
     super.initState();
-    cNodeStore.getTopics();
-    print(cNodeStore.count);
-    cNodeStore.operateCount('add');
-    cNodeStore.operateCount('add');
-    cNodeStore.operateCount('add');
-    print('index init');
   }
 
   void _toRecord(context) {

@@ -54,8 +54,6 @@ class AnalysisPage extends StatefulWidget {
 
 class AnalysisState extends State<AnalysisPage> {
 
-  CNodeStore cNodeStore = AppStores.cNodeStore;
-
   int touchedIndex;
 
   @override
