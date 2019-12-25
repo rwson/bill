@@ -1,7 +1,11 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bill/stores/cnode.dart';
+import 'package:bill/stores/stores.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -49,6 +53,9 @@ class AnalysisPage extends StatefulWidget {
 }
 
 class AnalysisState extends State<AnalysisPage> {
+
+  CNodeStore cNodeStore = AppStores.cNodeStore;
+
   int touchedIndex;
 
   @override

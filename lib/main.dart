@@ -13,11 +13,10 @@ import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
 import 'package:bill/pages/task/task-detail.dart';
 import 'package:bill/pages/task/tasks.dart';
-import 'package:bill/models/app.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() {
@@ -96,6 +95,8 @@ void main() {
 
   AppRouter.router = router;
 
+  AppStores.initStores();
+
   runApp(BillApp());
 }
 
@@ -129,9 +130,7 @@ class BillApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterStatusbarManager.setColor(Colors.white);
 
-    return new ScopedModel<AppModel>(
-      model: new AppModel(),
-      child: MaterialApp(
+    return new MaterialApp(
         title: '快记账',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -148,7 +147,6 @@ class BillApp extends StatelessWidget {
                 )),
             home: BottomNavigationWidget(),
         onGenerateRoute: AppRouter.router.generator
-        )
-    );
+      );
   }
 }

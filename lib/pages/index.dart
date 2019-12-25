@@ -3,11 +3,10 @@ import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
-import 'package:scoped_model/scoped_model.dart';
-
-import 'package:bill/models/app.dart';
+import 'package:bill/stores/stores.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -16,12 +15,16 @@ class IndexPage extends StatefulWidget {
 
 class IndexState extends State<IndexPage> {
 
-  AppModel appModel = new AppModel();
+  final cNodeStore = AppStores.cNodeStore;
 
   @override
   void initState() {
     super.initState();
-    appModel.getTopics();
+    cNodeStore.getTopics();
+    print(cNodeStore.count);
+    cNodeStore.operateCount('add');
+    cNodeStore.operateCount('add');
+    cNodeStore.operateCount('add');
     print('index init');
   }
 
@@ -35,10 +38,10 @@ class IndexState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    final topics = ScopedModel.of<AppModel>(context, rebuildOnChange: true).topics;
     return Scaffold(
         appBar: AppBar(title: Text('首页', style: TextStyle(fontSize: 16.0))),
-        body: new Container(
+        body: new Observer(
+          builder: (_) => Container(
             padding: const EdgeInsets.all(8.0),
             child: new Column(children: <Widget>[
               new Row(
@@ -84,8 +87,7 @@ class IndexState extends State<IndexPage> {
                                       top: Adaptor.px(6.0),
                                       bottom: Adaptor.px(6.0)),
                                   child: new Text(
-                                    topics.topics.isEmpty ? '${topics.topics}' : '0.00',
-                                    // '100.00',
+                                      '100.00',
                                       style: TextStyle(
                                           color: AppColors.appWhite,
                                           fontSize: Adaptor.px(34.0),
@@ -788,6 +790,8 @@ class IndexState extends State<IndexPage> {
                       ])
                     ]))
               ])))
-            ])));
+            ])),
+        )
+        );
   }
 }

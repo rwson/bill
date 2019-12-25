@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'cnode.g.dart';
+
+@JsonSerializable()
 class TopicAuthor {
   String loginname;
   String avatar_url;
@@ -6,8 +11,13 @@ class TopicAuthor {
     this.loginname,
     this.avatar_url
   );
+
+  factory TopicAuthor.fromJson(Map<String, dynamic> json) => _$TopicAuthorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TopicAuthorToJson(this);
 }
 
+@JsonSerializable()
 class TopicsItem {
   String id;
   String author_id;
@@ -37,6 +47,10 @@ class TopicsItem {
     this.create_at,
     this.author
   );
+
+  factory TopicsItem.fromJson(Map<String, dynamic> json) => _$TopicsItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TopicsItemToJson(this);
 }
 
 class CNodeBean {
@@ -49,5 +63,4 @@ class CNodeBean {
     this.success,
     this.topics
   );
-
 }
