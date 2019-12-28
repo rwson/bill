@@ -13,10 +13,10 @@ class AppRouter {
   static toPage(BuildContext context, String path, [bool checkLogin = true]) {
     final userStore = AppStores.userStore;
 
-    if (checkLogin && userStore.logined != true) {
-      String finalPath = '$LOGIN_PATH?target=${Uri.encodeComponent(path)}';
-      return router.navigateTo(context, finalPath);
-    }
+    // if (checkLogin && userStore.logined != true) {
+    //   String finalPath = '$LOGIN_PATH?target=${Uri.encodeComponent(path)}';
+    //   return router.navigateTo(context, finalPath);
+    // }
     return router.navigateTo(context, path);
   }
 

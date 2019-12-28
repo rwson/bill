@@ -43,15 +43,15 @@ List<IconItem> _paymentIcons = [
 ];
 
 List<IconItem> _circleTypes = [
-  IconItem(icon: IconFont.iconDormRoom, type: 'c-1', desc: '寝室'),
-  IconItem(icon: IconFont.iconOffice, type: 'c-2', desc: '办公室'),
-  IconItem(icon: IconFont.iconRenting, type: 'c-3', desc: '合租'),
-  IconItem(icon: IconFont.iconEntertainment, type: 'c-4', desc: '一起玩'),
-  IconItem(icon: IconFont.iconTrial, type: 'c-5', desc: '旅行'),
-  IconItem(icon: IconFont.iconFamily, type: 'c-6', desc: '家庭'),
-  IconItem(icon: IconFont.iconBusiness, type: 'c-7', desc: '生意场'),
-  IconItem(icon: IconFont.iconClass, type: 'c-8', desc: '班集体'),
-  IconItem(icon: IconFont.iconSkirt, type: 'c-9', desc: '姐妹淘')
+  IconItem(icon: IconFont.iconDormRoom, type: 'g-1', desc: '寝室'),
+  IconItem(icon: IconFont.iconOffice, type: 'g-2', desc: '办公室'),
+  IconItem(icon: IconFont.iconRenting, type: 'g-3', desc: '合租'),
+  IconItem(icon: IconFont.iconEntertainment, type: 'g-4', desc: '一起玩'),
+  IconItem(icon: IconFont.iconTrial, type: 'g-5', desc: '旅行'),
+  IconItem(icon: IconFont.iconFamily, type: 'g-6', desc: '家庭'),
+  IconItem(icon: IconFont.iconBusiness, type: 'g-7', desc: '生意场'),
+  IconItem(icon: IconFont.iconClass, type: 'g-8', desc: '班集体'),
+  IconItem(icon: IconFont.iconSkirt, type: 'g-9', desc: '姐妹淘')
 ];
 
 int _paymentIconsLength = _paymentIcons.length;

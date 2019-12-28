@@ -33,3 +33,6 @@ abstract class _UserStore extends BaseStore with Store {
   }
 
 }
+
+
+UserStore userStore = new UserStore();
