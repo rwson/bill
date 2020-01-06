@@ -122,7 +122,7 @@ class CreateTaskState extends State<CreateTaskPage> {
     showDialog(
         context: context,
         builder: (context) {
-          return new AlertDialog(
+          return AlertDialog(
             titlePadding: EdgeInsets.only(
                 top: Adaptor.px(20.0),
                 bottom: 0,
@@ -133,20 +133,20 @@ class CreateTaskState extends State<CreateTaskPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择记账频率',
+            title: Text('选择记账频率',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
-              return new Container(
-                  child: new Wrap(
+                StatefulBuilder(builder: (context, StateSetter setState) {
+              return Container(
+                  child: Wrap(
                 children: List.generate(_frequencies.length, (int index) {
-                  return new Container(
+                  return Container(
                     height: Adaptor.px(66.0),
-                    child: new CheckboxListTile(
-                        title: new Text(_frequencieStrArr[index],
+                    child: CheckboxListTile(
+                        title: Text(_frequencieStrArr[index],
                             style: TextStyle(
                                 fontSize: Adaptor.px(28.0),
                                 color: AppColors.appTextDark)),
@@ -162,23 +162,23 @@ class CreateTaskState extends State<CreateTaskPage> {
               ));
             }),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 onPressed: _frequencySelectOk,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                child: new Text('确定',
+                child: Text('确定',
                     style: TextStyle(
                         fontSize: Adaptor.px(28.0),
                         color: AppColors.appYellow,
                         fontWeight: FontWeight.normal)),
               ),
-              new FlatButton(
+              FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  child: new Text('取消',
+                  child: Text('取消',
                       style: TextStyle(
                           fontSize: Adaptor.px(28.0),
                           color: AppColors.appTextDark,
@@ -192,7 +192,7 @@ class CreateTaskState extends State<CreateTaskPage> {
     showDialog(
         context: context,
         builder: (context) {
-          return new AlertDialog(
+          return AlertDialog(
             titlePadding: EdgeInsets.only(
                 top: Adaptor.px(20.0),
                 bottom: 0,
@@ -203,25 +203,25 @@ class CreateTaskState extends State<CreateTaskPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择记账时间',
+            title: Text('选择记账时间',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
-              return new Container(
+                StatefulBuilder(builder: (context, StateSetter setState) {
+              return Container(
                   height: Adaptor.px(350.0),
-                  child: new Center(
-                      child: new Container(
+                  child: Center(
+                      child: Container(
                           width: Adaptor.px(400.0),
                           height: Adaptor.px(300.0),
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Container(
+                              Container(
                                   width: Adaptor.px(180.0),
-                                  child: new CupertinoPicker(
+                                  child: CupertinoPicker(
                                     itemExtent: Adaptor.px(64.0),
                                     backgroundColor: Colors.white,
                                     onSelectedItemChanged: (int i) {
@@ -235,8 +235,8 @@ class CreateTaskState extends State<CreateTaskPage> {
                                     },
                                     children: List.generate(_clocks.length,
                                         (int index) {
-                                      return new Center(
-                                          child: new Text(_clocks[index],
+                                      return Center(
+                                          child: Text(_clocks[index],
                                               style: TextStyle(
                                                   color: AppColors.appTextDark,
                                                   fontSize: Adaptor.px(32.0),
@@ -244,9 +244,9 @@ class CreateTaskState extends State<CreateTaskPage> {
                                                       FontWeight.normal)));
                                     }).toList(),
                                   )),
-                              new Container(
+                              Container(
                                   width: Adaptor.px(180.0),
-                                  child: new CupertinoPicker(
+                                  child: CupertinoPicker(
                                     itemExtent: Adaptor.px(64.0),
                                     backgroundColor: Colors.white,
                                     onSelectedItemChanged: (int i) {
@@ -260,8 +260,8 @@ class CreateTaskState extends State<CreateTaskPage> {
                                     },
                                     children: List.generate(_minutes.length,
                                         (int index) {
-                                      return new Center(
-                                          child: new Text(_minutes[index],
+                                      return Center(
+                                          child: Text(_minutes[index],
                                               style: TextStyle(
                                                   color: AppColors.appTextDark,
                                                   fontSize: Adaptor.px(32.0),
@@ -273,23 +273,23 @@ class CreateTaskState extends State<CreateTaskPage> {
                           ))));
             }),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onPressed: _timeSelectOk,
-                child: new Text('确定',
+                child: Text('确定',
                     style: TextStyle(
                         fontSize: Adaptor.px(28.0),
                         color: AppColors.appYellow,
                         fontWeight: FontWeight.normal)),
               ),
-              new FlatButton(
+              FlatButton(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: new Text('取消',
+                  child: Text('取消',
                       style: TextStyle(
                           fontSize: Adaptor.px(28.0),
                           color: AppColors.appTextDark,
@@ -303,7 +303,7 @@ class CreateTaskState extends State<CreateTaskPage> {
     showDialog(
         context: context,
         builder: (context) {
-          return new AlertDialog(
+          return AlertDialog(
             titlePadding: EdgeInsets.only(
                 top: Adaptor.px(20.0),
                 bottom: 0,
@@ -314,23 +314,23 @@ class CreateTaskState extends State<CreateTaskPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择账单类型',
+            title: Text('选择账单类型',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
-              return new Container(
+                StatefulBuilder(builder: (context, StateSetter setState) {
+              return Container(
                   height: Adaptor.px(400.0),
                   margin: EdgeInsets.only(top: Adaptor.px(40.0)),
-                  child: new SingleChildScrollView(
-                    child: new Wrap(
+                  child: SingleChildScrollView(
+                    child: Wrap(
                         children: List.generate(_types.length, (int index) {
-                      return new Container(
+                      return Container(
                           height: Adaptor.px(66.0),
-                          child: new RadioListTile(
-                              title: new Text(_types[index].desc,
+                          child: RadioListTile(
+                              title: Text(_types[index].desc,
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appTextDark)),
@@ -346,23 +346,23 @@ class CreateTaskState extends State<CreateTaskPage> {
                   ));
             }),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 onPressed: _typeSelectOk,
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                child: new Text('确定',
+                child: Text('确定',
                     style: TextStyle(
                         fontSize: Adaptor.px(28.0),
                         color: AppColors.appYellow,
                         fontWeight: FontWeight.normal)),
               ),
-              new FlatButton(
+              FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  child: new Text('取消',
+                  child: Text('取消',
                       style: TextStyle(
                           fontSize: Adaptor.px(28.0),
                           color: AppColors.appTextDark,
@@ -379,41 +379,41 @@ class CreateTaskState extends State<CreateTaskPage> {
             title: Text('添加记账任务',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             margin: EdgeInsets.all(Adaptor.px(10.0)),
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-            decoration: new BoxDecoration(color: AppColors.appWhite),
+            decoration: BoxDecoration(color: AppColors.appWhite),
             width: Adaptor.px(1060.0),
-            child: new Wrap(
+            child: Wrap(
               children: <Widget>[
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账频率',
+                      Text('记账频率',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new FlatButton(
+                          child: FlatButton(
                               padding: EdgeInsets.all(0),
                               onPressed: () => _frequencySelect(context),
-                              child: new Align(
+                              child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: new Text(_frequencyStr,
+                                  child: Text(_frequencyStr,
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
                                           fontSize: Adaptor.px(26.0),
@@ -421,34 +421,34 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账时间',
+                      Text('记账时间',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new FlatButton(
+                          child: FlatButton(
                               padding: EdgeInsets.all(0),
                               onPressed: () => _timeSelect(context),
-                              child: new Align(
+                              child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: new Text(_timeStr,
+                                  child: Text(_timeStr,
                                       style: TextStyle(
                                           color: AppColors.appTextNormal,
                                           fontSize: Adaptor.px(26.0),
@@ -456,30 +456,30 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账金额',
+                      Text('记账金额',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Container(
-                              child: new TextField(
+                          child: Container(
+                              child: TextField(
                                   decoration: InputDecoration(
                                       contentPadding: EdgeInsets.only(
                                           right: Adaptor.px(6.0)),
@@ -503,34 +503,34 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('账单分类',
+                      Text('账单分类',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new FlatButton(
+                          child: FlatButton(
                               padding: EdgeInsets.all(0),
                               onPressed: () => _typeSelect(context),
-                              child: new Align(
+                              child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: new Text(
+                                  child: Text(
                                       _selectedType != null
                                           ? _selectedType.desc
                                           : '请选择',
@@ -541,30 +541,30 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('账单备注',
+                      Text('账单备注',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Container(
-                              child: new TextField(
+                          child: Container(
+                              child: TextField(
                                   decoration: InputDecoration(
                                       contentPadding: EdgeInsets.only(
                                           right: Adaptor.px(6.0)),
@@ -584,28 +584,28 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('是否确认',
+                      Text('是否确认',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Container(
-                          child: new Switch.adaptive(
+                      Container(
+                          child: Switch.adaptive(
                               value: _switchValue,
                               activeColor: AppColors.appGreen,
                               activeTrackColor: AppColors.appGreenLight,
@@ -619,7 +619,7 @@ class CreateTaskState extends State<CreateTaskPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(90.0),
                     padding: EdgeInsets.only(
@@ -628,13 +628,13 @@ class CreateTaskState extends State<CreateTaskPage> {
                         top: Adaptor.px(40.0),
                         left: Adaptor.px(10.0),
                         right: Adaptor.px(10.0)),
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: new FlatButton(
+                    child: FlatButton(
                         onPressed: () {},
-                        child: new Text('确定',
+                        child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,

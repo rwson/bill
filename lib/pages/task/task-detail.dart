@@ -21,38 +21,38 @@ class TaskDetailState extends State<TaskDetailPage> {
             title: Text('任务详情',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             margin: EdgeInsets.all(Adaptor.px(10.0)),
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-            decoration: new BoxDecoration(color: AppColors.appWhite),
+            decoration: BoxDecoration(color: AppColors.appWhite),
             width: Adaptor.px(1060.0),
-            child: new Wrap(
+            child: Wrap(
               children: <Widget>[
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账频率',
+                      Text('记账频率',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('周一 周二 周三',
+                              child: Text('周一 周二 周三',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -60,31 +60,31 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账时间',
+                      Text('记账时间',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('09:00',
+                              child: Text('09:00',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -92,31 +92,31 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('记账金额',
+                      Text('记账金额',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('￥3.00',
+                              child: Text('￥3.00',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -124,31 +124,31 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('账单分类',
+                      Text('账单分类',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('交通',
+                              child: Text('交通',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -156,31 +156,31 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('账单备注',
+                      Text('账单备注',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('地铁费',
+                              child: Text('地铁费',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -188,31 +188,31 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(90.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('是否确认',
+                      Text('是否确认',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(26.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Align(
+                          child: Align(
                               alignment: Alignment.centerRight,
-                              child: new Text('是',
+                              child: Text('是',
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
                                       fontSize: Adaptor.px(26.0),
@@ -220,43 +220,43 @@ class TaskDetailState extends State<TaskDetailPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(90.0),
                     margin: EdgeInsets.only(
                         top: Adaptor.px(30.0),
                         left: Adaptor.px(10.0),
                         right: Adaptor.px(10.0)),
-                    child: new Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        new Container(
-                          decoration: new BoxDecoration(
+                        Container(
+                          decoration: BoxDecoration(
                               color: AppColors.appYellow,
                               borderRadius: BorderRadius.all(
                                   Radius.circular(Adaptor.px(10.0)))),
                           width: Adaptor.px(320.0),
                           height: Adaptor.px(60.0),
-                          child: new GestureDetector(
+                          child: GestureDetector(
                               onTap: () {},
-                              child: new Center(
-                                  child: new Text('编辑',
+                              child: Center(
+                                  child: Text('编辑',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(26.0),
                                           fontWeight: FontWeight.normal,
                                           color: AppColors.appTextDark)))),
                         ),
-                        new Container(
+                        Container(
                             width: Adaptor.px(320.0),
                             height: Adaptor.px(60.0),
-                            decoration: new BoxDecoration(
+                            decoration: BoxDecoration(
                                 color: AppColors.appOutlay,
                                 borderRadius: BorderRadius.all(
                                     Radius.circular(Adaptor.px(10.0)))),
-                            child: new GestureDetector(
+                            child: GestureDetector(
                                 onTap: () {},
-                                child: new Center(
-                                    child: new Text('删除',
+                                child: Center(
+                                    child: Text('删除',
                                         style: TextStyle(
                                             fontSize: Adaptor.px(26.0),
                                             fontWeight: FontWeight.normal,

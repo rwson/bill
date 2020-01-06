@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:bill/bean/user.dart';
 
 import 'package:bill/http/http-util.dart';
@@ -17,19 +19,61 @@ abstract class _UserStore extends BaseStore with Store {
   bool logined = false;
 
   @observable
-  User userInfo = new User();
+  User userInfo;
 
-  @action
-  Future getTopics() async {
-    switchLoading(true);
+  Future<String> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    switchLoading(false);
+    String token = prefs.getString('userToken');
+    return token;
   }
 
+Future<void> setToken(token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userToken', token);
+  }
 
   @action
-  Future ensureLogin() async {
-    logined = true;
+  Future<bool> ensureLogin() async {
+    String token = await getToken();
+
+    if (token == null) {
+      logined = false;
+      return false;
+    }
+
+    Map<String, dynamic> resp = await HttpUtil.request(Api.ensureLogined, {} ,HttpUtil.GET);
+    HttpResponse data = new HttpResponse.formJson(resp);
+
+    if (data.success) {
+      logined = true;
+      userInfo = new User.fromJson(data.data);
+      await setToken(data.data['token']);
+    } else {
+      logined = false;
+    }
+
+    return logined;
+  }
+
+  @action
+  Future<bool> login(String mobile, String password, [String device]) async {
+    Map<String, dynamic> resp = await HttpUtil.request(Api.login, {
+      'mobile': mobile,
+      'password': password,
+      'device': device
+    }, HttpUtil.POST);
+    HttpResponse data = new HttpResponse.formJson(resp);
+
+    if (data.success) {
+      logined = true;
+      userInfo = new User.fromJson(data.data);
+      await setToken(data.data['token']);
+    } else {
+      logined = false;
+    }
+
+    return logined;
   }
 
 }

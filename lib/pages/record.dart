@@ -89,7 +89,7 @@ class RecordState extends State<RecordPage>
     DatePicker.showDatePicker(context,
         maxTime: DateTime.now(),
         locale: LocaleType.zh,
-        theme: new DatePickerTheme(
+        theme: DatePickerTheme(
             cancelStyle: TextStyle(
                 fontSize: Adaptor.px(28.0), color: AppColors.appTextDark),
             doneStyle: TextStyle(
@@ -117,13 +117,13 @@ class RecordState extends State<RecordPage>
   }
 
   Widget _buildPayment(BuildContext context) {
-    return new Container(
-        child: new Wrap(
+    return Container(
+        child: Wrap(
       children: <Widget>[
-        new Container(
+        Container(
           padding: EdgeInsets.only(bottom: Adaptor.px(28.0)),
-          decoration: new BoxDecoration(color: AppColors.appYellow),
-          child: new TextField(
+          decoration: BoxDecoration(color: AppColors.appYellow),
+          child: TextField(
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(Adaptor.px(20.0)),
                   hintText: '请输入金额',
@@ -146,23 +146,23 @@ class RecordState extends State<RecordPage>
               cursorWidth: 1.0,
               cursorColor: AppColors.appTextDark),
         ),
-        new Container(
+        Container(
             margin: EdgeInsets.only(top: Adaptor.px(20.0)),
             height: Adaptor.px(380.0),
-            child: new Swiper(
+            child: Swiper(
                 index: _selectedIndex,
                 loop: false,
                 itemBuilder: (context, index) {
                   List _subRow = _payTypes.sublist((index * 8),
                       min((index + 1) * 8, MethodsIcons.paymentLength));
-                  return new Container(
-                      child: new Wrap(
+                  return Container(
+                      child: Wrap(
                           children: List.generate(_subRow.length, (int i) {
                     TypeItem _item = _subRow[i];
-                    return new Container(
+                    return Container(
                       width: Adaptor.screenW() / 4,
                       height: Adaptor.px(170.0),
-                      child: new FlatButton(
+                      child: FlatButton(
                           onPressed: () {
                             int position = (index * 8) + i;
                             setState(() {
@@ -175,26 +175,26 @@ class RecordState extends State<RecordPage>
                                   });
                             });
                           },
-                          child: new Column(
+                          child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                new Container(
+                                Container(
                                     width: Adaptor.px(100),
                                     height: Adaptor.px(100),
                                     margin: EdgeInsets.only(
                                         bottom: Adaptor.px(10.0)),
-                                    decoration: new BoxDecoration(
+                                    decoration: BoxDecoration(
                                         color: _item.checked
                                             ? AppColors.appYellow
                                             : AppColors.appBorder,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(Adaptor.px(50)))),
-                                    child: new Icon(
+                                    child: Icon(
                                       _item.icon,
                                       size: Adaptor.px(50.0),
                                       color: AppColors.appTextDark,
                                     )),
-                                new Text(_item.desc,
+                                Text(_item.desc,
                                     style: TextStyle(
                                         fontSize: Adaptor.px(24.0),
                                         color: AppColors.appTextDark))
@@ -203,9 +203,9 @@ class RecordState extends State<RecordPage>
                   }).toList()));
                 },
                 itemCount: (MethodsIcons.paymentLength / 8).ceil(),
-                pagination: new SwiperPagination(
+                pagination: SwiperPagination(
                     alignment: Alignment.bottomCenter,
-                    builder: new RectSwiperPaginationBuilder(
+                    builder: RectSwiperPaginationBuilder(
                         color: AppColors.appBorder,
                         activeColor: AppColors.appYellow,
                         size: Size(18, 3),
@@ -218,74 +218,74 @@ class RecordState extends State<RecordPage>
                     _selectedIndex = index;
                   });
                 })),
-        new Container(
+        Container(
           padding: EdgeInsets.only(
               top: Adaptor.px(16.0),
               bottom: Adaptor.px(16.0),
               left: Adaptor.px(20.0),
               right: Adaptor.px(32.0)),
           height: Adaptor.px(100.0),
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
               border: Border(
             top: BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
             bottom:
                 BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
           )),
-          child: new Flex(
+          child: Flex(
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                new Container(
-                    child: new Text(
+                Container(
+                    child: Text(
                   '记账日期',
                   style: TextStyle(
                     fontSize: Adaptor.px(28.0),
                     color: AppColors.appTextDark,
                   ),
                 )),
-                new Expanded(
-                    child: new GestureDetector(
+                Expanded(
+                    child: GestureDetector(
                         onTap: () => _showDatePicker('pay'),
-                        child: new Align(
+                        child: Align(
                             alignment: Alignment.centerRight,
-                            child: new Text('2019-11-18',
+                            child: Text('2019-11-18',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0),
                                     fontWeight: FontWeight.normal)))))
               ]),
         ),
-        new Container(
+        Container(
           padding: EdgeInsets.only(
               top: Adaptor.px(16.0),
               bottom: Adaptor.px(16.0),
               left: Adaptor.px(20.0),
               right: Adaptor.px(32.0)),
           height: Adaptor.px(100.0),
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
               border: Border(
             bottom:
                 BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
           )),
-          child: new Flex(
+          child: Flex(
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                new Container(
-                    child: new Text(
+                Container(
+                    child: Text(
                   '账单备注',
                   style: TextStyle(
                     fontSize: Adaptor.px(28.0),
                     color: AppColors.appTextDark,
                   ),
                 )),
-                new Expanded(
-                    child: new Container(
+                Expanded(
+                    child: Container(
                         width: Adaptor.px(500.0),
                         height: Adaptor.px(68.0),
-                        child: new TextField(
+                        child: TextField(
                             controller: _payMarkController,
                             decoration: InputDecoration(
                                 contentPadding:
@@ -312,7 +312,7 @@ class RecordState extends State<RecordPage>
   }
 
   Widget _buildInCome() {
-    return new Container();
+    return Container();
   }
 
   @override
@@ -331,7 +331,7 @@ class RecordState extends State<RecordPage>
             indicatorColor: Colors.transparent,
             tabs: <Widget>[
               Tab(
-                  child: new Text('支出',
+                  child: Text('支出',
                       style: TextStyle(
                           fontSize:
                               Adaptor.px(_currentIndex == 0 ? 36.0 : 32.0),
@@ -339,7 +339,7 @@ class RecordState extends State<RecordPage>
                               ? FontWeight.w500
                               : FontWeight.w400))),
               Tab(
-                  child: new Text('收入',
+                  child: Text('收入',
                       style: TextStyle(
                           fontSize:
                               Adaptor.px(_currentIndex == 1 ? 36.0 : 32.0),

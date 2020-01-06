@@ -17,9 +17,16 @@ class GroupsState extends State<GroupsPage> {
     super.initState();
   }
 
-  void _createCircle() {
-    AppRouter.toPage(context, 'create-circle');
+  void _createGroup() {
+    AppRouter.toPage(context, 'create-group');
   }
+
+  void _editGroup(int id) {
+    AppRouter.toPage(context, 'create-group?id=${id.toString()}');
+  }
+
+
+
 
   void _share() {}
 
@@ -30,19 +37,19 @@ class GroupsState extends State<GroupsPage> {
             title: Text('记账圈子',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             height: double.infinity,
-            child: new Stack(children: <Widget>[
-              new Container(
-                  child: new SingleChildScrollView(
-                      child: new Container(
+            child: Stack(children: <Widget>[
+              Container(
+                  child: SingleChildScrollView(
+                      child: Container(
                           margin: EdgeInsets.only(
                               top: Adaptor.px(10.0),
                               left: Adaptor.px(10.0),
                               right: Adaptor.px(10.0)),
-                          child: new Wrap(
+                          child: Wrap(
                             children: <Widget>[
-                              new Container(
+                              Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
                                       top: Adaptor.px(10.0),
@@ -50,7 +57,7 @@ class GroupsState extends State<GroupsPage> {
                                       right: Adaptor.px(10.0),
                                       bottom: Adaptor.px(10.0)),
                                   padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5.0)),
@@ -60,20 +67,20 @@ class GroupsState extends State<GroupsPage> {
                                             blurRadius: 5.0,
                                             offset: Offset(0, 1.0))
                                       ]),
-                                  child: new Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Row(
+                                      Row(
                                         children: <Widget>[
-                                          new Container(
+                                          Container(
                                               width: Adaptor.px(100.0),
                                               height: Adaptor.px(100.0),
                                               margin: EdgeInsets.only(
                                                   right: Adaptor.px(18.0)),
-                                              decoration: new BoxDecoration(
+                                              decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .all(Radius.circular(
                                                           Adaptor.px(80.0))),
@@ -81,26 +88,26 @@ class GroupsState extends State<GroupsPage> {
                                                       width: Adaptor.px(4.0),
                                                       color:
                                                           AppColors.appBorder)),
-                                              child: new ClipOval(
-                                                  child: new Image.asset(
+                                              child: ClipOval(
+                                                  child: Image.asset(
                                                 Assets.testImage,
                                                 width: Adaptor.px(100.0),
                                                 height: Adaptor.px(100.0),
                                               ))),
-                                          new Column(
+                                          Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('个人账单',
+                                              Text('个人账单',
                                                   style: TextStyle(
                                                       fontSize:
                                                           Adaptor.px(32.0),
                                                       color: AppColors
                                                           .appTextDark)),
-                                              new Padding(
+                                              Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: new Text(
+                                                child: Text(
                                                     '创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
@@ -114,7 +121,7 @@ class GroupsState extends State<GroupsPage> {
                                       )
                                     ],
                                   )),
-                              new Container(
+                              Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
                                       top: Adaptor.px(10.0),
@@ -122,7 +129,7 @@ class GroupsState extends State<GroupsPage> {
                                       right: Adaptor.px(10.0),
                                       bottom: Adaptor.px(10.0)),
                                   padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5.0)),
@@ -132,20 +139,20 @@ class GroupsState extends State<GroupsPage> {
                                             blurRadius: 5.0,
                                             offset: Offset(0, 1.0))
                                       ]),
-                                  child: new Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Row(
+                                      Row(
                                         children: <Widget>[
-                                          new Container(
+                                          Container(
                                               width: Adaptor.px(130.0),
                                               height: Adaptor.px(130.0),
                                               margin: EdgeInsets.only(
                                                   right: Adaptor.px(18.0)),
-                                              decoration: new BoxDecoration(
+                                              decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .all(Radius.circular(
                                                           Adaptor.px(80.0))),
@@ -154,26 +161,26 @@ class GroupsState extends State<GroupsPage> {
                                                       color:
                                                           AppColors.appBorder),
                                                   color: AppColors.appBorder),
-                                              child: new ClipOval(
-                                                  child: new Image.asset(
+                                              child: ClipOval(
+                                                  child: Image.asset(
                                                 Assets.testImage,
                                                 width: Adaptor.px(130.0),
                                                 height: Adaptor.px(130.0),
                                               ))),
-                                          new Column(
+                                          Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('合租',
+                                              Text('合租',
                                                   style: TextStyle(
                                                       fontSize:
                                                           Adaptor.px(32.0),
                                                       color: AppColors
                                                           .appTextDark)),
-                                              new Padding(
+                                              Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: new Text(
+                                                child: Text(
                                                     '创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
@@ -185,20 +192,20 @@ class GroupsState extends State<GroupsPage> {
                                           )
                                         ],
                                       ),
-                                      new Container(
+                                      Container(
                                           width: Adaptor.px(40.0),
                                           height: Adaptor.px(40.0),
-                                          child: new FlatButton(
+                                          child: FlatButton(
                                               padding: EdgeInsets.all(0),
                                               onPressed: _share,
-                                              child: new Icon(
+                                              child: Icon(
                                                 IconFont.iconShare,
                                                 size: Adaptor.px(40.0),
                                                 color: AppColors.appYellow,
                                               )))
                                     ],
                                   )),
-                              new Container(
+                              Container(
                                   width: Adaptor.px(1040.0),
                                   margin: EdgeInsets.only(
                                       top: Adaptor.px(10.0),
@@ -206,7 +213,7 @@ class GroupsState extends State<GroupsPage> {
                                       right: Adaptor.px(10.0),
                                       bottom: Adaptor.px(10.0)),
                                   padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                       color: AppColors.appWhite,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5.0)),
@@ -216,20 +223,20 @@ class GroupsState extends State<GroupsPage> {
                                             blurRadius: 5.0,
                                             offset: Offset(0, 1.0))
                                       ]),
-                                  child: new Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Row(
+                                      Row(
                                         children: <Widget>[
-                                          new Container(
+                                          Container(
                                               width: Adaptor.px(130.0),
                                               height: Adaptor.px(130.0),
                                               margin: EdgeInsets.only(
                                                   right: Adaptor.px(18.0)),
-                                              decoration: new BoxDecoration(
+                                              decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .all(Radius.circular(
                                                           Adaptor.px(80.0))),
@@ -237,40 +244,40 @@ class GroupsState extends State<GroupsPage> {
                                                       width: Adaptor.px(4.0),
                                                       color:
                                                           AppColors.appBorder)),
-                                              child: new ClipOval(
-                                                  child: new Stack(
+                                              child: ClipOval(
+                                                  child: Stack(
                                                 children: <Widget>[
-                                                  new Positioned(
+                                                  Positioned(
                                                       left: 0,
                                                       top: 0,
-                                                      child: new Image.asset(
+                                                      child: Image.asset(
                                                         Assets.testImage,
                                                         width: Adaptor.px(60.0),
                                                         height:
                                                             Adaptor.px(60.0),
                                                       )),
-                                                  new Positioned(
+                                                  Positioned(
                                                       right: 0,
                                                       top: 0,
-                                                      child: new Image.asset(
+                                                      child: Image.asset(
                                                         Assets.test2Image,
                                                         width: Adaptor.px(60.0),
                                                         height:
                                                             Adaptor.px(60.0),
                                                       )),
-                                                  new Positioned(
+                                                  Positioned(
                                                       left: 0,
                                                       bottom: 0,
-                                                      child: new Image.asset(
+                                                      child: Image.asset(
                                                         Assets.test3Image,
                                                         width: Adaptor.px(60.0),
                                                         height:
                                                             Adaptor.px(60.0),
                                                       )),
-                                                  new Positioned(
+                                                  Positioned(
                                                       right: 0,
                                                       bottom: 0,
-                                                      child: new Image.asset(
+                                                      child: Image.asset(
                                                         Assets.testImage,
                                                         width: Adaptor.px(60.0),
                                                         height:
@@ -278,20 +285,20 @@ class GroupsState extends State<GroupsPage> {
                                                       ))
                                                 ],
                                               ))),
-                                          new Column(
+                                          Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Text('宿舍',
+                                              Text('宿舍',
                                                   style: TextStyle(
                                                       fontSize:
                                                           Adaptor.px(32.0),
                                                       color: AppColors
                                                           .appTextDark)),
-                                              new Padding(
+                                              Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: new Text(
+                                                child: Text(
                                                     '创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
@@ -303,13 +310,13 @@ class GroupsState extends State<GroupsPage> {
                                           )
                                         ],
                                       ),
-                                      new Container(
+                                      Container(
                                           width: Adaptor.px(40.0),
                                           height: Adaptor.px(40.0),
-                                          child: new FlatButton(
+                                          child: FlatButton(
                                               padding: EdgeInsets.all(0),
                                               onPressed: _share,
-                                              child: new Icon(
+                                              child: Icon(
                                                 IconFont.iconShare,
                                                 size: Adaptor.px(40.0),
                                                 color: AppColors.appYellow,
@@ -318,18 +325,18 @@ class GroupsState extends State<GroupsPage> {
                                   ))
                             ],
                           )))),
-              new Positioned(
+              Positioned(
                   left: 0,
                   bottom: 0,
                   right: 0,
-                  child: new Container(
+                  child: Container(
                       height: Adaptor.px(80.0),
                       color: AppColors.appYellow,
-                      child: new Center(
-                          child: new FlatButton(
-                              onPressed: _createCircle,
-                              child: new Text('新建圈子',
-                                  style: new TextStyle(
+                      child: Center(
+                          child: FlatButton(
+                              onPressed: _createGroup,
+                              child: Text('新建圈子',
+                                  style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appWhite))))))
             ])));

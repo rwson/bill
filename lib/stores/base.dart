@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 part 'base.g.dart';
 

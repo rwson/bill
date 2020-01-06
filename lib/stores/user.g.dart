@@ -43,17 +43,17 @@ mixin _$UserStore on _UserStore, Store {
     }, _$userInfoAtom, name: '${_$userInfoAtom.name}_set');
   }
 
-  final _$getTopicsAsyncAction = AsyncAction('getTopics');
-
-  @override
-  Future getTopics() {
-    return _$getTopicsAsyncAction.run(() => super.getTopics());
-  }
-
   final _$ensureLoginAsyncAction = AsyncAction('ensureLogin');
 
   @override
-  Future ensureLogin() {
+  Future<bool> ensureLogin() {
     return _$ensureLoginAsyncAction.run(() => super.ensureLogin());
+  }
+
+  final _$loginAsyncAction = AsyncAction('login');
+
+  @override
+  Future<bool> login(String mobile, String password, [String device]) {
+    return _$loginAsyncAction.run(() => super.login(mobile, password, device));
   }
 }

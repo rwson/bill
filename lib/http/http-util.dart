@@ -1,7 +1,38 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:dio/dio.dart';
 import 'package:bill/api.dart';
+
+Future<String> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String token = prefs.getString('userToken');
+  return token;
+}
+
+class HttpResponse<T> {
+
+  bool success;
+  String message;
+  T data;
+
+  HttpResponse({
+    this.success,
+    this.message,
+    this.data
+ });
+
+ factory HttpResponse.formJson(json) {
+   return HttpResponse(
+     success: json['success'],
+     message: json['message'],
+     data: json['data']
+   );
+ }
+
+}
 
 class HttpUtil {
   static Dio dio;
@@ -16,9 +47,20 @@ class HttpUtil {
   static const String PATCH = 'patch';
   static const String DELETE = 'delete';
 
-  static Future<Map> request(String url, {data, method}) async {
+  static Future<Map<String, dynamic>> request(String url, [data, method]) async {
     data = data ?? {};
     method = method ?? 'GET';
+
+    final String token = await getToken();
+
+    Dio dio = createInstance();
+
+    final Options options = new Options(
+      method: method,
+      headers: {
+        'authorization': 'Bearer $token'
+      }
+    );
 
     data.forEach((key, value) {
       if (url.indexOf(key) != -1) {
@@ -26,16 +68,13 @@ class HttpUtil {
       }
     });
 
-    Dio dio = createInstance();
     var result;
 
     try {
-      Response response = await dio.request(url,
-          data: data, options: new Options(method: method));
-
+      Response response = await dio.request(url, data: data, options: options);
       result = response.data;
     } on DioError catch (e) {
-      print(e.toString());
+      result = e.response;
     }
 
     return result;

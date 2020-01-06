@@ -3,6 +3,11 @@ import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flt_telephony_info/flt_telephony_info.dart';
+
+import 'package:bill/stores/stores.dart';
+
+import 'package:bot_toast/bot_toast.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({@required this.target});
@@ -16,6 +21,8 @@ class LoginPage extends StatefulWidget {
 class LoginState extends State<LoginPage> {
   final _amountController = TextEditingController();
 
+  final userStore = AppStores.userStore;
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +34,16 @@ class LoginState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _toLogin() {
+  Future<void> _toLogin() async {
+    TelephonyInfo info;
+    try {
+      info = await FltTelephonyInfo.info;
+      print(info.toString());
+    } catch(e) {
+      BotToast.showText(text: '手机号获取失败, 请手动填写');
+    }
+
+    await userStore.login('13814529475', '!@#qwe456', 'xiaomi 8 ud');
     if (widget.target != '') {
       AppRouter.redirectTo(context, widget.target);
     }
@@ -40,7 +56,7 @@ class LoginState extends State<LoginPage> {
             title: Text('登录',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             margin: EdgeInsets.only(
                 top: Adaptor.px(20.0),
                 left: Adaptor.px(10.0),
@@ -48,19 +64,19 @@ class LoginState extends State<LoginPage> {
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
             width: Adaptor.px(1040.0),
-            child: new Wrap(
+            child: Wrap(
               children: <Widget>[
-                new Container(
+                Container(
                     width: Adaptor.px(1040.0),
                     height: Adaptor.px(80.0),
                     margin: EdgeInsets.only(top: Adaptor.px(20.0)),
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: new FlatButton(
+                    child: FlatButton(
                         onPressed: _toLogin,
-                        child: new Text('一键登录',
+                        child: Text('一键登录',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,

@@ -1,1 +1,1 @@
-{"_info":"// This is a generated file; do not edit or check into version control.","dependencyGraph":[{"name":"flutter_statusbar_manager","dependencies":[]},{"name":"shared_preferences","dependencies":[]}]}
+{"_info":"// This is a generated file; do not edit or check into version control.","dependencyGraph":[{"name":"flt_telephony_info","dependencies":[]},{"name":"flutter_statusbar_manager","dependencies":[]},{"name":"shared_preferences","dependencies":[]}]}

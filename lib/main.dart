@@ -8,7 +8,7 @@ import 'package:bill/pages/record.dart';
 import 'package:bill/pages/reminder/create-reminder.dart';
 import 'package:bill/pages/reminder/edit-reminder.dart';
 import 'package:bill/pages/reminder/reminder-detail.dart';
-import 'package:bill/pages/reminder/save-reminder.dart';
+import 'package:bill/pages/reminder/reminders.dart';
 import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
 import 'package:bill/pages/task/task-detail.dart';
@@ -18,10 +18,10 @@ import 'package:bill/stores/stores.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 void main() {
-  AppStores.initStores();
-
   Router router = new Router();
 
   router.define('tasks',
@@ -52,7 +52,7 @@ void main() {
   router.define('save-reminder',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              SaveReminderPage()),
+              RemindersPage()),
       transitionType: TransitionType.native);
   router.define('create-reminder',
       handler: Handler(
@@ -62,12 +62,12 @@ void main() {
   router.define('reminder-detail',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              ReminderDetailPage()),
+              ReminderDetailPage(id: (params['id'] != null && params['id'].length > 0) ? params['id'][0] : '')),
       transitionType: TransitionType.native);
   router.define('edit-reminder',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditReminderPage()),
+              EditReminderPage(id: (params['id'] != null && params['id'].length > 0) ? params['id'][0] : '')),
       transitionType: TransitionType.native);
   router.define('limit-set',
       handler: Handler(
@@ -92,7 +92,8 @@ void main() {
   router.define('login',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              LoginPage(target: params['target'][0])),
+              LoginPage(target: (params['target'] != null && params['target'].length > 0) ? params['target'][0] : '')
+          ),
       transitionType: TransitionType.native);
 
   AppRouter.router = router;
@@ -101,36 +102,15 @@ void main() {
 }
 
 class BillApp extends StatelessWidget {
-//  com.rwson.bill
 
-//  void _initJPush() async {
-//    await FlutterJPush.startup();
-//    print("初始化jpush成功");
-//    var registrationID =await FlutterJPush.getRegistrationID();
-//    print(registrationID);
-//    _initNotification();
-//  }
-//
-//  void _initNotification() async {
-//    FlutterJPush.addReceiveNotificationListener(
-//            (JPushNotification notification) {
-//          print("收到推送提醒: $notification");
-//        }
-//    );
-//
-//    FlutterJPush.addReceiveOpenNotificationListener(
-//            (JPushNotification notification) {
-//          print("打开了推送提醒: $notification");
-//        }
-//    );
-//  }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    AppStores.initStores();
+
     FlutterStatusbarManager.setColor(Colors.white);
 
-    return new MaterialApp(
+    return BotToastInit(
+      child: new MaterialApp(
         title: '快记账',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -143,10 +123,25 @@ class BillApp extends StatelessWidget {
             ),
             primaryColor: Colors.white,
             appBarTheme: AppBarTheme(
-                elevation: 0 // This removes the shadow from all App Bars.
-                )),
-            home: BottomNavigationWidget(),
+              elevation: 0 // app标题栏阴影
+            )),
+        // home: new SplashScreen(
+        //   seconds: 10,
+        //   navigateAfterSeconds: BottomNavigationWidget(),
+        //   title: new Text(
+        //     'Welcome In SplashScreen',
+        //     style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        //   ),
+        //   image: new Image.network('https://flutter.cn/images/catalog-widget-placeholder.png'),
+        //   backgroundColor: Colors.white,
+        //   styleTextUnderTheLoader: new TextStyle(),
+        //   photoSize: 100.0,
+        //   loaderColor: Colors.red,
+        // ),
+        navigatorObservers: [BotToastNavigatorObserver()],
+        home: BottomNavigationWidget(),
         onGenerateRoute: AppRouter.router.generator
-      );
+      )
+    );
   }
 }

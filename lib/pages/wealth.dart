@@ -43,7 +43,7 @@ class WealthState extends State<WealthPage> {
     showDialog(
         context: context,
         builder: (context) {
-          return new AlertDialog(
+          return AlertDialog(
             titlePadding: EdgeInsets.only(
                 top: Adaptor.px(20.0),
                 bottom: 0,
@@ -54,25 +54,25 @@ class WealthState extends State<WealthPage> {
                 bottom: 0,
                 left: Adaptor.px(20.0),
                 right: Adaptor.px(20.0)),
-            title: new Text('选择查询年度',
+            title: Text('选择查询年度',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
             content:
-                new StatefulBuilder(builder: (context, StateSetter setState) {
-              return new Container(
+                StatefulBuilder(builder: (context, StateSetter setState) {
+              return Container(
                   height: Adaptor.px(350.0),
-                  child: new Center(
-                      child: new Container(
+                  child: Center(
+                      child: Container(
                           width: Adaptor.px(200.0),
                           height: Adaptor.px(300.0),
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              new Container(
+                              Container(
                                   width: Adaptor.px(180.0),
-                                  child: new CupertinoPicker(
+                                  child: CupertinoPicker(
                                     itemExtent: Adaptor.px(64.0),
                                     backgroundColor: Colors.white,
                                     onSelectedItemChanged: (int i) {
@@ -82,8 +82,8 @@ class WealthState extends State<WealthPage> {
                                     },
                                     children: List.generate(_years.length,
                                         (int index) {
-                                      return new Center(
-                                          child: new Text(_years[index],
+                                      return Center(
+                                          child: Text(_years[index],
                                               style: TextStyle(
                                                   color: AppColors.appTextDark,
                                                   fontSize: Adaptor.px(32.0),
@@ -95,23 +95,23 @@ class WealthState extends State<WealthPage> {
                           ))));
             }),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onPressed: _yearSelectOk,
-                child: new Text('确定',
+                child: Text('确定',
                     style: TextStyle(
                         fontSize: Adaptor.px(28.0),
                         color: AppColors.appYellow,
                         fontWeight: FontWeight.normal)),
               ),
-              new FlatButton(
+              FlatButton(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: new Text('取消',
+                  child: Text('取消',
                       style: TextStyle(
                           fontSize: Adaptor.px(28.0),
                           color: AppColors.appTextDark,
@@ -128,23 +128,23 @@ class WealthState extends State<WealthPage> {
             title: Text('资产',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
-            child: new SingleChildScrollView(
-                child: new Container(
+        body: Container(
+            child: SingleChildScrollView(
+                child: Container(
           margin: EdgeInsets.only(
               top: Adaptor.px(10.0),
               left: Adaptor.px(10.0),
               right: Adaptor.px(10.0)),
-          child: new Wrap(
+          child: Wrap(
             children: <Widget>[
-              new Container(
+              Container(
                   margin: EdgeInsets.only(
                       top: Adaptor.px(10.0),
                       left: Adaptor.px(10.0),
                       right: Adaptor.px(10.0)),
                   width: Adaptor.px(1040.0),
                   height: Adaptor.px(350.0),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
@@ -160,82 +160,82 @@ class WealthState extends State<WealthPage> {
                             AppColors.appYellow,
                             AppColors.appYellowLight
                           ])),
-                  child: new Container(
-                    child: new Column(
+                  child: Container(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        new Container(
-                            child: new FlatButton(
+                        Container(
+                            child: FlatButton(
                                 padding: EdgeInsets.all(Adaptor.px(10.0)),
                                 onPressed: () => _showYearSelect(context),
-                                child: new Row(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
-                                    new Text('$_currentYear年',
+                                    Text('$_currentYear年',
                                         style: TextStyle(
                                             color: AppColors.appTextDark,
                                             fontSize: Adaptor.px(28.0),
                                             fontWeight: FontWeight.normal)),
-                                    new Padding(
+                                    Padding(
                                       padding: EdgeInsets.only(
                                           left: Adaptor.px(4.0)),
-                                      child: new Icon(IconFont.iconDown,
+                                      child: Icon(IconFont.iconDown,
                                           size: Adaptor.px(20.0),
                                           color: AppColors.appTextDark),
                                     )
                                   ],
                                 ))),
-                        new Container(
+                        Container(
                           margin: EdgeInsets.only(bottom: Adaptor.px(40.0)),
-                          child: new Column(children: <Widget>[
-                            new Text('全年结余',
+                          child: Column(children: <Widget>[
+                            Text('全年结余',
                                 style: TextStyle(
                                     fontSize: Adaptor.px(32.0),
                                     color: AppColors.appTextDark)),
-                            new Text('0',
+                            Text('0',
                                 style: TextStyle(
                                     fontSize: Adaptor.px(48.0),
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.appTextDark))
                           ]),
                         ),
-                        new Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new Expanded(
+                            Expanded(
                                 flex: 1,
-                                child: new Container(
+                                child: Container(
                                     width: Adaptor.px(Adaptor.screenW()),
-                                    decoration: new BoxDecoration(
+                                    decoration: BoxDecoration(
                                         border: Border(
                                             right: BorderSide(
                                                 width: Adaptor.onePx(),
                                                 color:
                                                     AppColors.appBorderDark))),
-                                    child: new Column(
+                                    child: Column(
                                       children: <Widget>[
-                                        new Text('全年支出',
+                                        Text('全年支出',
                                             style: TextStyle(
                                                 fontSize: Adaptor.px(28.0),
                                                 color: AppColors.appTextDark)),
-                                        new Text('0.00',
+                                        Text('0.00',
                                             style: TextStyle(
                                                 fontSize: Adaptor.px(32.0),
                                                 fontWeight: FontWeight.w400,
                                                 color: AppColors.appTextDark))
                                       ],
                                     ))),
-                            new Expanded(
+                            Expanded(
                                 flex: 1,
-                                child: new Container(
-                                    child: new Column(
+                                child: Container(
+                                    child: Column(
                                   children: <Widget>[
-                                    new Text('全年收入',
+                                    Text('全年收入',
                                         style: TextStyle(
                                             fontSize: Adaptor.px(28.0),
                                             color: AppColors.appTextDark)),
-                                    new Text('0.00',
+                                    Text('0.00',
                                         style: TextStyle(
                                             fontSize: Adaptor.px(32.0),
                                             fontWeight: FontWeight.w400,
@@ -247,7 +247,7 @@ class WealthState extends State<WealthPage> {
                       ],
                     ),
                   )),
-              new Container(
+              Container(
                   margin: EdgeInsets.only(
                       top: Adaptor.px(20.0),
                       bottom: Adaptor.px(20.0),
@@ -255,7 +255,7 @@ class WealthState extends State<WealthPage> {
                       right: Adaptor.px(10.0)),
                   width: Adaptor.px(1040.0),
                   padding: EdgeInsets.all(Adaptor.px(20.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       boxShadow: [
@@ -264,508 +264,508 @@ class WealthState extends State<WealthPage> {
                             blurRadius: 5.0,
                             offset: Offset(0, 1.0))
                       ]),
-                  child: new Column(children: <Widget>[
-                    new Container(
+                  child: Column(children: <Widget>[
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(80.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(10.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('月份',
+                              Container(
+                                child: Text('月份',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(30.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text('收入',
+                              Container(
+                                child: Text('收入',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(30.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text('支出',
+                              Container(
+                                child: Text('支出',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(30.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text('结余',
+                              Container(
+                                child: Text('结余',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(30.0),
                                         color: AppColors.appTextDark)),
                               )
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
                             ])),
-                    new Container(
+                    Container(
                         width: Adaptor.px(1040.0),
                         height: Adaptor.px(76.0),
                         padding: EdgeInsets.only(
                             bottom: Adaptor.px(20.0), top: Adaptor.px(20.0)),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     width: Adaptor.onePx(),
                                     color: AppColors.appBorder))),
-                        child: new Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              new Container(
-                                child: new Text('2019-11',
+                              Container(
+                                child: Text('2019-11',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),
                               ),
-                              new Container(
-                                child: new Text(
+                              Container(
+                                child: Text(
                                   '1000000',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
                                       color: AppColors.appIncome),
                                 ),
                               ),
-                              new Container(
-                                  child: new Text('1000000',
+                              Container(
+                                  child: Text('1000000',
                                       style: TextStyle(
                                           fontSize: Adaptor.px(28.0),
                                           color: AppColors.appOutlay))),
-                              new Container(
-                                child: new Text('800000',
+                              Container(
+                                child: Text('800000',
                                     style: TextStyle(
                                         fontSize: Adaptor.px(28.0),
                                         color: AppColors.appTextDark)),

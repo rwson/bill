@@ -4,8 +4,36 @@ import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/material.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/limit.dart';
+import 'package:bill/stores/user.dart';
+import 'package:bill/stores/reminder.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-class MinePage extends StatelessWidget {
+class MinePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => MineState();
+}
+
+class MineState extends State<MinePage> {
+
+  final UserStore userStore = AppStores.userStore;
+  final LimitStore limitStore = AppStores.limitStore;
+  final ReminderStore reminderStore = AppStores.reminderStore;
+
+  @override
+  initState() {
+    super.initState();
+    _initPage();
+  }
+
+  Future<void> _initPage() async {
+    bool logined = await userStore.ensureLogin();
+    if (logined) {
+      limitStore.queryLimit();
+      reminderStore.queryReminder();
+    }
+  }
 
   void _toLogin(context) {
     AppRouter.toPage(context, 'login');
@@ -24,7 +52,7 @@ class MinePage extends StatelessWidget {
   }
 
   void _toCircles(context) {
-    AppRouter.toPage(context, 'circles');
+    AppRouter.toPage(context, 'groups');
   }
 
   @override
@@ -34,15 +62,16 @@ class MinePage extends StatelessWidget {
             title: Text('我的',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
-            child: new SingleChildScrollView(
-                child: new Container(
+        body: Container(
+            child: SingleChildScrollView(
+                child: Observer(
+                  builder: (_) => Container(
                     margin: EdgeInsets.only(
                         top: Adaptor.px(10.0),
                         left: Adaptor.px(10.0),
                         right: Adaptor.px(10.0)),
-                    child: new Wrap(children: <Widget>[
-                      new Container(
+                    child: Wrap(children: <Widget>[
+                      Container(
                           width: Adaptor.px(1040.0),
                           height: Adaptor.px(350.0),
                           margin: EdgeInsets.only(
@@ -53,7 +82,7 @@ class MinePage extends StatelessWidget {
                               top: Adaptor.px(30.0),
                               left: Adaptor.px(30.0),
                               right: Adaptor.px(30.0)),
-                          decoration: new BoxDecoration(
+                          decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5.0)),
                               boxShadow: [
@@ -69,24 +98,31 @@ class MinePage extends StatelessWidget {
                                     AppColors.appYellow,
                                     AppColors.appYellowLight
                                   ])),
-                          child: new Wrap(
+                          child: Wrap(
                             children: <Widget>[
-                              new GestureDetector(
+                              GestureDetector(
                                   onTap: () => _toLogin(context),
-                                  child: new Container(
-                                    child: new Center(
-                                      child: new Column(
+                                  child: Container(
+                                    child: Center(
+                                      child: Column(
                                         children: <Widget>[
-                                          new Image.asset(
+                                          userStore.logined ?
+                                          Image.network(
+                                            userStore.userInfo.avatar,
+                                            width: Adaptor.px(100.0),
+                                            height: Adaptor.px(100.0),
+                                          )
+                                          :
+                                          Image.asset(
                                             Assets.iconAvatar,
                                             width: Adaptor.px(100.0),
                                             height: Adaptor.px(100.0),
                                           ),
-                                          new Padding(
+                                          Padding(
                                             padding: EdgeInsets.only(
                                                 top: Adaptor.px(10.0),
                                                 bottom: Adaptor.px(20.0)),
-                                            child: new Text('未登录',
+                                            child: Text(userStore.logined ? userStore.userInfo.nickname : '未登录',
                                                 style: TextStyle(
                                                     fontSize: Adaptor.px(30.0),
                                                     color:
@@ -96,21 +132,21 @@ class MinePage extends StatelessWidget {
                                       ),
                                     ),
                                   )),
-                              new Row(
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  new Column(
+                                  Column(
                                     children: <Widget>[
-                                      new Text('0',
+                                      Text('0',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(48.0),
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.appTextDark)),
-                                      new Padding(
+                                      Padding(
                                         padding:
                                             EdgeInsets.all(Adaptor.px(16.0)),
-                                        child: new Text(
+                                        child: Text(
                                           '记账天数',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(28.0),
@@ -119,17 +155,17 @@ class MinePage extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  new Column(
+                                  Column(
                                     children: <Widget>[
-                                      new Text('0',
+                                      Text('0',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(48.0),
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.appTextDark)),
-                                      new Padding(
+                                      Padding(
                                         padding:
                                             EdgeInsets.all(Adaptor.px(16.0)),
-                                        child: new Text(
+                                        child: Text(
                                           '记账笔数',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(28.0),
@@ -142,7 +178,7 @@ class MinePage extends StatelessWidget {
                               )
                             ],
                           )),
-                      new Container(
+                      Container(
                           margin: EdgeInsets.only(
                               top: Adaptor.px(20.0),
                               left: Adaptor.px(10.0),
@@ -150,7 +186,7 @@ class MinePage extends StatelessWidget {
                               bottom: Adaptor.px(20.0)),
                           padding: EdgeInsets.only(
                               left: Adaptor.px(14.0), right: 6.0),
-                          decoration: new BoxDecoration(
+                          decoration: BoxDecoration(
                               color: AppColors.appWhite,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5.0)),
@@ -160,37 +196,37 @@ class MinePage extends StatelessWidget {
                                     blurRadius: 8.0,
                                     offset: Offset(0, 1.0))
                               ]),
-                          child: new Wrap(children: <Widget>[
-                            new Container(
+                          child: Wrap(children: <Widget>[
+                            Container(
                                 height: Adaptor.px(84.0),
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     color: AppColors.appWhite,
                                     border: Border(
                                         bottom: BorderSide(
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
-                                child: new FlatButton(
+                                child: FlatButton(
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
                                     onPressed: () => _toTask(context),
-                                    child: new Row(
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        new Row(
+                                        Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            new Image.asset(Assets.iconTask,
+                                            Image.asset(Assets.iconTask,
                                                 width: Adaptor.px(28.0),
                                                 height: Adaptor.px(28.0)),
-                                            new Padding(
+                                            Padding(
                                               padding: EdgeInsets.only(
                                                   left: Adaptor.px(12.0)),
-                                              child: new Text(
+                                              child: Text(
                                                 '记账任务',
                                                 style: TextStyle(
                                                     color:
@@ -202,11 +238,11 @@ class MinePage extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        new Row(
+                                        Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            new Text(
+                                            Text(
                                               '3个记账任务',
                                               style: TextStyle(
                                                   color: AppColors.appTextLight,
@@ -214,43 +250,43 @@ class MinePage extends StatelessWidget {
                                                   fontWeight:
                                                       FontWeight.normal),
                                             ),
-                                            new Icon(IconFont.iconRight,
+                                            Icon(IconFont.iconRight,
                                                 color: AppColors.appTextLight,
                                                 size: Adaptor.px(22.0))
                                           ],
                                         )
                                       ],
                                     ))),
-                            new Container(
+                            Container(
                               height: Adaptor.px(84.0),
-                              decoration: new BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.appWhite,
                                   border: Border(
                                       bottom: BorderSide(
                                           width: Adaptor.onePx(),
                                           color: AppColors.appBorderLight))),
-                              child: new FlatButton(
+                              child: FlatButton(
                                   padding: EdgeInsets.only(
                                       left: Adaptor.px(20.0),
                                       right: Adaptor.px(10.0)),
                                   onPressed: () => _toSaveReminder(context),
-                                  child: new Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      new Row(
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          new Image.asset(Assets.iconReminder,
+                                          Image.asset(Assets.iconReminder,
                                               width: Adaptor.px(28.0),
                                               height: Adaptor.px(28.0)),
-                                          new Padding(
+                                          Padding(
                                             padding: EdgeInsets.only(
                                                 left: Adaptor.px(12.0)),
-                                            child: new Text(
+                                            child: Text(
                                               '存钱提醒',
                                               style: TextStyle(
                                                   color: AppColors.appTextDark,
@@ -261,18 +297,20 @@ class MinePage extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      new Row(
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          new Text(
-                                            '每天09:00,10:00 各一次',
+                                          Text(
+                                            (reminderStore.reminder != null && reminderStore.reminder.length > 0) ?
+                                            '${reminderStore.reminder.length}个记账提醒':
+                                            '暂未添加记账提醒',
                                             style: TextStyle(
                                                 color: AppColors.appTextLight,
                                                 fontSize: Adaptor.px(24.0),
                                                 fontWeight: FontWeight.normal),
                                           ),
-                                          new Icon(IconFont.iconRight,
+                                          Icon(IconFont.iconRight,
                                               color: AppColors.appTextLight,
                                               size: Adaptor.px(22.0))
                                         ],
@@ -280,36 +318,36 @@ class MinePage extends StatelessWidget {
                                     ],
                                   )),
                             ),
-                            new Container(
+                            Container(
                                 height: Adaptor.px(84.0),
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     color: AppColors.appWhite,
                                     border: Border(
                                         bottom: BorderSide(
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
-                                child: new FlatButton(
+                                child: FlatButton(
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
                                     onPressed: () => _toSetLimit(context),
-                                    child: new Row(
+                                    child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          new Row(
+                                          Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              new Image.asset(Assets.iconLimit,
+                                              Image.asset(Assets.iconLimit,
                                                   width: Adaptor.px(28.0),
                                                   height: Adaptor.px(28.0)),
-                                              new Padding(
+                                              Padding(
                                                 padding: EdgeInsets.only(
                                                     left: Adaptor.px(12.0)),
-                                                child: new Text(
+                                                child: Text(
                                                   '我的预算',
                                                   style: TextStyle(
                                                       color:
@@ -322,12 +360,14 @@ class MinePage extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          new Row(
+                                          Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
-                                                new Text(
-                                                  '￥20000',
+                                                Text(
+                                                  limitStore.limit > 0 ?
+                                                  '￥${limitStore.limit}' :
+                                                  '暂未设置月预算',
                                                   style: TextStyle(
                                                       color: AppColors
                                                           .appTextLight,
@@ -336,38 +376,38 @@ class MinePage extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.normal),
                                                 ),
-                                                new Icon(IconFont.iconRight,
+                                                Icon(IconFont.iconRight,
                                                     color:
                                                         AppColors.appTextLight,
                                                     size: Adaptor.px(22.0))
                                               ])
                                         ]))),
-                            new Container(
+                            Container(
                                 height: Adaptor.px(84.0),
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     color: AppColors.appWhite),
-                                child: new FlatButton(
+                                child: FlatButton(
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
                                     onPressed: () => _toCircles(context),
-                                    child: new Row(
+                                    child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          new Row(
+                                          Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              new Image.asset(Assets.iconCircle,
+                                              Image.asset(Assets.iconCircle,
                                                   width: Adaptor.px(28.0),
                                                   height: Adaptor.px(28.0)),
-                                              new Padding(
+                                              Padding(
                                                 padding: EdgeInsets.only(
                                                     left: Adaptor.px(12.0)),
-                                                child: new Text(
+                                                child: Text(
                                                   '记账圈子',
                                                   style: TextStyle(
                                                       color:
@@ -380,11 +420,11 @@ class MinePage extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          new Row(
+                                          Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
-                                                new Text(
+                                                Text(
                                                   '2个圈子',
                                                   style: TextStyle(
                                                       color: AppColors
@@ -394,13 +434,15 @@ class MinePage extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.normal),
                                                 ),
-                                                new Icon(IconFont.iconRight,
+                                                Icon(IconFont.iconRight,
                                                     color:
                                                         AppColors.appTextLight,
                                                     size: Adaptor.px(22.0))
                                               ])
                                         ])))
                           ]))
-                    ])))));
+                    ]))
+                )))
+                );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bill/adaptor.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/pages/analysis.dart';
 import 'package:bill/pages/index.dart';
@@ -61,8 +62,8 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                 _currentIndex = index;
               });
             },
-            selectedFontSize: 14.0,
-            unselectedFontSize: 14.0,
+            selectedFontSize: Adaptor.px(28.0),
+            unselectedFontSize: Adaptor.px(28.0),
             type: BottomNavigationBarType.fixed,
             unselectedItemColor: const Color(0xFFBEBEBE),
             selectedItemColor: const Color(0xFFF6C431)));

@@ -7,13 +7,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class CircleItem {
+class GroupItem {
   String type;
   IconData icon;
   String desc;
   bool checked;
 
-  CircleItem({this.icon, this.type, this.desc, this.checked});
+  GroupItem({this.icon, this.type, this.desc, this.checked});
 }
 
 class CreateGroupPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class CreateGroupState extends State<CreateGroupPage> {
 
   final FocusNode _focus = FocusNode();
 
-  List<CircleItem> _circleItems = [];
+  List<GroupItem> _groupItems = [];
 
   int _currentIndex = 0;
 
@@ -34,7 +34,7 @@ class CreateGroupState extends State<CreateGroupPage> {
   void initState() {
     super.initState();
     MethodsIcons.circleTypes.forEach((item) => {
-          _circleItems.add(CircleItem(
+          _groupItems.add(GroupItem(
               checked: false,
               icon: item.icon,
               desc: item.desc,
@@ -55,77 +55,77 @@ class CreateGroupState extends State<CreateGroupPage> {
             title: Text('添加记账圈子',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             margin: EdgeInsets.all(Adaptor.px(10.0)),
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-            decoration: new BoxDecoration(color: AppColors.appWhite),
+            decoration: BoxDecoration(color: AppColors.appWhite),
             width: Adaptor.px(1060.0),
-            child: new Wrap(
+            child: Wrap(
               children: <Widget>[
-                new Container(
+                Container(
                   height: Adaptor.px(380),
-                  child: new Swiper(
+                  child: Swiper(
                       index: _currentIndex,
                       loop: false,
                       autoplay: false,
                       itemCount: (MethodsIcons.circleTypesLength / 8).ceil(),
                       itemBuilder: (context, index) {
-                        List _subRow = _circleItems.sublist(
+                        List _subRow = _groupItems.sublist(
                             (index * 8),
                             min((index + 1) * 8,
                                 MethodsIcons.circleTypesLength));
-                        return new Container(
-                            child: new Wrap(
+                        return Container(
+                            child: Wrap(
                                 children:
                                     List.generate(_subRow.length, (int i) {
-                          CircleItem _item = _subRow[i];
-                          return new Container(
+                          GroupItem _item = _subRow[i];
+                          return Container(
                             width: Adaptor.px(177.0),
                             height: Adaptor.px(170.0),
-                            child: new FlatButton(
+                            child: FlatButton(
                                 onPressed: () {
                                   int position = (index * 8) + i;
                                   setState(() {
                                     _currentIndex = index;
-                                    _circleItems
+                                    _groupItems
                                         .asMap()
                                         .keys
                                         .forEach((int cur) => {
                                               if (cur == position)
                                                 {
-                                                  _circleItems[cur].checked =
+                                                  _groupItems[cur].checked =
                                                       true
                                                 }
                                               else
                                                 {
-                                                  _circleItems[cur].checked =
+                                                  _groupItems[cur].checked =
                                                       false
                                                 }
                                             });
                                   });
                                 },
-                                child: new Column(
+                                child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Container(
+                                      Container(
                                           width: Adaptor.px(100),
                                           height: Adaptor.px(100),
                                           margin: EdgeInsets.only(
                                               bottom: Adaptor.px(10.0)),
-                                          decoration: new BoxDecoration(
+                                          decoration: BoxDecoration(
                                               color: _item.checked
                                                   ? AppColors.appYellow
                                                   : AppColors.appBorder,
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       Adaptor.px(50)))),
-                                          child: new Icon(
+                                          child: Icon(
                                             _item.icon,
                                             size: Adaptor.px(50.0),
                                             color: AppColors.appTextDark,
                                           )),
-                                      new Text(_item.desc,
+                                      Text(_item.desc,
                                           style: TextStyle(
                                               fontSize: Adaptor.px(24.0),
                                               color: AppColors.appTextDark))
@@ -133,9 +133,9 @@ class CreateGroupState extends State<CreateGroupPage> {
                           );
                         }).toList()));
                       },
-                      pagination: new SwiperPagination(
+                      pagination: SwiperPagination(
                           alignment: Alignment.bottomCenter,
-                          builder: new RectSwiperPaginationBuilder(
+                          builder: RectSwiperPaginationBuilder(
                               color: AppColors.appBorder,
                               activeColor: AppColors.appYellow,
                               size: Size(18, 3),
@@ -143,30 +143,30 @@ class CreateGroupState extends State<CreateGroupPage> {
                               space: 0.2)),
                       scrollDirection: Axis.horizontal),
                 ),
-                new Container(
+                Container(
                   width: Adaptor.px(1060.0),
                   height: Adaptor.px(80.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
                       left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.appWhite,
                       border: Border(
                           bottom: BorderSide(
                               width: Adaptor.onePx(),
                               color: AppColors.appBorder))),
-                  child: new Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text('圈子名称',
+                      Text('圈子名称',
                           style: TextStyle(
                               color: AppColors.appTextDark,
                               fontSize: Adaptor.px(24.0))),
-                      new Expanded(
+                      Expanded(
                           flex: 1,
-                          child: new Container(
-                              child: new TextField(
+                          child: Container(
+                              child: TextField(
                                   decoration: InputDecoration(
                                       contentPadding: EdgeInsets.only(
                                           right: Adaptor.px(6.0)),
@@ -188,7 +188,7 @@ class CreateGroupState extends State<CreateGroupPage> {
                     ],
                   ),
                 ),
-                new Container(
+                Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),
                     padding: EdgeInsets.only(
@@ -197,13 +197,13 @@ class CreateGroupState extends State<CreateGroupPage> {
                         top: Adaptor.px(40.0),
                         left: Adaptor.px(10.0),
                         right: Adaptor.px(10.0)),
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: new FlatButton(
+                    child: FlatButton(
                         onPressed: () {},
-                        child: new Text('确定',
+                        child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,

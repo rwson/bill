@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchLoadingView extends StatelessWidget {
-  SearchLoadingView();
+class LoadingView extends StatelessWidget {
+  LoadingView();
 
   @override
   Widget build(BuildContext context) {

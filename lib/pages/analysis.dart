@@ -24,20 +24,20 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
       children: <Widget>[
-        new Container(
+        Container(
           width: size,
           height: size,
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
             color: color,
           ),
         ),
-        new SizedBox(
+        SizedBox(
           width: Adaptor.px(8.0),
         ),
-        new Text(
+        Text(
           text,
           style: TextStyle(fontSize: Adaptor.px(24.0), color: textColor),
         )
@@ -67,17 +67,17 @@ class AnalysisState extends State<AnalysisPage> {
             title: Text('分析',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: new Container(
+        body: Container(
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-            child: new SingleChildScrollView(
-                child: new Container(
+            child: SingleChildScrollView(
+                child: Container(
                     margin: EdgeInsets.only(
                         top: Adaptor.px(10.0),
                         left: Adaptor.px(10.0),
                         right: Adaptor.px(10.0)),
-                    child: new Wrap(children: <Widget>[
-                      new Container(
+                    child: Wrap(children: <Widget>[
+                      Container(
                         padding: EdgeInsets.only(
                             top: Adaptor.px(30.0),
                             left: Adaptor.px(20.0),
@@ -85,7 +85,7 @@ class AnalysisState extends State<AnalysisPage> {
                         margin: EdgeInsets.only(
                             top: Adaptor.px(10.0), bottom: Adaptor.px(20.0)),
                         width: Adaptor.px(1040.0),
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             color: AppColors.appWhite,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5.0)),
@@ -95,9 +95,9 @@ class AnalysisState extends State<AnalysisPage> {
                                   blurRadius: 5.0,
                                   offset: Offset(0, 1.0))
                             ]),
-                        child: new Column(
+                        child: Column(
                           children: <Widget>[
-                            new Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text('本周',
@@ -224,14 +224,14 @@ class AnalysisState extends State<AnalysisPage> {
                           ],
                         ),
                       ),
-                      new Container(
+                      Container(
                           width: Adaptor.px(1020.0),
                           padding: EdgeInsets.only(
                               top: Adaptor.px(30.0),
                               left: Adaptor.px(20.0),
                               right: Adaptor.px(20.0)),
                           margin: EdgeInsets.only(bottom: Adaptor.px(20.0)),
-                          decoration: new BoxDecoration(
+                          decoration: BoxDecoration(
                               color: AppColors.appWhite,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5.0)),
@@ -241,8 +241,8 @@ class AnalysisState extends State<AnalysisPage> {
                                     blurRadius: 5.0,
                                     offset: Offset(0, 1.0))
                               ]),
-                          child: new Column(children: <Widget>[
-                            new Row(
+                          child: Column(children: <Widget>[
+                            Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -251,20 +251,20 @@ class AnalysisState extends State<AnalysisPage> {
                                           color: AppColors.appTextDark,
                                           fontSize: Adaptor.px(28.0)))
                                 ]),
-                            new AspectRatio(
+                            AspectRatio(
                                 aspectRatio: 1.5,
-                                child: new Container(
+                                child: Container(
                                     color: Colors.white,
-                                    child: new Row(children: <Widget>[
+                                    child: Row(children: <Widget>[
                                       SizedBox(
                                         height: Adaptor.px(20.0),
                                       ),
-                                      new Expanded(
-                                        child: new AspectRatio(
+                                      Expanded(
+                                        child: AspectRatio(
                                           aspectRatio: 1,
-                                          child: new PieChart(
-                                            new PieChartData(
-                                                pieTouchData: new PieTouchData(
+                                          child: PieChart(
+                                            PieChartData(
+                                                pieTouchData: PieTouchData(
                                                     touchCallback:
                                                         (pieTouchResponse) {
                                                   setState(() {
@@ -282,7 +282,7 @@ class AnalysisState extends State<AnalysisPage> {
                                                     }
                                                   });
                                                 }),
-                                                borderData: new FlBorderData(
+                                                borderData: FlBorderData(
                                                   show: false,
                                                 ),
                                                 sectionsSpace: 0,
@@ -291,7 +291,7 @@ class AnalysisState extends State<AnalysisPage> {
                                           ),
                                         ),
                                       ),
-                                      new Column(
+                                      Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -344,7 +344,7 @@ class AnalysisState extends State<AnalysisPage> {
       final double radius = isTouched ? Adaptor.px(120.0) : Adaptor.px(100.0);
       switch (i) {
         case 0:
-          return new PieChartSectionData(
+          return PieChartSectionData(
             color: const Color(0xff0293ee),
             value: 40,
             title: '40%',
@@ -353,7 +353,7 @@ class AnalysisState extends State<AnalysisPage> {
                 TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 1:
-          return new PieChartSectionData(
+          return PieChartSectionData(
             color: const Color(0xfff8b250),
             value: 30,
             title: '30%',
@@ -362,7 +362,7 @@ class AnalysisState extends State<AnalysisPage> {
                 TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 2:
-          return new PieChartSectionData(
+          return PieChartSectionData(
             color: const Color(0xff845bef),
             value: 15,
             title: '15%',
@@ -371,7 +371,7 @@ class AnalysisState extends State<AnalysisPage> {
                 TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 3:
-          return new PieChartSectionData(
+          return PieChartSectionData(
             color: const Color(0xff13d38e),
             value: 15,
             title: '15%',
