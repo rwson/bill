@@ -318,7 +318,7 @@ class ForgotState extends State<ForgotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('注册',
+            title: Text('忘记密码',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(

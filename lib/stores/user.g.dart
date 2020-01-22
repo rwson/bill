@@ -72,4 +72,11 @@ mixin _$UserStore on _UserStore, Store {
     return _$registerLoginAsyncAction
         .run(() => super.registerLogin(mobile, password, device));
   }
+
+  final _$forgotAsyncAction = AsyncAction('forgot');
+
+  @override
+  Future<bool> forgot(String mobile, String password) {
+    return _$forgotAsyncAction.run(() => super.forgot(mobile, password));
+  }
 }
