@@ -58,6 +58,7 @@ class MineState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
             title: Text('我的',
                 style: TextStyle(

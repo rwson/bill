@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daydart/flutter_daydart.dart';
+import 'dart:math';
+
+RegExp mobileReg = new RegExp('^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$');
 
 class PrecisionLimitFormatter extends TextInputFormatter {
   int _scale;
@@ -93,4 +96,18 @@ class Util {
     return now > times;
   }
 
+  static bool validMobile(String mobile) {
+    return mobileReg.hasMatch(mobile);
+  }
+
+
+  static String randomStr(int len) {
+    String alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    String res = '';
+    for (var i = 0; i < len; i++) {
+      res = '${res}${alphabet[Random().nextInt(alphabet.length)]}';
+    }
+
+    return res;
+  }
 }

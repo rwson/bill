@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:dio/dio.dart';
+
 import 'package:bill/api.dart';
 
 Future<String> getToken() async {
@@ -31,7 +32,6 @@ class HttpResponse<T> {
      data: json['data']
    );
  }
-
 }
 
 class HttpUtil {
@@ -74,7 +74,8 @@ class HttpUtil {
       Response response = await dio.request(url, data: data, options: options);
       result = response.data;
     } on DioError catch (e) {
-      result = e.response;
+      print(e.toString());
+      result = e.response.data;
     }
 
     return result;

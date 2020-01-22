@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 import 'package:bill/bean/user.dart';
 
@@ -63,6 +63,7 @@ Future<void> setToken(token) async {
       'password': password,
       'device': device
     }, HttpUtil.POST);
+
     HttpResponse data = new HttpResponse.formJson(resp);
 
     if (data.success) {
@@ -71,9 +72,64 @@ Future<void> setToken(token) async {
       await setToken(data.data['token']);
     } else {
       logined = false;
+      BotToast.showText(text: data.message);
+    }
+    return logined;
+  }
+
+  @action
+  Future<bool> validateCode(String mobile, String code) async {
+    Map<String, dynamic> resp = await HttpUtil.request(Api.validateVCode, {
+      'mobile': mobile,
+      'code': code
+    }, HttpUtil.GET);
+
+    HttpResponse data = new HttpResponse.formJson(resp);
+
+    bool validateSuccess = data.success;
+
+    if (!validateSuccess) {
+      BotToast.showText(text: data.message);
     }
 
+    return validateSuccess;
+  }
+
+  @action
+  Future<bool> registerLogin(String mobile, String password, [String device]) async {
+    Map<String, dynamic> resp = await HttpUtil.request(Api.registerLogin, {
+      'mobile': mobile,
+      'password': password,
+      'device': device
+    }, HttpUtil.POST);
+
+    HttpResponse data = new HttpResponse.formJson(resp);
+
+    if (data.success) {
+      logined = true;
+      userInfo = new User.fromJson(data.data);
+      await setToken(data.data['token']);
+    } else {
+      logined = false;
+      BotToast.showText(text: data.message);
+    }
     return logined;
+  }
+
+    @action
+  Future<bool> forgot(String mobile, String password) async {
+    Map<String, dynamic> resp = await HttpUtil.request(Api.forgot, {
+      'mobile': mobile,
+      'password': password
+    }, HttpUtil.PUT);
+
+    HttpResponse data = new HttpResponse.formJson(resp);
+
+    if (!data.success) {
+      BotToast.showText(text: data.message);
+    }
+
+    return data.success;
   }
 
 }

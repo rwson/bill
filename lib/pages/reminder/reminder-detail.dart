@@ -1,5 +1,6 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
+import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/stores/stores.dart';
@@ -23,34 +24,42 @@ class ReminderDetailState extends State<ReminderDetailPage> {
   @override
   void initState() {
     super.initState();
-
     reminderStore.getDetail(widget.id);
   }
 
   void _deleteReminder() {
-    print(11111);
     try {
       BotToast.showAnimationWidget(
-        onlyOne: false,
+        onlyOne: true,
         backgroundColor: Colors.black26,
         animationDuration: Duration(milliseconds: 300),
         toastBuilder: (cancelFunc) => AlertDialog(
-          title: const Text('你确定要删除此存款提醒吗?'),
+          title: Text('你确定要删除此存款提醒吗?', 
+          style: TextStyle(
+              fontSize: Adaptor.px(32.0),
+              color: AppColors.appTextDark
+            )
+          ),
           actions: <Widget>[
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                cancelFunc();
+              },
               highlightColor: const Color(0x55FF8A80),
               splashColor: const Color(0x99FF8A80),
               child: const Text(
                 '取消',
-                style: TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: AppColors.appWarning),
               ),
             ),
             FlatButton(
               onPressed: () {
                 cancelFunc();
               },
-              child: const Text('确定'),
+              child: const Text(
+                '确定',
+                style: TextStyle(color: AppColors.appDanger),
+              ),
             ),
           ],
         ),
@@ -60,7 +69,9 @@ class ReminderDetailState extends State<ReminderDetailPage> {
     }
   }
 
-  void _editReminder() {}
+  void _editReminder() {
+    AppRouter.toPage(context, 'edit-reminder?id=${widget.id}');
+  }
 
   Widget _buildDetail() {
     return Observer(

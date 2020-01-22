@@ -56,4 +56,20 @@ mixin _$UserStore on _UserStore, Store {
   Future<bool> login(String mobile, String password, [String device]) {
     return _$loginAsyncAction.run(() => super.login(mobile, password, device));
   }
+
+  final _$validateCodeAsyncAction = AsyncAction('validateCode');
+
+  @override
+  Future<bool> validateCode(String mobile, String code) {
+    return _$validateCodeAsyncAction
+        .run(() => super.validateCode(mobile, code));
+  }
+
+  final _$registerLoginAsyncAction = AsyncAction('registerLogin');
+
+  @override
+  Future<bool> registerLogin(String mobile, String password, [String device]) {
+    return _$registerLoginAsyncAction
+        .run(() => super.registerLogin(mobile, password, device));
+  }
 }

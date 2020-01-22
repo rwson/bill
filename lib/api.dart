@@ -1,12 +1,18 @@
 class Api {
 
-  static const String base = 'http://192.168.1.51:3000/';
+  static const String base = 'http://192.168.1.89:3000/';
 
   static const String registerLogin = 'user/register-login';
 
   static const String login = 'user/login';
 
   static const String ensureLogined = 'user/ensure-logined';
+
+  static const String getVCode = 'user/get-vcode';
+
+  static const String validateVCode = 'user/validate-vcode/:mobile/:code';
+
+  static const String forgot = 'user/forgot';
 
   static const String limitSet = 'limit/set';
 

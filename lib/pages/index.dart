@@ -32,6 +32,7 @@ class IndexState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(title: Text('首页', style: TextStyle(fontSize: 16.0))),
         body: Observer(
           builder: (_) => Container(

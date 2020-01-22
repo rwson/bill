@@ -63,6 +63,7 @@ class AnalysisState extends State<AnalysisPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
             title: Text('分析',
                 style: TextStyle(

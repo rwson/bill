@@ -155,13 +155,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.9"
+  device_info:
+    dependency: "direct main"
+    description:
+      name: device_info
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.1"
   dio:
     dependency: "direct main"
     description:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.8"
   fixnum:
     dependency: transitive
     description:
@@ -204,6 +211,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  flutter_cupertino_localizations:
+    dependency: "direct main"
+    description:
+      name: flutter_cupertino_localizations
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
   flutter_datetime_picker:
     dependency: "direct main"
     description:
@@ -218,6 +232,11 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_mobx:
     dependency: "direct main"
     description:
@@ -314,6 +333,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.16.0"
   io:
     dependency: transitive
     description:

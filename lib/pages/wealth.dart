@@ -124,6 +124,7 @@ class WealthState extends State<WealthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
             title: Text('资产',
                 style: TextStyle(
