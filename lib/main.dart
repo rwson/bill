@@ -16,6 +16,7 @@ import 'package:bill/pages/task/create-task.dart';
 import 'package:bill/pages/task/edit-task.dart';
 import 'package:bill/pages/task/task-detail.dart';
 import 'package:bill/pages/task/tasks.dart';
+import 'package:bill/pages/profile.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:fluro/fluro.dart';
@@ -109,6 +110,11 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               ForgotPage()),
+      transitionType: TransitionType.native);
+  router.define('profile',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              ProfilePage()),
       transitionType: TransitionType.native);
 
   AppRouter.router = router;

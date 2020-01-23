@@ -16,7 +16,6 @@ class MinePage extends StatefulWidget {
 }
 
 class MineState extends State<MinePage> {
-
   final UserStore userStore = AppStores.userStore;
   final LimitStore limitStore = AppStores.limitStore;
   final ReminderStore reminderStore = AppStores.reminderStore;
@@ -35,38 +34,36 @@ class MineState extends State<MinePage> {
     }
   }
 
-  void _toLogin(context) {
-    AppRouter.toPage(context, 'login');
+  void _toProfile() {
+    AppRouter.toPage(context, 'profile');
   }
 
-  void _toTask(context) {
+  void _toTask() {
     AppRouter.toPage(context, 'tasks');
   }
 
-  void _toSaveReminder(context) {
+  void _toSaveReminder() {
     AppRouter.toPage(context, 'save-reminder');
   }
 
-  void _toSetLimit(context) {
+  void _toSetLimit() {
     AppRouter.toPage(context, 'limit-set');
   }
 
-  void _toCircles(context) {
+  void _toCircles() {
     AppRouter.toPage(context, 'groups');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
             title: Text('我的',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(
-            child: SingleChildScrollView(
-                child: Observer(
-                  builder: (_) => Container(
+            child: Observer(
+                builder: (_) => Container(
                     margin: EdgeInsets.only(
                         top: Adaptor.px(10.0),
                         left: Adaptor.px(10.0),
@@ -102,28 +99,51 @@ class MineState extends State<MinePage> {
                           child: Wrap(
                             children: <Widget>[
                               GestureDetector(
-                                  onTap: () => _toLogin(context),
+                                  onTap: _toProfile,
                                   child: Container(
                                     child: Center(
                                       child: Column(
                                         children: <Widget>[
-                                          userStore.logined ?
-                                          Image.network(
-                                            userStore.userInfo.avatar,
-                                            width: Adaptor.px(100.0),
-                                            height: Adaptor.px(100.0),
-                                          )
-                                          :
-                                          Image.asset(
-                                            Assets.iconAvatar,
-                                            width: Adaptor.px(100.0),
-                                            height: Adaptor.px(100.0),
-                                          ),
+                                          userStore.logined
+                                              ?
+                                              // Image.network(
+                                              //   userStore.userInfo.avatar,
+                                              //   width: Adaptor.px(100.0),
+                                              //   height: Adaptor.px(100.0),
+                                              // )
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(25.0),
+                                                    topRight:
+                                                        Radius.circular(25.0),
+                                                    bottomRight:
+                                                        Radius.circular(25.0),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    heightFactor: 0.5,
+                                                    widthFactor: 0.5,
+                                                    child: Image.network(
+                                                        "https://static.vinepair.com/wp-content/uploads/2017/03/darts-int.jpg"),
+                                                  ),
+                                                )
+                                              : Image.asset(
+                                                  Assets.iconAvatar,
+                                                  width: Adaptor.px(100.0),
+                                                  height: Adaptor.px(100.0),
+                                                ),
                                           Padding(
                                             padding: EdgeInsets.only(
                                                 top: Adaptor.px(10.0),
                                                 bottom: Adaptor.px(20.0)),
-                                            child: Text(userStore.logined ? userStore.userInfo.nickname : '未登录',
+                                            child: Text(
+                                                userStore.logined
+                                                    ? userStore
+                                                        .userInfo.nickname
+                                                    : '未登录',
                                                 style: TextStyle(
                                                     fontSize: Adaptor.px(30.0),
                                                     color:
@@ -210,7 +230,7 @@ class MineState extends State<MinePage> {
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: () => _toTask(context),
+                                    onPressed: _toTask,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -270,7 +290,7 @@ class MineState extends State<MinePage> {
                                   padding: EdgeInsets.only(
                                       left: Adaptor.px(20.0),
                                       right: Adaptor.px(10.0)),
-                                  onPressed: () => _toSaveReminder(context),
+                                  onPressed: _toSaveReminder,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -303,9 +323,12 @@ class MineState extends State<MinePage> {
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            (reminderStore.reminder != null && reminderStore.reminder.length > 0) ?
-                                            '${reminderStore.reminder.length}个记账提醒':
-                                            '暂未添加记账提醒',
+                                            (reminderStore.reminder != null &&
+                                                    reminderStore
+                                                            .reminder.length >
+                                                        0)
+                                                ? '${reminderStore.reminder.length}个记账提醒'
+                                                : '暂未添加记账提醒',
                                             style: TextStyle(
                                                 color: AppColors.appTextLight,
                                                 fontSize: Adaptor.px(24.0),
@@ -331,7 +354,7 @@ class MineState extends State<MinePage> {
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: () => _toSetLimit(context),
+                                    onPressed: _toSetLimit,
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -366,9 +389,9 @@ class MineState extends State<MinePage> {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  limitStore.limit > 0 ?
-                                                  '￥${limitStore.limit}' :
-                                                  '暂未设置月预算',
+                                                  limitStore.limit > 0
+                                                      ? '￥${limitStore.limit}'
+                                                      : '暂未设置月预算',
                                                   style: TextStyle(
                                                       color: AppColors
                                                           .appTextLight,
@@ -385,13 +408,13 @@ class MineState extends State<MinePage> {
                                         ]))),
                             Container(
                                 height: Adaptor.px(84.0),
-                                decoration: BoxDecoration(
-                                    color: AppColors.appWhite),
+                                decoration:
+                                    BoxDecoration(color: AppColors.appWhite),
                                 child: FlatButton(
                                     padding: EdgeInsets.only(
                                         left: Adaptor.px(20.0),
                                         right: Adaptor.px(10.0)),
-                                    onPressed: () => _toCircles(context),
+                                    onPressed: _toCircles,
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -442,8 +465,6 @@ class MineState extends State<MinePage> {
                                               ])
                                         ])))
                           ]))
-                    ]))
-                )))
-                );
+                    ])))));
   }
 }

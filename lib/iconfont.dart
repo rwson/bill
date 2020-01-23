@@ -92,8 +92,6 @@ class IconFont {
 
   static IconData iconEdit = IconData(0xe60b, fontFamily: 'iconfont');
 
-  static IconData iconEmpty = IconData(0xe61d, fontFamily: 'iconfont');
-
   static IconData iconDown = IconData(0xe6eb, fontFamily: 'iconfont');
 
   static IconData iconRight = IconData(0xe600, fontFamily: 'iconfont');
@@ -127,4 +125,6 @@ class IconFont {
   static IconData iconBusiness = IconData(0xe718, fontFamily: 'iconfont');
 
   static IconData iconSkirt = IconData(0xe66a, fontFamily: 'iconfont');
+
+  static IconData iconEmpty = IconData(0xe696, fontFamily: 'iconfont');
 }
