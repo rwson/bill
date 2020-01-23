@@ -19,12 +19,23 @@ class ReminderDetailPage extends StatefulWidget {
 }
 
 class ReminderDetailState extends State<ReminderDetailPage> {
-  ReminderStore reminderStore = AppStores.reminderStore;
+  final ReminderStore reminderStore = AppStores.reminderStore;
+
+  AppLifecycleState appLifecycleState;
 
   @override
   void initState() {
     super.initState();
     reminderStore.getDetail(widget.id);
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    bool current = ModalRoute.of(context).isCurrent;
+    if (current) {
+      reminderStore.queryReminder();
+    }
   }
 
   void _deleteReminder() {
@@ -79,7 +90,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
               children: <Widget>[
                 Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(90.0),
+                  height: Adaptor.px(100.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -95,7 +106,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                       Text('提醒频率',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(26.0))),
+                              fontSize: Adaptor.px(28.0))),
                       Expanded(
                           flex: 1,
                           child: Align(
@@ -107,14 +118,14 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                       : ''),
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
-                                      fontSize: Adaptor.px(26.0),
+                                      fontSize: Adaptor.px(28.0),
                                       fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
                 Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(90.0),
+                  height: Adaptor.px(100.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -131,7 +142,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                       Text('提醒时间',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(26.0))),
+                              fontSize: Adaptor.px(28.0))),
                       Expanded(
                           flex: 1,
                           child: Align(
@@ -142,14 +153,14 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                       : ''),
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
-                                      fontSize: Adaptor.px(26.0),
+                                      fontSize: Adaptor.px(28.0),
                                       fontWeight: FontWeight.normal))))
                     ],
                   ),
                 ),
                 Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(90.0),
+                  height: Adaptor.px(100.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -166,7 +177,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                       Text('提醒规则',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(26.0))),
+                              fontSize: Adaptor.px(28.0))),
                       Expanded(
                           flex: 1,
                           child: Align(
@@ -179,7 +190,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                       : ''),
                                   style: TextStyle(
                                       color: AppColors.appTextNormal,
-                                      fontSize: Adaptor.px(26.0),
+                                      fontSize: Adaptor.px(28.0),
                                       fontWeight: FontWeight.normal))))
                     ],
                   ),
@@ -188,7 +199,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                         reminderStore.current.rule == '0')
                     ? Container(
                         width: Adaptor.px(1060.0),
-                        height: Adaptor.px(90.0),
+                        height: Adaptor.px(100.0),
                         padding: EdgeInsets.only(
                             left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                         margin: EdgeInsets.only(
@@ -205,7 +216,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                             Text('回头天数',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
-                                    fontSize: Adaptor.px(26.0))),
+                                    fontSize: Adaptor.px(28.0))),
                             Expanded(
                                 flex: 1,
                                 child: Align(
@@ -213,7 +224,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                     child: Text('${reminderStore.current.back}',
                                         style: TextStyle(
                                             color: AppColors.appTextNormal,
-                                            fontSize: Adaptor.px(26.0),
+                                            fontSize: Adaptor.px(28.0),
                                             fontWeight: FontWeight.normal))))
                           ],
                         ),
@@ -221,7 +232,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                     : Container(),
                 Container(
                     width: Adaptor.px(1000.0),
-                    height: Adaptor.px(90.0),
+                    height: Adaptor.px(100.0),
                     margin: EdgeInsets.only(
                         top: Adaptor.px(30.0),
                         left: Adaptor.px(10.0),
@@ -237,11 +248,11 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                   borderRadius: BorderRadius.all(
                                       Radius.circular(Adaptor.px(10.0)))),
                               width: Adaptor.px(320.0),
-                              height: Adaptor.px(60.0),
+                              height: Adaptor.px(80.0),
                               child: Center(
                                   child: Text('编辑',
                                       style: TextStyle(
-                                          fontSize: Adaptor.px(26.0),
+                                          fontSize: Adaptor.px(30.0),
                                           fontWeight: FontWeight.normal,
                                           color: AppColors.appTextDark)))),
                         ),
@@ -249,7 +260,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                             onTap: _deleteReminder,
                             child: Container(
                                 width: Adaptor.px(320.0),
-                                height: Adaptor.px(60.0),
+                                height: Adaptor.px(80.0),
                                 decoration: BoxDecoration(
                                     color: AppColors.appOutlay,
                                     borderRadius: BorderRadius.all(
@@ -257,7 +268,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                                 child: Center(
                                     child: Text('删除',
                                         style: TextStyle(
-                                            fontSize: Adaptor.px(26.0),
+                                            fontSize: Adaptor.px(30.0),
                                             fontWeight: FontWeight.normal,
                                             color: AppColors.appWhite)))))
                       ],

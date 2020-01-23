@@ -2,6 +2,7 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/bean/reminder.dart';
@@ -14,8 +15,8 @@ class RemindersPage extends StatefulWidget {
   State<StatefulWidget> createState() => RemindersState();
 }
 
-class RemindersState extends State<RemindersPage> {
-  ReminderStore reminderStore = AppStores.reminderStore;
+class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
+  final ReminderStore reminderStore = AppStores.reminderStore;
 
   @override
   void initState() {
@@ -32,8 +33,12 @@ class RemindersState extends State<RemindersPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  void deactivate() {
+    super.deactivate();
+    bool current = ModalRoute.of(context).isCurrent;
+    if (current) {
+      reminderStore.queryReminder();
+    }
   }
 
   Widget _buildReminders() {
@@ -43,7 +48,9 @@ class RemindersState extends State<RemindersPage> {
           margin: EdgeInsets.only(
               top: Adaptor.px(10.0),
               left: Adaptor.px(10.0),
-              right: Adaptor.px(10.0)),
+              right: Adaptor.px(10.0),
+              bottom: Adaptor.px(120.0)
+            ),
           child: Observer(
             builder: (_) => Wrap(
               children: <Widget>[
@@ -97,8 +104,7 @@ class RemindersState extends State<RemindersPage> {
                                                     children: <Widget>[
                                                       Row(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                            CrossAxisAlignment.center,
                                                         children: <Widget>[
                                                           Icon(
                                                             IconFont
@@ -108,13 +114,16 @@ class RemindersState extends State<RemindersPage> {
                                                             color: AppColors
                                                                 .appYellow,
                                                           ),
-                                                          Text('存钱提醒',
+                                                          Padding(
+                                                            padding: EdgeInsets.only(left: Adaptor.px(10.0)),
+                                                            child: Text('存钱提醒',
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       Adaptor.px(
-                                                                          24.0),
+                                                                          28.0),
                                                                   color: AppColors
-                                                                      .appTextDark)),
+                                                                      .appTextDark))
+                                                          ),
                                                           Text(Util.isAfter(_reminder.time) ? '(已提醒)' : '',
                                                               style: TextStyle(
                                                                   fontSize:
@@ -142,7 +151,7 @@ class RemindersState extends State<RemindersPage> {
                                                         : '金额每天固定',
                                                     style: TextStyle(
                                                         fontSize:
-                                                            Adaptor.px(24.0),
+                                                            Adaptor.px(26.0),
                                                         color: AppColors
                                                             .appTextNormal,
                                                         height: 1.5)))

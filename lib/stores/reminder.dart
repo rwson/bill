@@ -1,12 +1,13 @@
 import 'package:bill/bean/reminder.dart';
 import 'package:mobx/mobx.dart';
 
+import 'package:bot_toast/bot_toast.dart';
+
 import 'package:bill/http/http-util.dart';
 
 import 'package:bill/api.dart';
 
 import 'package:bill/stores/base.dart';
-import 'package:bill/bean/reminder.dart';
 
 part 'reminder.g.dart';
 
@@ -20,25 +21,46 @@ abstract class _ReminderStore extends BaseStore with Store {
   ReminderItem current;
 
   @action
-  Future<HttpResponse> createReminder(Map<String, dynamic> data) async {
-    switchLoading(true);
+  Future<bool> createReminder(Map<String, dynamic> reminder) async {
+    try {
+      switchLoading(true);
 
-    // Map<String, dynamic> resp = await HttpUtil.request(Api.ReminderSet, { 'Reminder': amount }, HttpUtil.POST);
-    // HttpResponse data = new HttpResponse.formJson(resp);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.createReminder, reminder, HttpUtil.POST);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    // if (data.success) {
-    //   Reminder = amount;
-    // }
+      switchLoading(false);
 
-    // switchLoading(false);
+      BotToast.showText(text: data.message);
 
-    // return data;
+      return data.success;
+    } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
+    }
   }
 
-  Future<HttpResponse> updateReminder(Map<String, dynamic> data) async {}
+  Future<bool> updateReminder(Map<String, dynamic> reminder) async {
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.updateReminder, reminder, HttpUtil.PUT);
+
+      HttpResponse data = new HttpResponse.formJson(resp);
+
+      switchLoading(false);
+
+      BotToast.showText(text: data.message);
+
+      return data.success;
+    } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
+    }
+  }
 
   @action
-  Future<HttpResponse> queryReminder() async {
+  Future<bool> queryReminder([bool toast = false]) async {
     try {
       switchLoading(true);
 
@@ -55,15 +77,21 @@ abstract class _ReminderStore extends BaseStore with Store {
 
       switchLoading(false);
 
-      return data;
+      if (toast) {
+        BotToast.showText(text: data.message);
+      }
+      return data.success;
     } catch (e) {
       switchLoading(false);
-      print(e.toString());
+      if (toast) {
+        BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      }
+      return false;
     }
   }
 
   @action
-  Future<HttpResponse> getDetail(String id) async {
+  Future<bool> getDetail(String id) async {
     try {
       current = null;
 
@@ -75,12 +103,19 @@ abstract class _ReminderStore extends BaseStore with Store {
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
-      current = new ReminderItem.fromJson(data.data);
-
       switchLoading(false);
+
+      if (data.success) {
+        current = new ReminderItem.fromJson(data.data);
+      } else {
+        BotToast.showText(text: data.message);
+      }
+
+      return data.success;
     } catch (e) {
       switchLoading(false);
-      print(e.toString());
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
     }
   }
 

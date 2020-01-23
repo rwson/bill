@@ -18,7 +18,7 @@ class Api {
 
   static const String limitQuery = 'limit/query';
 
-  static const String createReminder = '​reminder​/create';
+  static const String createReminder = 'reminder/create';
 
   static const String updateReminder = 'reminder/update';
 

@@ -40,85 +40,117 @@ class WealthState extends State<WealthPage> {
   }
 
   void _showYearSelect(BuildContext context) {
-    showDialog(
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return AlertDialog(
+    //         titlePadding: EdgeInsets.only(
+    //             top: Adaptor.px(20.0),
+    //             bottom: 0,
+    //             left: Adaptor.px(20.0),
+    //             right: Adaptor.px(20.0)),
+    //         contentPadding: EdgeInsets.only(
+    //             top: 0,
+    //             bottom: 0,
+    //             left: Adaptor.px(20.0),
+    //             right: Adaptor.px(20.0)),
+    //         title: Text('选择查询年度',
+    //             style: TextStyle(
+    //                 fontSize: Adaptor.px(32.0),
+    //                 fontWeight: FontWeight.w400,
+    //                 color: AppColors.appTextDark)),
+    //         content:
+    //             StatefulBuilder(builder: (context, StateSetter setState) {
+    //           return Container(
+    //               height: Adaptor.px(350.0),
+    //               child: Center(
+    //                   child: Container(
+    //                       width: Adaptor.px(200.0),
+    //                       height: Adaptor.px(300.0),
+    //                       child: Row(
+    //                         mainAxisAlignment: MainAxisAlignment.center,
+    //                         children: <Widget>[
+    //                           Container(
+    //                               width: Adaptor.px(180.0),
+    //                               child: CupertinoPicker(
+    //                                 itemExtent: Adaptor.px(64.0),
+    //                                 backgroundColor: Colors.white,
+    //                                 onSelectedItemChanged: (int i) {
+    //                                   setState(() {
+    //                                     _selectedIndex = i;
+    //                                   });
+    //                                 },
+    //                                 children: List.generate(_years.length,
+    //                                     (int index) {
+    //                                   return Center(
+    //                                       child: Text(_years[index],
+    //                                           style: TextStyle(
+    //                                               color: AppColors.appTextDark,
+    //                                               fontSize: Adaptor.px(32.0),
+    //                                               fontWeight:
+    //                                                   FontWeight.normal)));
+    //                                 }).toList(),
+    //                               )),
+    //                         ],
+    //                       ))));
+    //         }),
+    //         actions: <Widget>[
+    //           FlatButton(
+    //             splashColor: Colors.transparent,
+    //             highlightColor: Colors.transparent,
+    //             onPressed: _yearSelectOk,
+    //             child: Text('确定',
+    //                 style: TextStyle(
+    //                     fontSize: Adaptor.px(28.0),
+    //                     color: AppColors.appYellow,
+    //                     fontWeight: FontWeight.normal)),
+    //           ),
+    //           FlatButton(
+    //               splashColor: Colors.transparent,
+    //               highlightColor: Colors.transparent,
+    //               onPressed: () {
+    //                 Navigator.of(context).pop();
+    //               },
+    //               child: Text('取消',
+    //                   style: TextStyle(
+    //                       fontSize: Adaptor.px(28.0),
+    //                       color: AppColors.appTextDark,
+    //                       fontWeight: FontWeight.normal))),
+    //         ],
+    //       );
+    //     });
+      showModalBottomSheet(
         context: context,
+        // sele: DateTime.now(),
         builder: (context) {
-          return AlertDialog(
-            titlePadding: EdgeInsets.only(
-                top: Adaptor.px(20.0),
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            contentPadding: EdgeInsets.only(
-                top: 0,
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            title: Text('选择查询年度',
-                style: TextStyle(
-                    fontSize: Adaptor.px(32.0),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.appTextDark)),
-            content:
-                StatefulBuilder(builder: (context, StateSetter setState) {
-              return Container(
-                  height: Adaptor.px(350.0),
-                  child: Center(
-                      child: Container(
-                          width: Adaptor.px(200.0),
-                          height: Adaptor.px(300.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                  width: Adaptor.px(180.0),
-                                  child: CupertinoPicker(
-                                    itemExtent: Adaptor.px(64.0),
-                                    backgroundColor: Colors.white,
-                                    onSelectedItemChanged: (int i) {
-                                      setState(() {
-                                        _selectedIndex = i;
-                                      });
-                                    },
-                                    children: List.generate(_years.length,
-                                        (int index) {
-                                      return Center(
-                                          child: Text(_years[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
-                                                      FontWeight.normal)));
-                                    }).toList(),
-                                  )),
-                            ],
-                          ))));
-            }),
-            actions: <Widget>[
-              FlatButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: _yearSelectOk,
-                child: Text('确定',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(28.0),
-                        color: AppColors.appYellow,
-                        fontWeight: FontWeight.normal)),
-              ),
-              FlatButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('取消',
-                      style: TextStyle(
-                          fontSize: Adaptor.px(28.0),
-                          color: AppColors.appTextDark,
-                          fontWeight: FontWeight.normal))),
-            ],
+          return Container(
+            width: Adaptor.screenW(),
+            height: Adaptor.px(500),
+            child: Wrap(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text('取消'),
+                    Text('确定')
+                  ],
+                ),
+                Container(
+                  width: Adaptor.screenW(),
+                  height: Adaptor.px(300),
+                  child: YearPicker(
+                    selectedDate: DateTime.now(),
+                    onChanged: (time) {
+                      // Navigator.of(context).pop();
+                    },
+                    firstDate: DateTime.utc(2000, 1),
+                    lastDate: DateTime.utc(2100, 12),
+                  )
+                )
+              ],
+            )
           );
-        });
+        },
+      );
   }
 
   @override

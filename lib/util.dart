@@ -62,7 +62,7 @@ class Util {
         break;
 
         case '2':
-          weekdays.add('周一');
+          weekdays.add('周二');
         break;
 
         case '3':
@@ -104,7 +104,7 @@ class Util {
   static String randomStr(int len) {
     String alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     String res = '';
-    for (var i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
       res = '${res}${alphabet[Random().nextInt(alphabet.length)]}';
     }
 

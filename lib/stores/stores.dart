@@ -19,7 +19,7 @@ class AppStores {
     _limitStore = new LimitStore();
     _reminderStore = new ReminderStore();
 
-    // _userStore.ensureLogin();
+    _userStore.ensureLogin();
   }
 
 }

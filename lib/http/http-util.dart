@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:dio/dio.dart';
@@ -47,6 +48,9 @@ class HttpUtil {
   static const String PATCH = 'patch';
   static const String DELETE = 'delete';
 
+  static const String UNKNOWN_ERROR = '发生未知错误';
+  static const String CONNECT_ERROR = '服务器好像开小差了, 等会再试吧~';
+
   static Future<Map<String, dynamic>> request(String url, [data, method]) async {
     data = data ?? {};
     method = method ?? 'GET';
@@ -74,8 +78,11 @@ class HttpUtil {
       Response response = await dio.request(url, data: data, options: options);
       result = response.data;
     } on DioError catch (e) {
-      print(e.toString());
-      result = e.response.data;
+      if (e.response != null) {
+        result = e.response.data;
+      } else {
+        BotToast.showText(text: CONNECT_ERROR);
+      }
     }
 
     return result;

@@ -46,21 +46,22 @@ mixin _$ReminderStore on _ReminderStore, Store {
   final _$createReminderAsyncAction = AsyncAction('createReminder');
 
   @override
-  Future<HttpResponse> createReminder(Map<String, dynamic> data) {
-    return _$createReminderAsyncAction.run(() => super.createReminder(data));
+  Future<bool> createReminder(Map<String, dynamic> reminder) {
+    return _$createReminderAsyncAction
+        .run(() => super.createReminder(reminder));
   }
 
   final _$queryReminderAsyncAction = AsyncAction('queryReminder');
 
   @override
-  Future<HttpResponse> queryReminder() {
-    return _$queryReminderAsyncAction.run(() => super.queryReminder());
+  Future<bool> queryReminder([bool toast = false]) {
+    return _$queryReminderAsyncAction.run(() => super.queryReminder(toast));
   }
 
   final _$getDetailAsyncAction = AsyncAction('getDetail');
 
   @override
-  Future<HttpResponse> getDetail(String id) {
+  Future<bool> getDetail(String id) {
     return _$getDetailAsyncAction.run(() => super.getDetail(id));
   }
 }

@@ -58,78 +58,109 @@ Future<void> setToken(token) async {
 
   @action
   Future<bool> login(String mobile, String password, [String device]) async {
-    Map<String, dynamic> resp = await HttpUtil.request(Api.login, {
-      'mobile': mobile,
-      'password': password,
-      'device': device
-    }, HttpUtil.POST);
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.login, {
+        'mobile': mobile,
+        'password': password,
+        'device': device
+      }, HttpUtil.POST);
 
-    HttpResponse data = new HttpResponse.formJson(resp);
+      switchLoading(false);
 
-    if (data.success) {
-      logined = true;
-      userInfo = new User.fromJson(data.data);
-      await setToken(data.data['token']);
-    } else {
-      logined = false;
-      BotToast.showText(text: data.message);
+      HttpResponse data = new HttpResponse.formJson(resp);
+
+      if (data.success) {
+        logined = true;
+        userInfo = new User.fromJson(data.data);
+        await setToken(data.data['token']);
+      } else {
+        logined = false;
+        BotToast.showText(text: data.message);
+      }
+
+      return logined;
+    } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
     }
-    return logined;
   }
 
   @action
   Future<bool> validateCode(String mobile, String code) async {
-    Map<String, dynamic> resp = await HttpUtil.request(Api.validateVCode, {
-      'mobile': mobile,
-      'code': code
-    }, HttpUtil.GET);
+    try {
+      Map<String, dynamic> resp = await HttpUtil.request(Api.validateVCode, {
+        'mobile': mobile,
+        'code': code
+      }, HttpUtil.GET);
 
-    HttpResponse data = new HttpResponse.formJson(resp);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    bool validateSuccess = data.success;
+      bool validateSuccess = data.success;
 
-    if (!validateSuccess) {
-      BotToast.showText(text: data.message);
+      if (!validateSuccess) {
+        BotToast.showText(text: data.message);
+      }
+
+      return validateSuccess;
+    } catch (e) {
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
     }
-
-    return validateSuccess;
   }
 
   @action
   Future<bool> registerLogin(String mobile, String password, [String device]) async {
-    Map<String, dynamic> resp = await HttpUtil.request(Api.registerLogin, {
-      'mobile': mobile,
-      'password': password,
-      'device': device
-    }, HttpUtil.POST);
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.registerLogin, {
+        'mobile': mobile,
+        'password': password,
+        'device': device
+      }, HttpUtil.POST);
+      switchLoading(false);
 
-    HttpResponse data = new HttpResponse.formJson(resp);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    if (data.success) {
-      logined = true;
-      userInfo = new User.fromJson(data.data);
-      await setToken(data.data['token']);
-    } else {
-      logined = false;
-      BotToast.showText(text: data.message);
+      if (data.success) {
+        logined = true;
+        userInfo = new User.fromJson(data.data);
+        await setToken(data.data['token']);
+      } else {
+        logined = false;
+        BotToast.showText(text: data.message);
+      }
+      return logined;
+    } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
     }
-    return logined;
   }
 
     @action
   Future<bool> forgot(String mobile, String password) async {
-    Map<String, dynamic> resp = await HttpUtil.request(Api.forgot, {
-      'mobile': mobile,
-      'password': password
-    }, HttpUtil.PUT);
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.forgot, {
+        'mobile': mobile,
+        'password': password
+      }, HttpUtil.PUT);
+      switchLoading(false);
 
-    HttpResponse data = new HttpResponse.formJson(resp);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    if (!data.success) {
-      BotToast.showText(text: data.message);
+      if (!data.success) {
+        BotToast.showText(text: data.message);
+      }
+
+      return data.success;
+    } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
     }
-
-    return data.success;
   }
 
 }

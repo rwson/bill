@@ -5,6 +5,8 @@ class AppColors {
   static const Color appBorderLight = const Color(0xFFDFDFDF);
   static const Color appBorderDark = const Color(0xFF222222);
 
+  static const Color sheetBtnBg = const Color(0xFFF7F7F7);
+
   static const Color appWhite = const Color(0xFFFFFFFF);
 
   static const Color appTextNormal = const Color(0xFF666666);
