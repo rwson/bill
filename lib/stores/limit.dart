@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:bill/http/http-util.dart';
@@ -16,34 +17,41 @@ abstract class _LimitStore extends BaseStore with Store {
 
   @action
   Future<HttpResponse> setLimit(int amount) async {
-    switchLoading(true);
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.limitSet, { 'limit': amount }, HttpUtil.POST);
+      switchLoading(false);
+      
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    Map<String, dynamic> resp = await HttpUtil.request(Api.limitSet, { 'limit': amount }, HttpUtil.POST);
-    HttpResponse data = new HttpResponse.formJson(resp);
+      if (data.success) {
+        limit = amount;
+      }
 
-    if (data.success) {
-      limit = amount;
+      return data;
+    } catch (e) {
+
     }
-
-    switchLoading(false);
-
-    return data;
   }
 
     @action
-  Future<HttpResponse> queryLimit() async {
-    switchLoading(true);
-  
-    Map<String, dynamic> resp = await HttpUtil.request(Api.limitQuery, {}, HttpUtil.GET);
-    HttpResponse data = new HttpResponse.formJson(resp);
+  Future<bool> queryLimit([bool toast = false]) async {
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.limitQuery, {}, HttpUtil.GET);
+      switchLoading(false);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-    if (data.success) {
-      limit = data.data['limit'];
+      if (data.success) {
+        limit = data.data['limit'];
+      } else {
+        BotToast.showText(text: data.message);
+      }
+
+      return data.success;
+    } catch (e) {
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
     }
-
-    switchLoading(false);
-
-    return data;
   }
 
 }

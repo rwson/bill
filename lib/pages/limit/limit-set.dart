@@ -36,11 +36,9 @@ class LimitSetState extends State<LimitSetPage> {
   }
 
   Future<void> _queryLimit() async {
-    final data = await limitStore.queryLimit();
-    if (data.success) {
+    bool querySuccess = await limitStore.queryLimit();
+    if (querySuccess) {
       _amountController.text = '${limitStore.limit}';
-    } else {
-      BotToast.showText(text: data.message);
     }
   }
 

@@ -36,7 +36,7 @@ mixin _$LimitStore on _LimitStore, Store {
   final _$queryLimitAsyncAction = AsyncAction('queryLimit');
 
   @override
-  Future<HttpResponse> queryLimit() {
-    return _$queryLimitAsyncAction.run(() => super.queryLimit());
+  Future<bool> queryLimit([bool toast = false]) {
+    return _$queryLimitAsyncAction.run(() => super.queryLimit(toast));
   }
 }
