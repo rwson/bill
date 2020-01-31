@@ -1,6 +1,6 @@
 class Api {
 
-  static const String base = 'http://192.168.1.89:3000/';
+  static const String base = 'http://169.254.236.116:3000/';
 
   static const String registerLogin = 'user/register-login';
 
