@@ -10,6 +10,12 @@ import 'package:flt_telephony_info/flt_telephony_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//MobpushPlugin.getRegistrationId().then((Map<String, dynamic> ridMap) {
+//print(ridMap);
+//String regId = ridMap['res'].toString();
+//print('------>#### registrationId: ' + regId);
+//});
+
 class LoginPage extends StatefulWidget {
   LoginPage({@required this.target});
 
@@ -27,6 +33,8 @@ class LoginState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   final UserStore userStore = AppStores.userStore;
+
+  String regId;
 
   @override
   void initState() {

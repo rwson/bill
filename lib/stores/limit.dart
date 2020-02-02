@@ -42,12 +42,16 @@ abstract class _LimitStore extends BaseStore with Store {
       if (data.success) {
         limit = data.data['limit'];
       } else {
-        BotToast.showText(text: data.message);
+        if (toast) {
+          BotToast.showText(text: data.message);
+        }
       }
 
       return data.success;
     } catch (e) {
-      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      if (toast) {
+        BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      }
     }
   }
 }

@@ -27,10 +27,10 @@ class MineState extends State<MinePage> {
   }
 
   Future<void> _initPage() async {
-    bool logined = await userStore.ensureLogin();
+    bool logined = userStore.logined;
     if (logined) {
-      limitStore.queryLimit();
-      reminderStore.queryReminder();
+      limitStore.queryLimit(false);
+      reminderStore.queryReminder(false);
     }
   }
 
@@ -105,31 +105,15 @@ class MineState extends State<MinePage> {
                                       child: Column(
                                         children: <Widget>[
                                           userStore.logined
-                                              ?
-                                              // Image.network(
-                                              //   userStore.userInfo.avatar,
-                                              //   width: Adaptor.px(100.0),
-                                              //   height: Adaptor.px(100.0),
-                                              // )
-                                              ClipRRect(
+                                              ? ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(25.0),
-                                                    topRight:
-                                                        Radius.circular(25.0),
-                                                    bottomRight:
-                                                        Radius.circular(25.0),
-                                                  ),
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.bottomRight,
-                                                    heightFactor: 0.5,
-                                                    widthFactor: 0.5,
-                                                    child: Image.network(
-                                                        "https://static.vinepair.com/wp-content/uploads/2017/03/darts-int.jpg"),
-                                                  ),
-                                                )
+                                                      BorderRadius.circular(
+                                                          Adaptor.px(50.0)),
+                                                  child: Image.network(
+                                                      userStore.userInfo.avatar,
+                                                      width: Adaptor.px(100.0),
+                                                      height:
+                                                          Adaptor.px(100.0)))
                                               : Image.asset(
                                                   Assets.iconAvatar,
                                                   width: Adaptor.px(100.0),

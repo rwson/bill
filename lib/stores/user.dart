@@ -45,7 +45,7 @@ abstract class _UserStore extends BaseStore with Store {
     if (data.success) {
       logined = true;
       userInfo = new User.fromJson(data.data);
-      await setToken(data.data['token']);
+      await setToken(userInfo.token);
     } else {
       logined = false;
     }
@@ -69,7 +69,7 @@ abstract class _UserStore extends BaseStore with Store {
       if (data.success) {
         logined = true;
         userInfo = new User.fromJson(data.data);
-        await setToken(data.data['token']);
+        await setToken(userInfo.token);
       } else {
         logined = false;
         BotToast.showText(text: data.message);
@@ -105,13 +105,18 @@ abstract class _UserStore extends BaseStore with Store {
   }
 
   @action
-  Future<bool> registerLogin(String mobile, String password,
+  Future<bool> registerLogin(String mobile, String password, String rid,
       [String device]) async {
     try {
       switchLoading(true);
       Map<String, dynamic> resp = await HttpUtil.request(
           Api.registerLogin,
-          {'mobile': mobile, 'password': password, 'device': device},
+          {
+            'mobile': mobile,
+            'password': password,
+            'registrationId': rid,
+            'device': device
+          },
           HttpUtil.POST);
       switchLoading(false);
 

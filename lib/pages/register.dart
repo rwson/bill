@@ -12,6 +12,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flt_telephony_info/flt_telephony_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobpush_plugin/mobpush_plugin.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({@required this.target});
@@ -130,7 +131,10 @@ class RegisterState extends State<RegisterPage> {
       return;
     }
 
-    bool loginSuccess = await userStore.registerLogin(mobile, password, model);
+    Map<String, dynamic> ridMap = await MobpushPlugin.getRegistrationId();
+
+    bool loginSuccess = await userStore.registerLogin(
+        mobile, password, ridMap['res'].toString(), model);
 
     if (loginSuccess) {
       AppRouter.redirectTo(context, widget.target);

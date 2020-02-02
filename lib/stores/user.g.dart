@@ -68,9 +68,10 @@ mixin _$UserStore on _UserStore, Store {
   final _$registerLoginAsyncAction = AsyncAction('registerLogin');
 
   @override
-  Future<bool> registerLogin(String mobile, String password, [String device]) {
+  Future<bool> registerLogin(String mobile, String password, String rid,
+      [String device]) {
     return _$registerLoginAsyncAction
-        .run(() => super.registerLogin(mobile, password, device));
+        .run(() => super.registerLogin(mobile, password, rid, device));
   }
 
   final _$forgotAsyncAction = AsyncAction('forgot');
