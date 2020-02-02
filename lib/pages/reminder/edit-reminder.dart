@@ -1,12 +1,12 @@
 import 'package:bill/adaptor.dart';
+import 'package:bill/bean/reminder.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/reminder.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/bean/reminder.dart';
-import 'package:bill/stores/reminder.dart';
 
 class ReminderRuleItem {
   String type;
@@ -26,7 +26,6 @@ class EditReminderPage extends StatefulWidget {
 }
 
 class EditReminderState extends State<EditReminderPage> {
-
   FixedExtentScrollController _clockController;
 
   FixedExtentScrollController _minutesController;
@@ -124,8 +123,7 @@ class EditReminderState extends State<EditReminderPage> {
       setState(() {
         _selectedIndex = int.parse(current.rule);
         _selectedTime = current.time.split(':');
-        current.frequency.split('-').toList()
-        .forEach((String index) {
+        current.frequency.split('-').toList().forEach((String index) {
           _frequencies[int.parse(index) - 1] = true;
         });
 
@@ -133,8 +131,10 @@ class EditReminderState extends State<EditReminderPage> {
         _timeSelectOk(false);
         _ruleSelectOk(false);
 
-        _clockController = FixedExtentScrollController(initialItem: _clocks.indexOf(_selectedTime[0]));
-        _minutesController = FixedExtentScrollController(initialItem: _clocks.indexOf(_selectedTime[1]));
+        _clockController = FixedExtentScrollController(
+            initialItem: _clocks.indexOf(_selectedTime[0]));
+        _minutesController = FixedExtentScrollController(
+            initialItem: _clocks.indexOf(_selectedTime[1]));
 
         if (_selectedIndex == 0) {
           _backController.text = '${current.back}';
@@ -151,7 +151,7 @@ class EditReminderState extends State<EditReminderPage> {
     int len = _frequencies.length;
     bool item;
 
-    for (int i = 0; i < len; i ++) {
+    for (int i = 0; i < len; i++) {
       item = _frequencies[i];
 
       if (item) {
@@ -166,7 +166,7 @@ class EditReminderState extends State<EditReminderPage> {
       'rule': _selectedRule.type
     });
 
-    if (modifySuccess) {      
+    if (modifySuccess) {
       AppRouter.back(context);
     }
   }
@@ -212,268 +212,244 @@ class EditReminderState extends State<EditReminderPage> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
+            builder: (BuildContext context, StateSetter setState) {
+          return Container(
               width: Adaptor.screenW(),
               decoration: BoxDecoration(
-                color: AppColors.appWhite,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Adaptor.px(40.0)),
-                  topRight: Radius.circular(Adaptor.px(40.0))
-                )
-              ),
+                  color: AppColors.appWhite,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Adaptor.px(40.0)),
+                      topRight: Radius.circular(Adaptor.px(40.0)))),
               padding: EdgeInsets.only(
-                top: Adaptor.px(40.0),
-                bottom: Adaptor.px(20.0),
-                left: Adaptor.px(10.0)
-              ),
-              child: Wrap(
-                children: <Widget>[
-                  Container(
-                    child: Center(
-                      child: Text('选择记账频率', style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.appTextDark
-                      ))
-                    ),
-                  ),
-                  Wrap(
-                    children: List.generate(_frequencies.length, (int index) {
-                      return Container(
-                        height: Adaptor.px(68.0),
-                        child: CheckboxListTile(
-                            title: Text(_frequencieStrArr[index],
-                                style: TextStyle(
-                                    fontSize: Adaptor.px(28.0),
-                                    color: AppColors.appTextDark)),
-                            activeColor: AppColors.appYellow,
-                            value: _frequencies[index],
-                            onChanged: (bool value) {
-                              setState(() {
-                                _frequencies[index] = value;
-                              });
-                            }),
-                      );
-                    }).toList(),
-                  ),
-                  Container(
+                  top: Adaptor.px(40.0),
+                  bottom: Adaptor.px(20.0),
+                  left: Adaptor.px(10.0)),
+              child: Wrap(children: <Widget>[
+                Container(
+                  child: Center(
+                      child: Text('选择记账频率',
+                          style: TextStyle(
+                              fontSize: Adaptor.px(32.0),
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.appTextDark))),
+                ),
+                Wrap(
+                  children: List.generate(_frequencies.length, (int index) {
+                    return Container(
+                      height: Adaptor.px(68.0),
+                      child: CheckboxListTile(
+                          title: Text(_frequencieStrArr[index],
+                              style: TextStyle(
+                                  fontSize: Adaptor.px(28.0),
+                                  color: AppColors.appTextDark)),
+                          activeColor: AppColors.appYellow,
+                          value: _frequencies[index],
+                          onChanged: (bool value) {
+                            setState(() {
+                              _frequencies[index] = value;
+                            });
+                          }),
+                    );
+                  }).toList(),
+                ),
+                Container(
                     padding: EdgeInsets.only(
-                      left: Adaptor.px(30.0),
-                      right: Adaptor.px(46.0)
-                    ),
+                        left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
                     margin: EdgeInsets.only(top: Adaptor.px(30.0)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.of(context).pop()
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
-                            ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('取消', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appDanger
-                              ),)
-                            )
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () => {Navigator.of(context).pop()},
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '取消',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appDanger),
+                                ))),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: _frequencySelectOk,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
-                            ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('确定', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appWarning
-                              ),)
-                            )
-                          ),
-                        )
-                      ]
-                    )
-                  )
-                ]
-              )
-            );
-          }
-        );
+                          GestureDetector(
+                            onTap: _frequencySelectOk,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '确定',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appWarning),
+                                ))),
+                          )
+                        ]))
+              ]));
+        });
       },
     );
   }
 
   void _timeSelect(BuildContext context) {
     showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
             return Container(
-              width: Adaptor.screenW(),
-              decoration: BoxDecoration(
-                color: AppColors.appWhite,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Adaptor.px(40.0)),
-                  topRight: Radius.circular(Adaptor.px(40.0))
-                )
-              ),
-              padding: EdgeInsets.only(
-                top: Adaptor.px(40.0),
-                bottom: Adaptor.px(20.0),
-                left: Adaptor.px(10.0)
-              ),
-              child: Wrap(
-                children: <Widget>[
+                width: Adaptor.screenW(),
+                decoration: BoxDecoration(
+                    color: AppColors.appWhite,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Adaptor.px(40.0)),
+                        topRight: Radius.circular(Adaptor.px(40.0)))),
+                padding: EdgeInsets.only(
+                    top: Adaptor.px(40.0),
+                    bottom: Adaptor.px(20.0),
+                    left: Adaptor.px(10.0)),
+                child: Wrap(children: <Widget>[
                   Container(
                     child: Center(
-                      child: Text('选择提醒时间', style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.appTextDark
-                      ))
-                    ),
+                        child: Text('选择提醒时间',
+                            style: TextStyle(
+                                fontSize: Adaptor.px(32.0),
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.appTextDark))),
                   ),
                   Container(
-                  height: Adaptor.px(350.0),
-                  child: Center(
-                      child: Container(
-                          width: Adaptor.px(400.0),
-                          height: Adaptor.px(300.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                  width: Adaptor.px(180.0),
-                                  child: CupertinoPicker(
-                                    looping: true,
-                                    itemExtent: Adaptor.px(64.0),
-                                    backgroundColor: Colors.white,
-                                    scrollController: _clockController == null ? FixedExtentScrollController(initialItem: 0) : _clockController,
-                                    onSelectedItemChanged: (int i) {
-                                      setState(() {
-                                        if (_selectedTime.length >= 1) {
-                                          _selectedTime[0] = _clocks[i];
-                                        } else {
-                                          _selectedTime.add(_clocks[i]);
-                                        }
-                                      });
-                                    },
-                                    children: List.generate(_clocks.length,
-                                        (int index) {
-                                      return Center(
-                                          child: Text(_clocks[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
-                                                      FontWeight.normal)));
-                                    }).toList(),
-                                  )),
-                              Container(
-                                  width: Adaptor.px(180.0),
-                                  child: CupertinoPicker(
-                                    looping: true,
-                                    itemExtent: Adaptor.px(64.0),
-                                    backgroundColor: Colors.white,
-                                    scrollController: _minutesController == null ? FixedExtentScrollController(initialItem: 0) : _minutesController,
-                                    onSelectedItemChanged: (int i) {
-                                      setState(() {
-                                        if (_selectedTime.length < 2) {
-                                          _selectedTime.add(_minutes[i]);
-                                        } else {
-                                          _selectedTime[1] = _minutes[i];
-                                        }
-                                      });
-                                    },
-                                    children: List.generate(_minutes.length,
-                                        (int index) {
-                                      return Center(
-                                          child: Text(_minutes[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
-                                                      FontWeight.normal)));
-                                    }).toList(),
-                                  )),
-                            ],
-                  )))),
+                      height: Adaptor.px(350.0),
+                      child: Center(
+                          child: Container(
+                              width: Adaptor.px(400.0),
+                              height: Adaptor.px(300.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                      width: Adaptor.px(180.0),
+                                      child: CupertinoPicker(
+                                        looping: true,
+                                        itemExtent: Adaptor.px(64.0),
+                                        backgroundColor: Colors.white,
+                                        scrollController:
+                                            _clockController == null
+                                                ? FixedExtentScrollController(
+                                                    initialItem: 0)
+                                                : _clockController,
+                                        onSelectedItemChanged: (int i) {
+                                          setState(() {
+                                            if (_selectedTime.length >= 1) {
+                                              _selectedTime[0] = _clocks[i];
+                                            } else {
+                                              _selectedTime.add(_clocks[i]);
+                                            }
+                                          });
+                                        },
+                                        children: List.generate(_clocks.length,
+                                            (int index) {
+                                          return Center(
+                                              child: Text(_clocks[index],
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppColors.appTextDark,
+                                                      fontSize:
+                                                          Adaptor.px(32.0),
+                                                      fontWeight:
+                                                          FontWeight.normal)));
+                                        }).toList(),
+                                      )),
+                                  Container(
+                                      width: Adaptor.px(180.0),
+                                      child: CupertinoPicker(
+                                        looping: true,
+                                        itemExtent: Adaptor.px(64.0),
+                                        backgroundColor: Colors.white,
+                                        scrollController:
+                                            _minutesController == null
+                                                ? FixedExtentScrollController(
+                                                    initialItem: 0)
+                                                : _minutesController,
+                                        onSelectedItemChanged: (int i) {
+                                          setState(() {
+                                            if (_selectedTime.length < 2) {
+                                              _selectedTime.add(_minutes[i]);
+                                            } else {
+                                              _selectedTime[1] = _minutes[i];
+                                            }
+                                          });
+                                        },
+                                        children: List.generate(_minutes.length,
+                                            (int index) {
+                                          return Center(
+                                              child: Text(_minutes[index],
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppColors.appTextDark,
+                                                      fontSize:
+                                                          Adaptor.px(32.0),
+                                                      fontWeight:
+                                                          FontWeight.normal)));
+                                        }).toList(),
+                                      )),
+                                ],
+                              )))),
                   Container(
-                    padding: EdgeInsets.only(
-                      left: Adaptor.px(30.0),
-                      right: Adaptor.px(46.0)
-                    ),
-                    margin: EdgeInsets.only(top: Adaptor.px(30.0)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.of(context).pop()
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
+                      padding: EdgeInsets.only(
+                          left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
+                      margin: EdgeInsets.only(top: Adaptor.px(30.0)),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () => {Navigator.of(context).pop()},
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColors.sheetBtnBg,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(Adaptor.px(45.0)))),
+                                  width: Adaptor.px(280.0),
+                                  height: Adaptor.px(90.0),
+                                  child: Center(
+                                      child: Text(
+                                    '取消',
+                                    style: TextStyle(
+                                        fontSize: Adaptor.px(32.0),
+                                        color: AppColors.appDanger),
+                                  ))),
                             ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('取消', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appDanger
-                              ),)
+                            GestureDetector(
+                              onTap: _timeSelectOk,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColors.sheetBtnBg,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(Adaptor.px(45.0)))),
+                                  width: Adaptor.px(280.0),
+                                  height: Adaptor.px(90.0),
+                                  child: Center(
+                                      child: Text(
+                                    '确定',
+                                    style: TextStyle(
+                                        fontSize: Adaptor.px(32.0),
+                                        color: AppColors.appWarning),
+                                  ))),
                             )
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: _timeSelectOk,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
-                            ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('确定', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appWarning
-                              ),)
-                            )
-                          ),
-                        )
-                      ]
-                    )
-                  )
-                ]
-              )
-            );
-          }
-        );
-      }
-    );
+                          ]))
+                ]));
+          });
+        });
   }
 
   void _ruleSelect(BuildContext context) {
@@ -482,111 +458,92 @@ class EditReminderState extends State<EditReminderPage> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
+            builder: (BuildContext context, StateSetter setState) {
+          return Container(
               width: Adaptor.screenW(),
               decoration: BoxDecoration(
-                color: AppColors.appWhite,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Adaptor.px(40.0)),
-                  topRight: Radius.circular(Adaptor.px(40.0))
-                )
-              ),
+                  color: AppColors.appWhite,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Adaptor.px(40.0)),
+                      topRight: Radius.circular(Adaptor.px(40.0)))),
               padding: EdgeInsets.only(
-                top: Adaptor.px(40.0),
-                bottom: Adaptor.px(20.0),
-                left: Adaptor.px(10.0)
-              ),
-              child: Wrap(
-                children: <Widget>[
-                  Container(
-                    child: Center(
-                      child: Text('选择存钱规则', style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.appTextDark
-                      ))
-                    ),
-                  ),
-                  Wrap(
+                  top: Adaptor.px(40.0),
+                  bottom: Adaptor.px(20.0),
+                  left: Adaptor.px(10.0)),
+              child: Wrap(children: <Widget>[
+                Container(
+                  child: Center(
+                      child: Text('选择存钱规则',
+                          style: TextStyle(
+                              fontSize: Adaptor.px(32.0),
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.appTextDark))),
+                ),
+                Wrap(
                     children: List.generate(_rules.length, (int index) {
-                      return Container(
-                          child: RadioListTile(
-                              title: Text(_rules[index].name,
-                                  style: TextStyle(
-                                      fontSize: Adaptor.px(32.0),
-                                      color: AppColors.appTextDark)),
-                              subtitle: Text(_rules[index].desc,
-                                  style: TextStyle(
-                                      fontSize: Adaptor.px(26.0),
-                                      color: AppColors.appTextNormal)),
-                              activeColor: AppColors.appYellow,
-                              value: index,
-                              groupValue: _selectedIndex,
-                              onChanged: (int value) {
-                                setState(() {
-                                  _selectedIndex = value;
-                                });
-                              }));
-                    }).toList()
-                  ),
-                  Container(
+                  return Container(
+                      child: RadioListTile(
+                          title: Text(_rules[index].name,
+                              style: TextStyle(
+                                  fontSize: Adaptor.px(32.0),
+                                  color: AppColors.appTextDark)),
+                          subtitle: Text(_rules[index].desc,
+                              style: TextStyle(
+                                  fontSize: Adaptor.px(26.0),
+                                  color: AppColors.appTextNormal)),
+                          activeColor: AppColors.appYellow,
+                          value: index,
+                          groupValue: _selectedIndex,
+                          onChanged: (int value) {
+                            setState(() {
+                              _selectedIndex = value;
+                            });
+                          }));
+                }).toList()),
+                Container(
                     padding: EdgeInsets.only(
-                      left: Adaptor.px(30.0),
-                      right: Adaptor.px(46.0)
-                    ),
+                        left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
                     margin: EdgeInsets.only(top: Adaptor.px(30.0)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.of(context).pop()
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
-                            ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('取消', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appDanger
-                              ),)
-                            )
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () => {Navigator.of(context).pop()},
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '取消',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appDanger),
+                                ))),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: _ruleSelectOk,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.sheetBtnBg,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(Adaptor.px(45.0))
-                              )
-                            ),
-                            width: Adaptor.px(280.0),
-                            height: Adaptor.px(90.0),
-                            child: Center(
-                              child: Text('确定', style: TextStyle(
-                                fontSize: Adaptor.px(32.0),
-                                color: AppColors.appWarning
-                              ),)
-                            )
-                          ),
-                        )
-                      ]
-                    )
-                  )
-                ]
-              )
-            );
-          }
-        );
+                          GestureDetector(
+                            onTap: _ruleSelectOk,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '确定',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appWarning),
+                                ))),
+                          )
+                        ]))
+              ]));
+        });
       },
     );
   }
@@ -713,58 +670,58 @@ class EditReminderState extends State<EditReminderPage> {
                     ],
                   ),
                 ),
-                (_selectedRule != null && _selectedRule.type == '0') ?
-                Container(
-                  width: Adaptor.px(1060.0),
-                  height: Adaptor.px(100.0),
-                  padding: EdgeInsets.only(
-                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
-                  margin: EdgeInsets.only(
-                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-                  decoration: BoxDecoration(
-                      color: AppColors.appWhite,
-                      border: Border(
-                          bottom: BorderSide(
-                              width: Adaptor.onePx(),
-                              color: AppColors.appBorder))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('回头天数',
-                          style: TextStyle(
-                              color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(28.0))),
-                      Expanded(
-                          flex: 1,
-                          child: TextField(
-                            controller: _backController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                color: AppColors.appTextNormal,
-                                fontSize: Adaptor.px(28.0),
-                                fontWeight: FontWeight.normal),
-                            focusNode: _backFocus,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    top: Adaptor.px(30.0),
-                                    bottom: Adaptor.px(30.0)),
-                                hintText: '请输入手回头天数',
-                                fillColor: AppColors.appWhite,
-                                filled: true,
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide.none
-                                ),
-                          )
-                          )
-                        )
-                    ],
-                  ),
-                ) : Container(),
+                (_selectedRule != null && _selectedRule.type == '0')
+                    ? Container(
+                        width: Adaptor.px(1060.0),
+                        height: Adaptor.px(100.0),
+                        padding: EdgeInsets.only(
+                            left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
+                        margin: EdgeInsets.only(
+                            left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
+                        decoration: BoxDecoration(
+                            color: AppColors.appWhite,
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: Adaptor.onePx(),
+                                    color: AppColors.appBorder))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('回头天数',
+                                style: TextStyle(
+                                    color: AppColors.appTextDark,
+                                    fontSize: Adaptor.px(28.0))),
+                            Expanded(
+                                flex: 1,
+                                child: TextField(
+                                    controller: _backController,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      WhitelistingTextInputFormatter.digitsOnly
+                                    ],
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        color: AppColors.appTextNormal,
+                                        fontSize: Adaptor.px(28.0),
+                                        fontWeight: FontWeight.normal),
+                                    focusNode: _backFocus,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          top: Adaptor.px(30.0),
+                                          bottom: Adaptor.px(30.0)),
+                                      hintText: '请输入手回头天数',
+                                      fillColor: AppColors.appWhite,
+                                      filled: true,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide.none),
+                                    )))
+                          ],
+                        ),
+                      )
+                    : Container(),
                 Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),

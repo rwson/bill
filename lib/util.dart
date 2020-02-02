@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daydart/flutter_daydart.dart';
-import 'dart:math';
 
-RegExp mobileReg = new RegExp('^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$');
+RegExp mobileReg = new RegExp(
+    '^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$');
 
 class PrecisionLimitFormatter extends TextInputFormatter {
   int _scale;
@@ -46,7 +48,6 @@ class PrecisionLimitFormatter extends TextInputFormatter {
 }
 
 class Util {
-
   static String frenquency2Weekday(String frequency) {
     List<String> frequencys = frequency.split('-');
     List<String> weekdays = new List();
@@ -59,31 +60,31 @@ class Util {
       switch (item) {
         case '1':
           weekdays.add('周一');
-        break;
+          break;
 
         case '2':
           weekdays.add('周二');
-        break;
+          break;
 
         case '3':
           weekdays.add('周三');
-        break;
+          break;
 
         case '4':
           weekdays.add('周四');
-        break;
+          break;
 
         case '5':
           weekdays.add('周五');
-        break;
+          break;
 
         case '6':
           weekdays.add('周六');
-        break;
+          break;
 
         default:
           weekdays.add('周日');
-        break;
+          break;
       }
     });
 
@@ -99,7 +100,6 @@ class Util {
   static bool validMobile(String mobile) {
     return mobileReg.hasMatch(mobile);
   }
-
 
   static String randomStr(int len) {
     String alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';

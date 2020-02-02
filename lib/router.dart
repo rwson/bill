@@ -1,9 +1,8 @@
 import 'dart:core';
 
+import 'package:bill/stores/stores.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bill/stores/stores.dart';
 
 const String LOGIN_PATH = 'login';
 

@@ -1,10 +1,7 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bill/stores/stores.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -52,7 +49,6 @@ class AnalysisPage extends StatefulWidget {
 }
 
 class AnalysisState extends State<AnalysisPage> {
-
   int touchedIndex;
 
   @override
@@ -63,7 +59,6 @@ class AnalysisState extends State<AnalysisPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
             title: Text('分析',
                 style: TextStyle(

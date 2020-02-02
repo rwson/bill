@@ -4,7 +4,6 @@ part 'limit.g.dart';
 
 @JsonSerializable()
 class Limit {
-
   final int limit;
 
   Limit([this.limit]);
@@ -12,5 +11,4 @@ class Limit {
   factory Limit.fromJson(Map<String, dynamic> json) => _$LimitFromJson(json);
 
   Map<String, dynamic> toJson() => _$LimitToJson(this);
-
 }

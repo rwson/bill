@@ -1,14 +1,10 @@
+import 'package:bill/api.dart';
+import 'package:bill/bean/user.dart';
+import 'package:bill/http/http-util.dart';
+import 'package:bill/stores/base.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bot_toast/bot_toast.dart';
-
-import 'package:bill/bean/user.dart';
-
-import 'package:bill/http/http-util.dart';
-
-import 'package:bill/api.dart';
-
-import 'package:bill/stores/base.dart';
 
 part 'user.g.dart';
 
@@ -28,7 +24,7 @@ abstract class _UserStore extends BaseStore with Store {
     return token;
   }
 
-Future<void> setToken(token) async {
+  Future<void> setToken(token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userToken', token);
   }
@@ -42,7 +38,8 @@ Future<void> setToken(token) async {
       return false;
     }
 
-    Map<String, dynamic> resp = await HttpUtil.request(Api.ensureLogined, {} ,HttpUtil.GET);
+    Map<String, dynamic> resp =
+        await HttpUtil.request(Api.ensureLogined, {}, HttpUtil.GET);
     HttpResponse data = new HttpResponse.formJson(resp);
 
     if (data.success) {
@@ -60,11 +57,10 @@ Future<void> setToken(token) async {
   Future<bool> login(String mobile, String password, [String device]) async {
     try {
       switchLoading(true);
-      Map<String, dynamic> resp = await HttpUtil.request(Api.login, {
-        'mobile': mobile,
-        'password': password,
-        'device': device
-      }, HttpUtil.POST);
+      Map<String, dynamic> resp = await HttpUtil.request(
+          Api.login,
+          {'mobile': mobile, 'password': password, 'device': device},
+          HttpUtil.POST);
 
       switchLoading(false);
 
@@ -90,10 +86,8 @@ Future<void> setToken(token) async {
   @action
   Future<bool> validateCode(String mobile, String code) async {
     try {
-      Map<String, dynamic> resp = await HttpUtil.request(Api.validateVCode, {
-        'mobile': mobile,
-        'code': code
-      }, HttpUtil.GET);
+      Map<String, dynamic> resp = await HttpUtil.request(
+          Api.validateVCode, {'mobile': mobile, 'code': code}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -111,14 +105,14 @@ Future<void> setToken(token) async {
   }
 
   @action
-  Future<bool> registerLogin(String mobile, String password, [String device]) async {
+  Future<bool> registerLogin(String mobile, String password,
+      [String device]) async {
     try {
       switchLoading(true);
-      Map<String, dynamic> resp = await HttpUtil.request(Api.registerLogin, {
-        'mobile': mobile,
-        'password': password,
-        'device': device
-      }, HttpUtil.POST);
+      Map<String, dynamic> resp = await HttpUtil.request(
+          Api.registerLogin,
+          {'mobile': mobile, 'password': password, 'device': device},
+          HttpUtil.POST);
       switchLoading(false);
 
       HttpResponse data = new HttpResponse.formJson(resp);
@@ -139,14 +133,12 @@ Future<void> setToken(token) async {
     }
   }
 
-    @action
+  @action
   Future<bool> forgot(String mobile, String password) async {
     try {
       switchLoading(true);
-      Map<String, dynamic> resp = await HttpUtil.request(Api.forgot, {
-        'mobile': mobile,
-        'password': password
-      }, HttpUtil.PUT);
+      Map<String, dynamic> resp = await HttpUtil.request(
+          Api.forgot, {'mobile': mobile, 'password': password}, HttpUtil.PUT);
       switchLoading(false);
 
       HttpResponse data = new HttpResponse.formJson(resp);
@@ -162,8 +154,6 @@ Future<void> setToken(token) async {
       return false;
     }
   }
-
 }
-
 
 UserStore userStore = new UserStore();

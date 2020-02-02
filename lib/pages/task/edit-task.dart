@@ -138,8 +138,7 @@ class EditTaskState extends State<EditTaskPage> {
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
-            content:
-                StatefulBuilder(builder: (context, StateSetter setState) {
+            content: StatefulBuilder(builder: (context, StateSetter setState) {
               return Container(
                   child: Wrap(
                 children: List.generate(_frequencies.length, (int index) {
@@ -208,8 +207,7 @@ class EditTaskState extends State<EditTaskPage> {
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
-            content:
-                StatefulBuilder(builder: (context, StateSetter setState) {
+            content: StatefulBuilder(builder: (context, StateSetter setState) {
               return Container(
                   height: Adaptor.px(350.0),
                   child: Center(
@@ -319,8 +317,7 @@ class EditTaskState extends State<EditTaskPage> {
                     fontSize: Adaptor.px(32.0),
                     fontWeight: FontWeight.w400,
                     color: AppColors.appTextDark)),
-            content:
-                StatefulBuilder(builder: (context, StateSetter setState) {
+            content: StatefulBuilder(builder: (context, StateSetter setState) {
               return Container(
                   height: Adaptor.px(400.0),
                   margin: EdgeInsets.only(top: Adaptor.px(40.0)),

@@ -3,11 +3,11 @@ import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:flutter/material.dart';
-import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/limit.dart';
-import 'package:bill/stores/user.dart';
 import 'package:bill/stores/reminder.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/user.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class MinePage extends StatefulWidget {

@@ -119,44 +119,38 @@ class WealthState extends State<WealthPage> {
     //         ],
     //       );
     //     });
-      showModalBottomSheet(
-        context: context,
-        // sele: DateTime.now(),
-        builder: (context) {
-          return Container(
+    showModalBottomSheet(
+      context: context,
+      // sele: DateTime.now(),
+      builder: (context) {
+        return Container(
             width: Adaptor.screenW(),
             height: Adaptor.px(500),
             child: Wrap(
               children: <Widget>[
                 Row(
-                  children: <Widget>[
-                    Text('取消'),
-                    Text('确定')
-                  ],
+                  children: <Widget>[Text('取消'), Text('确定')],
                 ),
                 Container(
-                  width: Adaptor.screenW(),
-                  height: Adaptor.px(300),
-                  child: YearPicker(
-                    selectedDate: DateTime.now(),
-                    onChanged: (time) {
-                      // Navigator.of(context).pop();
-                    },
-                    firstDate: DateTime.utc(2000, 1),
-                    lastDate: DateTime.utc(2100, 12),
-                  )
-                )
+                    width: Adaptor.screenW(),
+                    height: Adaptor.px(300),
+                    child: YearPicker(
+                      selectedDate: DateTime.now(),
+                      onChanged: (time) {
+                        // Navigator.of(context).pop();
+                      },
+                      firstDate: DateTime.utc(2000, 1),
+                      lastDate: DateTime.utc(2100, 12),
+                    ))
               ],
-            )
-          );
-        },
-      );
+            ));
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
             title: Text('资产',
                 style: TextStyle(

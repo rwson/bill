@@ -16,7 +16,6 @@ class TaskState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
             title: Text('账单详情',
                 style: TextStyle(

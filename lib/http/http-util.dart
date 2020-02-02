@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:bot_toast/bot_toast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:dio/dio.dart';
-
 import 'package:bill/api.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<String> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -15,24 +13,16 @@ Future<String> getToken() async {
 }
 
 class HttpResponse<T> {
-
   bool success;
   String message;
   T data;
 
-  HttpResponse({
-    this.success,
-    this.message,
-    this.data
- });
+  HttpResponse({this.success, this.message, this.data});
 
- factory HttpResponse.formJson(json) {
-   return HttpResponse(
-     success: json['success'],
-     message: json['message'],
-     data: json['data']
-   );
- }
+  factory HttpResponse.formJson(json) {
+    return HttpResponse(
+        success: json['success'], message: json['message'], data: json['data']);
+  }
 }
 
 class HttpUtil {
@@ -51,7 +41,8 @@ class HttpUtil {
   static const String UNKNOWN_ERROR = '发生未知错误';
   static const String CONNECT_ERROR = '服务器好像开小差了, 等会再试吧~';
 
-  static Future<Map<String, dynamic>> request(String url, [data, method]) async {
+  static Future<Map<String, dynamic>> request(String url,
+      [data, method]) async {
     data = data ?? {};
     method = method ?? 'GET';
 
@@ -60,11 +51,7 @@ class HttpUtil {
     Dio dio = createInstance();
 
     final Options options = new Options(
-      method: method,
-      headers: {
-        'authorization': 'Bearer $token'
-      }
-    );
+        method: method, headers: {'authorization': 'Bearer $token'});
 
     data.forEach((key, value) {
       if (url.indexOf(key) != -1) {

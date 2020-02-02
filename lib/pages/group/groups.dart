@@ -25,9 +25,6 @@ class GroupsState extends State<GroupsPage> {
     AppRouter.toPage(context, 'create-group?id=${id.toString()}');
   }
 
-
-
-
   void _share() {}
 
   @override
@@ -107,8 +104,7 @@ class GroupsState extends State<GroupsPage> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: Text(
-                                                    '创建于 2019-11-21',
+                                                child: Text('创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
                                                             Adaptor.px(28.0),
@@ -180,8 +176,7 @@ class GroupsState extends State<GroupsPage> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: Text(
-                                                    '创建于 2019-11-21',
+                                                child: Text('创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
                                                             Adaptor.px(28.0),
@@ -298,8 +293,7 @@ class GroupsState extends State<GroupsPage> {
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: Adaptor.px(0)),
-                                                child: Text(
-                                                    '创建于 2019-11-21',
+                                                child: Text('创建于 2019-11-21',
                                                     style: TextStyle(
                                                         fontSize:
                                                             Adaptor.px(28.0),

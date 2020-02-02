@@ -1,13 +1,9 @@
-import 'package:bill/bean/reminder.dart';
-import 'package:mobx/mobx.dart';
-
-import 'package:bot_toast/bot_toast.dart';
-
-import 'package:bill/http/http-util.dart';
-
 import 'package:bill/api.dart';
-
+import 'package:bill/bean/reminder.dart';
+import 'package:bill/http/http-util.dart';
 import 'package:bill/stores/base.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:mobx/mobx.dart';
 
 part 'reminder.g.dart';
 
@@ -25,7 +21,8 @@ abstract class _ReminderStore extends BaseStore with Store {
     try {
       switchLoading(true);
 
-      Map<String, dynamic> resp = await HttpUtil.request(Api.createReminder, reminder, HttpUtil.POST);
+      Map<String, dynamic> resp =
+          await HttpUtil.request(Api.createReminder, reminder, HttpUtil.POST);
       HttpResponse data = new HttpResponse.formJson(resp);
 
       switchLoading(false);
@@ -43,7 +40,8 @@ abstract class _ReminderStore extends BaseStore with Store {
   Future<bool> updateReminder(Map<String, dynamic> reminder) async {
     try {
       switchLoading(true);
-      Map<String, dynamic> resp = await HttpUtil.request(Api.updateReminder, reminder, HttpUtil.PUT);
+      Map<String, dynamic> resp =
+          await HttpUtil.request(Api.updateReminder, reminder, HttpUtil.PUT);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -64,15 +62,16 @@ abstract class _ReminderStore extends BaseStore with Store {
     try {
       switchLoading(true);
 
-      Map<String, dynamic> resp = await HttpUtil.request(Api.queryReminder, {}, HttpUtil.GET);
+      Map<String, dynamic> resp =
+          await HttpUtil.request(Api.queryReminder, {}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
       if (data.success) {
         reminder = new List();
-        data.data.toList().forEach((json) => {
-          reminder.add(new ReminderItem.fromJson(json))
-        });
+        data.data
+            .toList()
+            .forEach((json) => {reminder.add(new ReminderItem.fromJson(json))});
       }
 
       switchLoading(false);
@@ -97,9 +96,8 @@ abstract class _ReminderStore extends BaseStore with Store {
 
       switchLoading(true);
 
-      Map<String, dynamic> resp = await HttpUtil.request(Api.reminderDetail, {
-        'id': id
-      }, HttpUtil.GET);
+      Map<String, dynamic> resp =
+          await HttpUtil.request(Api.reminderDetail, {'id': id}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -118,8 +116,6 @@ abstract class _ReminderStore extends BaseStore with Store {
       return false;
     }
   }
-
 }
-
 
 ReminderStore userStore = new ReminderStore();

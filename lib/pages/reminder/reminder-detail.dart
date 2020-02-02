@@ -1,13 +1,13 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/reminder.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/util.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/stores/reminder.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:bill/util.dart';
 
 class ReminderDetailPage extends StatefulWidget {
   ReminderDetailPage({@required this.id});
@@ -45,12 +45,9 @@ class ReminderDetailState extends State<ReminderDetailPage> {
         backgroundColor: Colors.black26,
         animationDuration: Duration(milliseconds: 300),
         toastBuilder: (cancelFunc) => AlertDialog(
-          title: Text('你确定要删除此存款提醒吗?', 
-          style: TextStyle(
-              fontSize: Adaptor.px(32.0),
-              color: AppColors.appTextDark
-            )
-          ),
+          title: Text('你确定要删除此存款提醒吗?',
+              style: TextStyle(
+                  fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)),
           actions: <Widget>[
             FlatButton(
               onPressed: () {

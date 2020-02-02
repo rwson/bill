@@ -1,15 +1,14 @@
+import 'dart:io' show Platform;
+
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/user.dart';
-import 'package:bot_toast/bot_toast.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flt_telephony_info/flt_telephony_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:device_info/device_info.dart';
-
-import 'dart:io' show Platform;
 
 class LoginPage extends StatefulWidget {
   LoginPage({@required this.target});
@@ -21,7 +20,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> {
-
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   final TextEditingController _mobileController = TextEditingController();
@@ -48,12 +46,10 @@ class LoginState extends State<LoginPage> {
       if (Platform.isAndroid) {
         TelephonyInfo info = await FltTelephonyInfo.info;
       }
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
-  void _toRegister () {
+  void _toRegister() {
     AppRouter.redirectTo(context, 'register');
   }
 
@@ -62,7 +58,6 @@ class LoginState extends State<LoginPage> {
   }
 
   Future<void> _toLogin() async {
-
     String mobile = _mobileController.text;
     String password = _passwordController.text;
     String model;
@@ -102,7 +97,10 @@ class LoginState extends State<LoginPage> {
                   controller: _mobileController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: Adaptor.px(30.0), bottom: Adaptor.px(30.0), left: Adaptor.px(20.0)),
+                      contentPadding: EdgeInsets.only(
+                          top: Adaptor.px(30.0),
+                          bottom: Adaptor.px(30.0),
+                          left: Adaptor.px(20.0)),
                       hintText: '请输入手机号',
                       fillColor: AppColors.appWhite,
                       filled: true,
@@ -113,15 +111,17 @@ class LoginState extends State<LoginPage> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: AppColors.appBorderDark,
-                              width: Adaptor.onePx()))
-                  ),
+                              width: Adaptor.onePx()))),
                 ),
                 TextField(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: Adaptor.px(30.0), bottom: Adaptor.px(30.0), left: Adaptor.px(20.0)),
+                      contentPadding: EdgeInsets.only(
+                          top: Adaptor.px(30.0),
+                          bottom: Adaptor.px(30.0),
+                          left: Adaptor.px(20.0)),
                       hintText: '请输入登录密码',
                       fillColor: AppColors.appWhite,
                       filled: true,
@@ -132,8 +132,7 @@ class LoginState extends State<LoginPage> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: AppColors.appBorderDark,
-                              width: Adaptor.onePx()))
-                  ),
+                              width: Adaptor.onePx()))),
                 ),
                 Container(
                     width: Adaptor.px(1040.0),
@@ -152,21 +151,14 @@ class LoginState extends State<LoginPage> {
                                 color: AppColors.appTextDark)))),
                 Container(
                     margin: EdgeInsets.only(top: Adaptor.px(20.0)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      GestureDetector(
-                          onTap: _toForgot,
-                          child: Text('忘记密码')
-                      ),
-                      GestureDetector(
-                          onTap: _toRegister,
-                          child: Text('注册')
-                      ),
-                    ],
-                  )
-                )
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(onTap: _toForgot, child: Text('忘记密码')),
+                        GestureDetector(onTap: _toRegister, child: Text('注册')),
+                      ],
+                    ))
               ],
             )));
   }

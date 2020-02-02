@@ -1,20 +1,19 @@
+import 'dart:io' show Platform;
+
 import 'package:bill/adaptor.dart';
+import 'package:bill/api.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
-import 'package:bill/api.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/user.dart';
 import 'package:bill/util.dart';
-import 'package:bill/stores/stores.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flt_telephony_info/flt_telephony_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:device_info/device_info.dart';
-
-import 'dart:io' show Platform;
 
 class ForgotPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => ForgotState();
 }
@@ -26,7 +25,8 @@ class ForgotState extends State<ForgotPage> {
 
   final TextEditingController _passwordController = TextEditingController();
 
-  final TextEditingController _passwordConfirmController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
 
   final TextEditingController _vCodeController = TextEditingController();
 
@@ -82,7 +82,8 @@ class ForgotState extends State<ForgotPage> {
 
   void _updateCodeUrl() {
     setState(() {
-      vCodeUrl = '${Api.base}${Api.getVCode}/${_mobileController.text}?t=${Util.randomStr(20)}';
+      vCodeUrl =
+          '${Api.base}${Api.getVCode}/${_mobileController.text}?t=${Util.randomStr(20)}';
     });
   }
 
@@ -198,37 +199,35 @@ class ForgotState extends State<ForgotPage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Expanded(
-              child: TextField(
-                controller: _vCodeController,
-                focusNode: _vCodeFocus,
-                autocorrect: false,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(
-                        top: Adaptor.px(30.0),
-                        bottom: Adaptor.px(30.0),
-                        left: Adaptor.px(20.0)),
-                    hintText: '请输入图片验证码',
-                    fillColor: AppColors.appWhite,
-                    filled: true,
-                    enabledBorder: UnderlineInputBorder(
+                child: TextField(
+              controller: _vCodeController,
+              focusNode: _vCodeFocus,
+              autocorrect: false,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(
+                      top: Adaptor.px(30.0),
+                      bottom: Adaptor.px(30.0),
+                      left: Adaptor.px(20.0)),
+                  hintText: '请输入图片验证码',
+                  fillColor: AppColors.appWhite,
+                  filled: true,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: AppColors.appBorder, width: Adaptor.onePx()),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: AppColors.appBorder, width: Adaptor.onePx()),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.appBorderDark, width: Adaptor.onePx()))),
-              )
-            ),
+                          color: AppColors.appBorderDark,
+                          width: Adaptor.onePx()))),
+            )),
             GestureDetector(
-              onTap: _updateCodeUrl,
-              child: Container(
-              child: Image.network(
-                vCodeUrl,
-                width: Adaptor.px(240),
-                height: Adaptor.px(80),
-              )
-            )
-            ),
+                onTap: _updateCodeUrl,
+                child: Container(
+                    child: Image.network(
+                  vCodeUrl,
+                  width: Adaptor.px(240),
+                  height: Adaptor.px(80),
+                ))),
           ],
         ),
         Container(
@@ -329,8 +328,8 @@ class ForgotState extends State<ForgotPage> {
             padding: EdgeInsets.only(
                 left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
             width: Adaptor.px(1020.0),
-            child: step == 1 ? _buildFirstStep() : 
-                step == 2 ? _buildSecondStep() : _buildThirdStep()
-            ));
+            child: step == 1
+                ? _buildFirstStep()
+                : step == 2 ? _buildSecondStep() : _buildThirdStep()));
   }
 }

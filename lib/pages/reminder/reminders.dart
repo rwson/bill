@@ -1,14 +1,13 @@
 import 'package:bill/adaptor.dart';
+import 'package:bill/bean/reminder.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/bean/reminder.dart';
 import 'package:bill/stores/reminder.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:bill/util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class RemindersPage extends StatefulWidget {
   @override
@@ -49,8 +48,7 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
               top: Adaptor.px(10.0),
               left: Adaptor.px(10.0),
               right: Adaptor.px(10.0),
-              bottom: Adaptor.px(120.0)
-            ),
+              bottom: Adaptor.px(120.0)),
           child: Observer(
             builder: (_) => Wrap(
               children: <Widget>[
@@ -104,7 +102,8 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
                                                     children: <Widget>[
                                                       Row(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment.center,
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         children: <Widget>[
                                                           Icon(
                                                             IconFont
@@ -115,16 +114,24 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
                                                                 .appYellow,
                                                           ),
                                                           Padding(
-                                                            padding: EdgeInsets.only(left: Adaptor.px(10.0)),
-                                                            child: Text('存钱提醒',
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      Adaptor.px(
-                                                                          28.0),
-                                                                  color: AppColors
-                                                                      .appTextDark))
-                                                          ),
-                                                          Text(Util.isAfter(_reminder.time) ? '(已提醒)' : '',
+                                                              padding: EdgeInsets.only(
+                                                                  left: Adaptor
+                                                                      .px(
+                                                                          10.0)),
+                                                              child: Text(
+                                                                  '存钱提醒',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          Adaptor.px(
+                                                                              28.0),
+                                                                      color: AppColors
+                                                                          .appTextDark))),
+                                                          Text(
+                                                              Util.isAfter(
+                                                                      _reminder
+                                                                          .time)
+                                                                  ? '(已提醒)'
+                                                                  : '',
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       Adaptor.px(

@@ -1,13 +1,12 @@
-import 'package:bill/stores/user.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/reminder.dart';
+import 'package:bill/stores/user.dart';
 
 UserStore _userStore;
 LimitStore _limitStore;
 ReminderStore _reminderStore;
 
 class AppStores {
-
   static get userStore => _userStore;
 
   static get limitStore => _limitStore;
@@ -21,5 +20,4 @@ class AppStores {
 
     _userStore.ensureLogin();
   }
-
 }

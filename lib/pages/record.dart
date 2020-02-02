@@ -78,9 +78,9 @@ class RecordState extends State<RecordPage>
 
         FlutterStatusbarManager.setColor(_mainColor);
 
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(// navigation bar color
-          statusBarColor: _mainColor
-        ));
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            // navigation bar color
+            statusBarColor: _mainColor));
       });
     }
   }
@@ -321,7 +321,6 @@ class RecordState extends State<RecordPage>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-
         appBar: AppBar(
           title: Text('记账',
               style: TextStyle(

@@ -1,5 +1,4 @@
 class Api {
-
   static const String base = 'http://169.254.236.116:3000/';
 
   static const String registerLogin = 'user/register-login';
@@ -37,5 +36,4 @@ class Api {
   static const String deleteTask = 'task/delete/:id';
 
   static const String taskDetail = 'task/detail/:id';
-
 }

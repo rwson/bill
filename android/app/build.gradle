@@ -25,6 +25,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+apply plugin: 'com.mob.sdk'
+
 android {
     compileSdkVersion 28
 
@@ -45,7 +47,7 @@ android {
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-            OPENINSTALL_APPKEY : "asfzdv"
+                OPENINSTALL_APPKEY: "asfzdv"
         ]
     }
 
@@ -68,4 +70,41 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+MobSDK {
+    appKey "您的Mob平台appKey"
+    appSecret "您的Mob平台appSecret"
+
+    MobPush {
+//        devInfo {
+//            XIAOMI {
+//                appId "您的小米平台appId"
+//                appKey "您的小米平台appKey"
+//            }
+//
+//            HUAWEI {
+//                appId "您的华为平台appId"
+//            }
+//
+//            MEIZU {
+//                appId "您的魅族平台appId"
+//                appKey "您的魅族平台appKey"
+//            }
+//
+//            FCM {
+//                iconRes "@mipmap/default_ic_launcher"
+//            }
+//
+//            OPPO {
+//                appKey "您的OPPO平台appKey"
+//                appSecret "您的OPPO平台appSecret"
+//            }
+//
+//            VIVO {
+//                appId "您的VIVO平台appId"
+//                appKey "您的VIVO平台appKey"
+//            }
+//        }
+    }
 }
