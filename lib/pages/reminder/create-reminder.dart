@@ -643,7 +643,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                                       contentPadding: EdgeInsets.only(
                                           top: Adaptor.px(30.0),
                                           bottom: Adaptor.px(30.0)),
-                                      hintText: '请输入手回头天数',
+                                      hintText: '请输入回头天数',
                                       fillColor: AppColors.appWhite,
                                       filled: true,
                                       enabledBorder: UnderlineInputBorder(

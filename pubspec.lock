@@ -176,6 +176,13 @@ packages:
       url: "https://pub.flutter-io.cn/"
     source: hosted
     version: "3.0.8"
+  event_hub:
+    dependency: "direct main"
+    description:
+      name: event_hub
+      url: "https://pub.flutter-io.cn/"
+    source: hosted
+    version: "0.1.1"
   fixnum:
     dependency: transitive
     description:

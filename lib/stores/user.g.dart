@@ -80,4 +80,16 @@ mixin _$UserStore on _UserStore, Store {
   Future<bool> forgot(String mobile, String password) {
     return _$forgotAsyncAction.run(() => super.forgot(mobile, password));
   }
+
+  final _$_UserStoreActionController = ActionController(name: '_UserStore');
+
+  @override
+  bool logout() {
+    final _$actionInfo = _$_UserStoreActionController.startAction();
+    try {
+      return super.logout();
+    } finally {
+      _$_UserStoreActionController.endAction(_$actionInfo);
+    }
+  }
 }

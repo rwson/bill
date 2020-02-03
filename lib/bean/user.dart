@@ -11,6 +11,7 @@ class User {
   final String lastLogin;
   final String lastDevice;
   final String mobile;
+  final String registrationId;
 
   User(
       [this.id,
@@ -19,7 +20,8 @@ class User {
       this.nickname,
       this.lastDevice,
       this.lastLogin,
-      this.mobile]);
+      this.mobile,
+      this.registrationId]);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

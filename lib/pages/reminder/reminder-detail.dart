@@ -38,6 +38,13 @@ class ReminderDetailState extends State<ReminderDetailPage> {
     }
   }
 
+  Future<void> _delete() async {
+    bool deleteSuccess = await reminderStore.deleteReminder(widget.id);
+    if (deleteSuccess) {
+      AppRouter.back(context);
+    }
+  }
+
   void _deleteReminder() {
     try {
       BotToast.showAnimationWidget(
@@ -63,6 +70,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
             FlatButton(
               onPressed: () {
                 cancelFunc();
+                _delete();
               },
               child: const Text(
                 '确定',

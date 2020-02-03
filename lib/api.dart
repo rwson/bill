@@ -13,6 +13,8 @@ class Api {
 
   static const String forgot = 'user/forgot';
 
+  static const String switchDevice = 'user/switch-device/:registrationId';
+
   static const String limitSet = 'limit/set';
 
   static const String limitQuery = 'limit/query';

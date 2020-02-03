@@ -1,28 +1,28 @@
 import 'package:bill/api.dart';
-import 'package:bill/bean/reminder.dart';
+import 'package:bill/bean/task.dart';
 import 'package:bill/http/http-util.dart';
 import 'package:bill/stores/base.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:mobx/mobx.dart';
 
-part 'reminder.g.dart';
+part 'task.g.dart';
 
-class ReminderStore = _ReminderStore with _$ReminderStore;
+class TaskStore = _TaskStore with _$TaskStore;
 
-abstract class _ReminderStore extends BaseStore with Store {
+abstract class _TaskStore extends BaseStore with Store {
   @observable
-  List<ReminderItem> reminder = new List();
+  List<TaskItem> tasks = new List();
 
   @observable
-  ReminderItem current;
+  TaskItem current;
 
   @action
-  Future<bool> createReminder(Map<String, dynamic> reminder) async {
+  Future<bool> createTask(Map<String, dynamic> task) async {
     try {
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.createReminder, reminder, HttpUtil.POST);
+          await HttpUtil.request(Api.createTask, task, HttpUtil.POST);
       HttpResponse data = new HttpResponse.formJson(resp);
 
       switchLoading(false);
@@ -37,11 +37,11 @@ abstract class _ReminderStore extends BaseStore with Store {
     }
   }
 
-  Future<bool> updateReminder(Map<String, dynamic> reminder) async {
+  Future<bool> updateTask(Map<String, dynamic> task) async {
     try {
       switchLoading(true);
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.updateReminder, reminder, HttpUtil.PUT);
+          await HttpUtil.request(Api.updateTask, task, HttpUtil.PUT);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -58,20 +58,20 @@ abstract class _ReminderStore extends BaseStore with Store {
   }
 
   @action
-  Future<bool> queryReminder([bool toast = false]) async {
+  Future<bool> queryTask([bool toast = false]) async {
     try {
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.queryReminder, {}, HttpUtil.GET);
+          await HttpUtil.request(Api.queryTask, {}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
       if (data.success) {
-        reminder = new List();
+        tasks = new List();
         data.data
             .toList()
-            .forEach((json) => {reminder.add(new ReminderItem.fromJson(json))});
+            .forEach((json) => {tasks.add(new TaskItem.fromJson(json))});
       }
 
       switchLoading(false);
@@ -90,29 +90,6 @@ abstract class _ReminderStore extends BaseStore with Store {
   }
 
   @action
-  Future<bool> deleteReminder(String id) async {
-    try {
-      switchLoading(true);
-
-      Map<String, dynamic> resp =
-      await HttpUtil.request(Api.deleteReminder, {
-        'id': id
-      }, HttpUtil.DELETE);
-
-      HttpResponse data = new HttpResponse.formJson(resp);
-
-      switchLoading(false);
-
-      BotToast.showText(text: data.message);
-      return data.success;
-    } catch (e) {
-      switchLoading(false);
-      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
-      return false;
-    }
-  }
-
-  @action
   Future<bool> getDetail(String id) async {
     try {
       current = null;
@@ -120,14 +97,14 @@ abstract class _ReminderStore extends BaseStore with Store {
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.reminderDetail, {'id': id}, HttpUtil.GET);
+          await HttpUtil.request(Api.taskDetail, {'id': id}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
       switchLoading(false);
 
       if (data.success) {
-        current = new ReminderItem.fromJson(data.data);
+        current = new TaskItem.fromJson(data.data);
       } else {
         BotToast.showText(text: data.message);
       }
@@ -141,4 +118,4 @@ abstract class _ReminderStore extends BaseStore with Store {
   }
 }
 
-ReminderStore userStore = new ReminderStore();
+TaskStore userStore = new TaskStore();

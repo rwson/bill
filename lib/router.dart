@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:bill/event.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -27,5 +28,10 @@ class AppRouter {
 
   static back(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  static toHome(BuildContext context) {
+    AppEvent.emit('switchIndex', 0);
+    Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 }

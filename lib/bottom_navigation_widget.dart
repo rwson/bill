@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:bill/adaptor.dart';
+import 'package:bill/event.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/pages/analysis.dart';
 import 'package:bill/pages/index.dart';
@@ -22,6 +25,12 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       ..add(AnalysisPage())
       ..add(WealthPage())
       ..add(MinePage());
+
+    AppEvent.on('switchIndex', (dynamic index) {
+      setState(() {
+        _currentIndex = index;
+      });
+    });
 
     super.initState();
   }

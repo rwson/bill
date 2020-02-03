@@ -42,134 +42,141 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
 
   Widget _buildReminders() {
     return Container(
+        width: Adaptor.screenW(),
         child: SingleChildScrollView(
-      child: Container(
-          margin: EdgeInsets.only(
-              top: Adaptor.px(10.0),
-              left: Adaptor.px(10.0),
-              right: Adaptor.px(10.0),
-              bottom: Adaptor.px(120.0)),
-          child: Observer(
-            builder: (_) => Wrap(
-              children: <Widget>[
-                Container(
-                    child: SingleChildScrollView(
-                        child: Container(
-                            margin: EdgeInsets.only(
-                                top: Adaptor.px(10.0),
-                                left: Adaptor.px(10.0),
-                                right: Adaptor.px(10.0)),
-                            child: Wrap(
-                              children: List.generate(
-                                  reminderStore.reminder.length, (int i) {
-                                ReminderItem _reminder =
-                                    reminderStore.reminder[i];
-                                return Container(
-                                    width: Adaptor.px(1040.0),
-                                    margin: EdgeInsets.all(Adaptor.px(10.0)),
-                                    padding: EdgeInsets.all(Adaptor.px(10.0)),
-                                    decoration: BoxDecoration(
-                                        color: AppColors.appWhite,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(5.0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.appBlackShadow,
-                                              blurRadius: 5.0,
-                                              offset: Offset(0, 1.0))
-                                        ]),
-                                    child: GestureDetector(
-                                        onTap: () => _toDetail(_reminder.id),
-                                        child: Wrap(
-                                          children: <Widget>[
-                                            Container(
-                                                padding: EdgeInsets.only(
-                                                    top: Adaptor.px(10.0),
-                                                    left: Adaptor.px(10.0),
-                                                    right: Adaptor.px(10.0),
-                                                    bottom: Adaptor.px(16.0)),
-                                                decoration: BoxDecoration(
-                                                    border: Border(
-                                                        bottom: BorderSide(
-                                                            width:
-                                                                Adaptor.onePx(),
-                                                            color: AppColors
-                                                                .appBorder))),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+          child: Container(
+              margin: EdgeInsets.only(
+                  top: Adaptor.px(10.0),
+                  left: Adaptor.px(10.0),
+                  right: Adaptor.px(10.0),
+                  bottom: Adaptor.px(120.0)),
+              child: Observer(
+                builder: (_) => Wrap(
+                  children: <Widget>[
+                    Container(
+                        child: SingleChildScrollView(
+                            child: Container(
+                                margin: EdgeInsets.only(
+                                    top: Adaptor.px(10.0),
+                                    left: Adaptor.px(10.0),
+                                    right: Adaptor.px(10.0)),
+                                child: Wrap(
+                                  children: List.generate(
+                                      reminderStore.reminder.length, (int i) {
+                                    ReminderItem _reminder =
+                                        reminderStore.reminder[i];
+                                    return Container(
+                                        width: Adaptor.px(1040.0),
+                                        margin:
+                                            EdgeInsets.all(Adaptor.px(10.0)),
+                                        padding:
+                                            EdgeInsets.all(Adaptor.px(10.0)),
+                                        decoration: BoxDecoration(
+                                            color: AppColors.appWhite,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color:
+                                                      AppColors.appBlackShadow,
+                                                  blurRadius: 5.0,
+                                                  offset: Offset(0, 1.0))
+                                            ]),
+                                        child: GestureDetector(
+                                            onTap: () =>
+                                                _toDetail(_reminder.id),
+                                            child: Wrap(
+                                              children: <Widget>[
+                                                Container(
+                                                    padding: EdgeInsets.only(
+                                                        top: Adaptor.px(10.0),
+                                                        left: Adaptor.px(10.0),
+                                                        right: Adaptor.px(10.0),
+                                                        bottom:
+                                                            Adaptor.px(16.0)),
+                                                    decoration: BoxDecoration(
+                                                        border: Border(
+                                                            bottom: BorderSide(
+                                                                width: Adaptor
+                                                                    .onePx(),
+                                                                color: AppColors
+                                                                    .appBorder))),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
                                                         children: <Widget>[
-                                                          Icon(
-                                                            IconFont
-                                                                .iconReminder,
-                                                            size: Adaptor.px(
-                                                                28.0),
-                                                            color: AppColors
-                                                                .appYellow,
-                                                          ),
-                                                          Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left: Adaptor
-                                                                      .px(
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                IconFont
+                                                                    .iconReminder,
+                                                                size:
+                                                                    Adaptor.px(
+                                                                        28.0),
+                                                                color: AppColors
+                                                                    .appYellow,
+                                                              ),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: Adaptor.px(
                                                                           10.0)),
-                                                              child: Text(
-                                                                  '存钱提醒',
+                                                                  child: Text(
+                                                                      '存钱提醒',
+                                                                      style: TextStyle(
+                                                                          fontSize: Adaptor.px(
+                                                                              28.0),
+                                                                          color:
+                                                                              AppColors.appTextDark))),
+                                                              Text(
+                                                                  Util.isAfter(
+                                                                          _reminder
+                                                                              .time)
+                                                                      ? '(已提醒)'
+                                                                      : '',
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           Adaptor.px(
-                                                                              28.0),
+                                                                              20.0),
                                                                       color: AppColors
-                                                                          .appTextDark))),
+                                                                          .appIncome))
+                                                            ],
+                                                          ),
                                                           Text(
-                                                              Util.isAfter(
-                                                                      _reminder
-                                                                          .time)
-                                                                  ? '(已提醒)'
-                                                                  : '',
+                                                              '${Util.frenquency2Weekday(_reminder.frequency)} ${_reminder.time}',
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       Adaptor.px(
-                                                                          20.0),
+                                                                          26.0),
                                                                   color: AppColors
-                                                                      .appIncome))
-                                                        ],
-                                                      ),
-                                                      Text(
-                                                          '${Util.frenquency2Weekday(_reminder.frequency)} ${_reminder.time}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  Adaptor.px(
-                                                                      26.0),
-                                                              color: AppColors
-                                                                  .appTextDark))
-                                                    ])),
-                                            Container(
-                                                padding: EdgeInsets.all(
-                                                    Adaptor.px(10.0)),
-                                                child: Text(
-                                                    _reminder.rule == '0'
-                                                        ? '金额每天递增'
-                                                        : '金额每天固定',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(26.0),
-                                                        color: AppColors
-                                                            .appTextNormal,
-                                                        height: 1.5)))
-                                          ],
-                                        )));
-                              }).toList(),
-                            ))))
-              ],
-            ),
-          )),
-    ));
+                                                                      .appTextDark))
+                                                        ])),
+                                                Container(
+                                                    padding: EdgeInsets.all(
+                                                        Adaptor.px(10.0)),
+                                                    child: Text(
+                                                        _reminder.rule == '0'
+                                                            ? '金额每天递增'
+                                                            : '金额每天固定',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                Adaptor.px(
+                                                                    26.0),
+                                                            color: AppColors
+                                                                .appTextNormal,
+                                                            height: 1.5)))
+                                              ],
+                                            )));
+                                  }).toList(),
+                                ))))
+                  ],
+                ),
+              )),
+        ));
   }
 
   @override

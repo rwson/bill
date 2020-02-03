@@ -58,6 +58,13 @@ mixin _$ReminderStore on _ReminderStore, Store {
     return _$queryReminderAsyncAction.run(() => super.queryReminder(toast));
   }
 
+  final _$deleteReminderAsyncAction = AsyncAction('deleteReminder');
+
+  @override
+  Future<bool> deleteReminder(String id) {
+    return _$deleteReminderAsyncAction.run(() => super.deleteReminder(id));
+  }
+
   final _$getDetailAsyncAction = AsyncAction('getDetail');
 
   @override

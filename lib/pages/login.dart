@@ -80,6 +80,8 @@ class LoginState extends State<LoginPage> {
     if (loginSuccess) {
       if (widget.target != '') {
         AppRouter.redirectTo(context, widget.target);
+      } else {
+        AppRouter.toHome(context);
       }
     }
   }

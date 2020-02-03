@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bill/api.dart';
 import 'package:bill/bean/user.dart';
 import 'package:bill/http/http-util.dart';
@@ -27,6 +29,11 @@ abstract class _UserStore extends BaseStore with Store {
   Future<void> setToken(token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userToken', token);
+  }
+
+  Future<void> removeToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('userToken');
   }
 
   @action
@@ -158,6 +165,16 @@ abstract class _UserStore extends BaseStore with Store {
       BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;
     }
+  }
+
+  @action
+  bool logout() {
+    removeToken();
+    logined = false;
+    Future.delayed(new Duration(seconds: 1)).whenComplete(() {
+      userInfo = null;
+    });
+    return logined;
   }
 }
 

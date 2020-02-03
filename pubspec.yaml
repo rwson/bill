@@ -42,6 +42,7 @@ dependencies:
   mobpush_plugin: ^1.0.9
   path_provider: ^1.6.0
   image_picker: ^0.6.2
+  event_hub: ^0.1.1
 
 dev_dependencies:
   flutter_test:

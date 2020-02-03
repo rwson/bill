@@ -65,6 +65,7 @@ class HttpUtil {
       Response response = await dio.request(url, data: data, options: options);
       result = response.data;
     } on DioError catch (e) {
+      print(e.response);
       if (e.response != null) {
         result = e.response.data;
       } else {

@@ -31,9 +31,8 @@ class ProfileState extends State<ProfilePage> {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
     double value = await _getTotalSizeOfFilesInDir(tempPath);
-    print('临时目录大小: ' + value.toString());
     setState(() {
-      cacheSize = _renderSize(value);  // _cacheSizeStr用来存储大小的值
+      cacheSize = _renderSize(value); // _cacheSizeStr用来存储大小的值
     });
   }
 
@@ -57,11 +56,7 @@ class ProfileState extends State<ProfilePage> {
     if (null == value) {
       return 0;
     }
-    List<String> unitArr = List()
-      ..add('B')
-      ..add('KB')
-      ..add('MB')
-      ..add('GB');
+    List<String> unitArr = List()..add('B')..add('KB')..add('MB')..add('GB');
     int index = 0;
     while (value > 1024) {
       index++;
@@ -71,32 +66,17 @@ class ProfileState extends State<ProfilePage> {
     return size + unitArr[index];
   }
 
-  void _toProfile() {
-    AppRouter.toPage(context, 'profile');
-  }
-
-  void _toTask() {
-    AppRouter.toPage(context, 'tasks');
-  }
-
-  void _toSaveReminder() {
-    AppRouter.toPage(context, 'save-reminder');
-  }
-
-  void _toSetLimit() {
-    AppRouter.toPage(context, 'limit-set');
-  }
-
-  void _toCircles() {
-    AppRouter.toPage(context, 'groups');
-  }
-
   Future<void> _uploadAvatar() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       _image = image;
     });
+  }
+
+  Future<void> _logout() async {
+    userStore.logout();
+    AppRouter.redirectTo(context, 'login');
   }
 
   @override
@@ -125,7 +105,7 @@ class ProfileState extends State<ProfilePage> {
                           decoration: BoxDecoration(
                               color: AppColors.appWhite,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
+                                  const BorderRadius.all(Radius.circular(5.0)),
                               boxShadow: [
                                 BoxShadow(
                                     color: AppColors.appBlackShadow,
@@ -134,46 +114,44 @@ class ProfileState extends State<ProfilePage> {
                               ]),
                           child: Wrap(children: <Widget>[
                             Container(
-                              height: Adaptor.px(100.0),
-                              decoration: BoxDecoration(
-                                  color: AppColors.appWhite,
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: Adaptor.onePx(),
-                                          color: AppColors.appBorderLight))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: Adaptor.px(12.0)),
-                                    child: Text(
-                                      '头像',
-                                      style: TextStyle(
-                                          color:
-                                          AppColors.appTextDark,
-                                          fontSize: Adaptor.px(28.0),
-                                          fontWeight:
-                                          FontWeight.normal),
-                                    ),
-                                  ),
-                                  Padding(
+                                height: Adaptor.px(100.0),
+                                decoration: BoxDecoration(
+                                    color: AppColors.appWhite,
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: Adaptor.onePx(),
+                                            color: AppColors.appBorderLight))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
                                       padding: EdgeInsets.only(
-                                          right: Adaptor.px(12.0)),
-                                    child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(
-                                            Adaptor.px(30.0)),
-                                        child: Image.network(
-                                            userStore.userInfo.avatar,
-                                            width: Adaptor.px(60.0),
-                                            height:
-                                            Adaptor.px(60.0)))
-                                  )
-                                ],
-                              )
-                            ),
+                                          left: Adaptor.px(12.0)),
+                                      child: Text(
+                                        '头像',
+                                        style: TextStyle(
+                                            color: AppColors.appTextDark,
+                                            fontSize: Adaptor.px(28.0),
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: _uploadAvatar,
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: Adaptor.px(12.0)),
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Adaptor.px(30.0)),
+                                                child: Image.network(
+                                                    userStore.userInfo.avatar,
+                                                    width: Adaptor.px(60.0),
+                                                    height: Adaptor.px(60.0)))))
+                                  ],
+                                )),
                             Container(
                                 height: Adaptor.px(100.0),
                                 decoration: BoxDecoration(
@@ -183,7 +161,8 @@ class ProfileState extends State<ProfilePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Padding(
@@ -192,11 +171,9 @@ class ProfileState extends State<ProfilePage> {
                                       child: Text(
                                         '昵称',
                                         style: TextStyle(
-                                            color:
-                                            AppColors.appTextDark,
+                                            color: AppColors.appTextDark,
                                             fontSize: Adaptor.px(28.0),
-                                            fontWeight:
-                                            FontWeight.normal),
+                                            fontWeight: FontWeight.normal),
                                       ),
                                     ),
                                     Padding(
@@ -205,16 +182,12 @@ class ProfileState extends State<ProfilePage> {
                                         child: Text(
                                           userStore.userInfo.nickname,
                                           style: TextStyle(
-                                              color:
-                                              AppColors.appTextDark,
+                                              color: AppColors.appTextDark,
                                               fontSize: Adaptor.px(28.0),
-                                              fontWeight:
-                                              FontWeight.normal),
-                                        )
-                                    )
+                                              fontWeight: FontWeight.normal),
+                                        ))
                                   ],
-                                )
-                            ),
+                                )),
                             Container(
                                 height: Adaptor.px(100.0),
                                 decoration: BoxDecoration(
@@ -224,38 +197,33 @@ class ProfileState extends State<ProfilePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: Adaptor.px(12.0)),
-                                      child: Text(
-                                        '手机号',
-                                        style: TextStyle(
-                                            color:
-                                            AppColors.appTextDark,
-                                            fontSize: Adaptor.px(28.0),
-                                            fontWeight:
-                                            FontWeight.normal),
-                                      ),
-                                    ),
-                                    Padding(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
                                         padding: EdgeInsets.only(
-                                            right: Adaptor.px(12.0)),
+                                            left: Adaptor.px(12.0)),
                                         child: Text(
-                                          userStore.userInfo.mobile,
+                                          '手机号',
                                           style: TextStyle(
-                                              color:
-                                              AppColors.appTextDark,
+                                              color: AppColors.appTextDark,
                                               fontSize: Adaptor.px(28.0),
-                                              fontWeight:
-                                              FontWeight.normal),
-                                        )
-                                    )
-                                  ]
-                                )
-                            ),
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              right: Adaptor.px(12.0)),
+                                          child: Text(
+                                            userStore.userInfo.mobile,
+                                            style: TextStyle(
+                                                color: AppColors.appTextDark,
+                                                fontSize: Adaptor.px(28.0),
+                                                fontWeight: FontWeight.normal),
+                                          ))
+                                    ])),
                             Container(
                                 height: Adaptor.px(100.0),
                                 decoration: BoxDecoration(
@@ -265,8 +233,10 @@ class ProfileState extends State<ProfilePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Padding(
                                         padding: EdgeInsets.only(
@@ -274,11 +244,9 @@ class ProfileState extends State<ProfilePage> {
                                         child: Text(
                                           '上次登录',
                                           style: TextStyle(
-                                              color:
-                                              AppColors.appTextDark,
+                                              color: AppColors.appTextDark,
                                               fontSize: Adaptor.px(28.0),
-                                              fontWeight:
-                                              FontWeight.normal),
+                                              fontWeight: FontWeight.normal),
                                         ),
                                       ),
                                       Padding(
@@ -287,16 +255,11 @@ class ProfileState extends State<ProfilePage> {
                                           child: Text(
                                             userStore.userInfo.lastLogin,
                                             style: TextStyle(
-                                                color:
-                                                AppColors.appTextDark,
+                                                color: AppColors.appTextDark,
                                                 fontSize: Adaptor.px(28.0),
-                                                fontWeight:
-                                                FontWeight.normal),
-                                          )
-                                      )
-                                    ]
-                                )
-                            ),
+                                                fontWeight: FontWeight.normal),
+                                          ))
+                                    ])),
                             Container(
                                 height: Adaptor.px(100.0),
                                 decoration: BoxDecoration(
@@ -306,8 +269,10 @@ class ProfileState extends State<ProfilePage> {
                                             width: Adaptor.onePx(),
                                             color: AppColors.appBorderLight))),
                                 child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Padding(
                                         padding: EdgeInsets.only(
@@ -315,11 +280,9 @@ class ProfileState extends State<ProfilePage> {
                                         child: Text(
                                           '应用缓存',
                                           style: TextStyle(
-                                              color:
-                                              AppColors.appTextDark,
+                                              color: AppColors.appTextDark,
                                               fontSize: Adaptor.px(28.0),
-                                              fontWeight:
-                                              FontWeight.normal),
+                                              fontWeight: FontWeight.normal),
                                         ),
                                       ),
                                       Padding(
@@ -328,17 +291,30 @@ class ProfileState extends State<ProfilePage> {
                                           child: Text(
                                             cacheSize,
                                             style: TextStyle(
-                                                color:
-                                                AppColors.appTextDark,
+                                                color: AppColors.appTextDark,
                                                 fontSize: Adaptor.px(28.0),
-                                                fontWeight:
-                                                FontWeight.normal),
-                                          )
-                                      )
-                                    ]
-                                )
-                            )
-                          ]))
+                                                fontWeight: FontWeight.normal),
+                                          ))
+                                    ]))
+                          ])),
+                      Container(
+                          width: Adaptor.px(1020.0),
+                          height: Adaptor.px(80.0),
+                          margin: EdgeInsets.only(
+                              top: Adaptor.px(20.0),
+                              left: Adaptor.px(20.0),
+                              right: Adaptor.px(20.0)),
+                          decoration: BoxDecoration(
+                              color: AppColors.appYellow,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Adaptor.px(10.0)))),
+                          child: FlatButton(
+                              onPressed: _logout,
+                              child: Text('退出登录',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      fontWeight: FontWeight.normal,
+                                      color: AppColors.appTextDark))))
                     ])))));
   }
 }
