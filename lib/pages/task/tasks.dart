@@ -2,17 +2,23 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/task.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TaskPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => TaskState();
 }
 
-class TaskState extends State<TaskPage> {
+class TaskState extends State<TaskPage> with WidgetsBindingObserver {
+  final TaskStore taskStore = AppStores.taskStore;
+
   @override
   void initState() {
     super.initState();
+    taskStore.queryTask();
   }
 
   void _toCreateTask() {

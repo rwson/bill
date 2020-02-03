@@ -6,6 +6,7 @@ import 'package:bill/router.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/reminder.dart';
 import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/task.dart';
 import 'package:bill/stores/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,6 +20,7 @@ class MineState extends State<MinePage> {
   final UserStore userStore = AppStores.userStore;
   final LimitStore limitStore = AppStores.limitStore;
   final ReminderStore reminderStore = AppStores.reminderStore;
+  final TaskStore taskStore = AppStores.taskStore;
 
   @override
   initState() {
@@ -31,6 +33,7 @@ class MineState extends State<MinePage> {
     if (logined) {
       limitStore.queryLimit(false);
       reminderStore.queryReminder(false);
+      taskStore.queryTask(false);
     }
   }
 
@@ -248,7 +251,11 @@ class MineState extends State<MinePage> {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Text(
-                                              '3个记账任务',
+                                              (taskStore.tasks != null &&
+                                                  taskStore.tasks.length >
+                                                      0)
+                                                  ? '${taskStore.tasks.length}个记账任务'
+                                                  : '暂未添加记账任务',
                                               style: TextStyle(
                                                   color: AppColors.appTextLight,
                                                   fontSize: Adaptor.px(24.0),
