@@ -6,6 +6,7 @@ import 'package:bill/router.dart';
 import 'package:bill/stores/reminder.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/util.dart';
+import 'package:bill/widgets/empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -54,7 +55,7 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
                 builder: (_) => Wrap(
                   children: <Widget>[
                     Container(
-                        child: SingleChildScrollView(
+                        child: (reminderStore.reminder != null && reminderStore.reminder.length > 0) ? SingleChildScrollView(
                             child: Container(
                                 margin: EdgeInsets.only(
                                     top: Adaptor.px(10.0),
@@ -172,7 +173,8 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
                                               ],
                                             )));
                                   }).toList(),
-                                ))))
+                                ))) : Empty()
+                    )
                   ],
                 ),
               )),
