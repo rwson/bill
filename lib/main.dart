@@ -26,6 +26,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   Router router = new Router();
 
   router.define('tasks',

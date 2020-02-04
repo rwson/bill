@@ -29,7 +29,7 @@ mixin _$LimitStore on _LimitStore, Store {
   final _$setLimitAsyncAction = AsyncAction('setLimit');
 
   @override
-  Future<HttpResponse> setLimit(int amount) {
+  Future<HttpResponse<dynamic>> setLimit(int amount) {
     return _$setLimitAsyncAction.run(() => super.setLimit(amount));
   }
 

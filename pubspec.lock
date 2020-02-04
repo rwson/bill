@@ -168,7 +168,7 @@ packages:
       name: device_info
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.1+4"
+    version: "0.4.1"
   dio:
     dependency: "direct main"
     description:
