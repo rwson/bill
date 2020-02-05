@@ -227,7 +227,7 @@ class EditReminderState extends State<EditReminderPage> {
               child: Wrap(children: <Widget>[
                 Container(
                   child: Center(
-                      child: Text('选择记账频率',
+                      child: Text('选择提醒频率',
                           style: TextStyle(
                               fontSize: Adaptor.px(32.0),
                               fontWeight: FontWeight.w400,

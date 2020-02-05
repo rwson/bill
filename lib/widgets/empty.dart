@@ -12,11 +12,11 @@ class Empty extends StatelessWidget {
       child: Center(
         child: Column(
           children: <Widget>[
-            Icon(IconFont.iconEmpty, size: Adaptor.px(60.0), color: AppColors.appTextNormal,),
+            Icon(IconFont.iconEmpty, size: Adaptor.px(100.0), color: AppColors.appTextNormal,),
             Padding(
               padding: EdgeInsets.only(top: Adaptor.px(20.0)),
               child: Text('暂无数据', style: TextStyle(
-                fontSize: Adaptor.px(20.0),
+                fontSize: Adaptor.px(28.0),
                 color: AppColors.appTextNormal
               ),)
             )

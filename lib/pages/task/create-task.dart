@@ -119,181 +119,238 @@ class CreateTaskState extends State<CreateTaskPage> {
   }
 
   void _frequencySelect(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            titlePadding: EdgeInsets.only(
-                top: Adaptor.px(20.0),
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            contentPadding: EdgeInsets.only(
-                top: 0,
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            title: Text('选择记账频率',
-                style: TextStyle(
-                    fontSize: Adaptor.px(32.0),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.appTextDark)),
-            content: StatefulBuilder(builder: (context, StateSetter setState) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
               return Container(
-                  child: Wrap(
-                children: List.generate(_frequencies.length, (int index) {
-                  return Container(
-                    height: Adaptor.px(66.0),
-                    child: CheckboxListTile(
-                        title: Text(_frequencieStrArr[index],
-                            style: TextStyle(
-                                fontSize: Adaptor.px(28.0),
-                                color: AppColors.appTextDark)),
-                        activeColor: AppColors.appYellow,
-                        value: _frequencies[index],
-                        onChanged: (bool value) {
-                          setState(() {
-                            _frequencies[index] = value;
-                          });
-                        }),
-                  );
-                }).toList(),
-              ));
-            }),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: _frequencySelectOk,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Text('确定',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(28.0),
-                        color: AppColors.appYellow,
-                        fontWeight: FontWeight.normal)),
-              ),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: Text('取消',
-                      style: TextStyle(
-                          fontSize: Adaptor.px(28.0),
-                          color: AppColors.appTextDark,
-                          fontWeight: FontWeight.normal))),
-            ],
-          );
-        });
+                  width: Adaptor.screenW(),
+                  decoration: BoxDecoration(
+                      color: AppColors.appWhite,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(Adaptor.px(40.0)),
+                          topRight: Radius.circular(Adaptor.px(40.0)))),
+                  padding: EdgeInsets.only(
+                      top: Adaptor.px(40.0),
+                      bottom: Adaptor.px(20.0),
+                      left: Adaptor.px(10.0)),
+                  child: Wrap(children: <Widget>[
+                    Container(
+                      child: Center(
+                          child: Text('选择记账频率',
+                              style: TextStyle(
+                                  fontSize: Adaptor.px(32.0),
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.appTextDark))),
+                    ),
+                    Wrap(
+                      children: List.generate(_frequencies.length, (int index) {
+                        return Container(
+                          height: Adaptor.px(68.0),
+                          child: CheckboxListTile(
+                              title: Text(_frequencieStrArr[index],
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(28.0),
+                                      color: AppColors.appTextDark)),
+                              activeColor: AppColors.appYellow,
+                              value: _frequencies[index],
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _frequencies[index] = value;
+                                });
+                              }),
+                        );
+                      }).toList(),
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(
+                            left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
+                        margin: EdgeInsets.only(top: Adaptor.px(30.0)),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () => {Navigator.of(context).pop()},
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.sheetBtnBg,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(Adaptor.px(45.0)))),
+                                    width: Adaptor.px(280.0),
+                                    height: Adaptor.px(90.0),
+                                    child: Center(
+                                        child: Text(
+                                          '取消',
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(32.0),
+                                              color: AppColors.appDanger),
+                                        ))),
+                              ),
+                              GestureDetector(
+                                onTap: _frequencySelectOk,
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.sheetBtnBg,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(Adaptor.px(45.0)))),
+                                    width: Adaptor.px(280.0),
+                                    height: Adaptor.px(90.0),
+                                    child: Center(
+                                        child: Text(
+                                          '确定',
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(32.0),
+                                              color: AppColors.appWarning),
+                                        ))),
+                              )
+                            ]))
+                  ]));
+            });
+      },
+    );
   }
 
   void _timeSelect(BuildContext context) {
-    showDialog(
+    showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
         builder: (context) {
-          return AlertDialog(
-            titlePadding: EdgeInsets.only(
-                top: Adaptor.px(20.0),
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            contentPadding: EdgeInsets.only(
-                top: 0,
-                bottom: 0,
-                left: Adaptor.px(20.0),
-                right: Adaptor.px(20.0)),
-            title: Text('选择记账时间',
-                style: TextStyle(
-                    fontSize: Adaptor.px(32.0),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.appTextDark)),
-            content: StatefulBuilder(builder: (context, StateSetter setState) {
-              return Container(
-                  height: Adaptor.px(350.0),
-                  child: Center(
-                      child: Container(
-                          width: Adaptor.px(400.0),
-                          height: Adaptor.px(300.0),
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Container(
+                    width: Adaptor.screenW(),
+                    decoration: BoxDecoration(
+                        color: AppColors.appWhite,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(Adaptor.px(40.0)),
+                            topRight: Radius.circular(Adaptor.px(40.0)))),
+                    padding: EdgeInsets.only(
+                        top: Adaptor.px(40.0),
+                        bottom: Adaptor.px(20.0),
+                        left: Adaptor.px(10.0)),
+                    child: Wrap(children: <Widget>[
+                      Container(
+                        child: Center(
+                            child: Text('选择提醒时间',
+                                style: TextStyle(
+                                    fontSize: Adaptor.px(32.0),
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.appTextDark))),
+                      ),
+                      Container(
+                          height: Adaptor.px(350.0),
+                          child: Center(
+                              child: Container(
+                                  width: Adaptor.px(400.0),
+                                  height: Adaptor.px(300.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                          width: Adaptor.px(180.0),
+                                          child: CupertinoPicker(
+                                            looping: true,
+                                            itemExtent: Adaptor.px(64.0),
+                                            backgroundColor: Colors.white,
+                                            onSelectedItemChanged: (int i) {
+                                              setState(() {
+                                                if (_selectedTime.length >= 1) {
+                                                  _selectedTime[0] = _clocks[i];
+                                                } else {
+                                                  _selectedTime.add(_clocks[i]);
+                                                }
+                                              });
+                                            },
+                                            children: List.generate(_clocks.length,
+                                                    (int index) {
+                                                  return Center(
+                                                      child: Text(_clocks[index],
+                                                          style: TextStyle(
+                                                              color:
+                                                              AppColors.appTextDark,
+                                                              fontSize:
+                                                              Adaptor.px(32.0),
+                                                              fontWeight:
+                                                              FontWeight.normal)));
+                                                }).toList(),
+                                          )),
+                                      Container(
+                                          width: Adaptor.px(180.0),
+                                          child: CupertinoPicker(
+                                            looping: true,
+                                            itemExtent: Adaptor.px(64.0),
+                                            backgroundColor: Colors.white,
+                                            onSelectedItemChanged: (int i) {
+                                              setState(() {
+                                                if (_selectedTime.length < 2) {
+                                                  _selectedTime.add(_minutes[i]);
+                                                } else {
+                                                  _selectedTime[1] = _minutes[i];
+                                                }
+                                              });
+                                            },
+                                            children: List.generate(_minutes.length,
+                                                    (int index) {
+                                                  return Center(
+                                                      child: Text(_minutes[index],
+                                                          style: TextStyle(
+                                                              color:
+                                                              AppColors.appTextDark,
+                                                              fontSize:
+                                                              Adaptor.px(32.0),
+                                                              fontWeight:
+                                                              FontWeight.normal)));
+                                                }).toList(),
+                                          )),
+                                    ],
+                                  )))),
+                      Container(
+                          padding: EdgeInsets.only(
+                              left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
+                          margin: EdgeInsets.only(top: Adaptor.px(30.0)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                  width: Adaptor.px(180.0),
-                                  child: CupertinoPicker(
-                                    itemExtent: Adaptor.px(64.0),
-                                    backgroundColor: Colors.white,
-                                    onSelectedItemChanged: (int i) {
-                                      setState(() {
-                                        if (_selectedTime.length >= 1) {
-                                          _selectedTime[0] = _clocks[i];
-                                        } else {
-                                          _selectedTime.add(_clocks[i]);
-                                        }
-                                      });
-                                    },
-                                    children: List.generate(_clocks.length,
-                                        (int index) {
-                                      return Center(
-                                          child: Text(_clocks[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
-                                                      FontWeight.normal)));
-                                    }).toList(),
-                                  )),
-                              Container(
-                                  width: Adaptor.px(180.0),
-                                  child: CupertinoPicker(
-                                    itemExtent: Adaptor.px(64.0),
-                                    backgroundColor: Colors.white,
-                                    onSelectedItemChanged: (int i) {
-                                      setState(() {
-                                        if (_selectedTime.length < 2) {
-                                          _selectedTime.add(_minutes[i]);
-                                        } else {
-                                          _selectedTime[1] = _minutes[i];
-                                        }
-                                      });
-                                    },
-                                    children: List.generate(_minutes.length,
-                                        (int index) {
-                                      return Center(
-                                          child: Text(_minutes[index],
-                                              style: TextStyle(
-                                                  color: AppColors.appTextDark,
-                                                  fontSize: Adaptor.px(32.0),
-                                                  fontWeight:
-                                                      FontWeight.normal)));
-                                    }).toList(),
-                                  )),
-                            ],
-                          ))));
-            }),
-            actions: <Widget>[
-              FlatButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: _timeSelectOk,
-                child: Text('确定',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(28.0),
-                        color: AppColors.appYellow,
-                        fontWeight: FontWeight.normal)),
-              ),
-              FlatButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('取消',
-                      style: TextStyle(
-                          fontSize: Adaptor.px(28.0),
-                          color: AppColors.appTextDark,
-                          fontWeight: FontWeight.normal))),
-            ],
-          );
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () => {Navigator.of(context).pop()},
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.sheetBtnBg,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(Adaptor.px(45.0)))),
+                                      width: Adaptor.px(280.0),
+                                      height: Adaptor.px(90.0),
+                                      child: Center(
+                                          child: Text(
+                                            '取消',
+                                            style: TextStyle(
+                                                fontSize: Adaptor.px(32.0),
+                                                color: AppColors.appDanger),
+                                          ))),
+                                ),
+                                GestureDetector(
+                                  onTap: _timeSelectOk,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.sheetBtnBg,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(Adaptor.px(45.0)))),
+                                      width: Adaptor.px(280.0),
+                                      height: Adaptor.px(90.0),
+                                      child: Center(
+                                          child: Text(
+                                            '确定',
+                                            style: TextStyle(
+                                                fontSize: Adaptor.px(32.0),
+                                                color: AppColors.appWarning),
+                                          ))),
+                                )
+                              ]))
+                    ]));
+              });
         });
   }
 

@@ -108,15 +108,16 @@ class MineState extends State<MinePage> {
                                       child: Column(
                                         children: <Widget>[
                                           userStore.logined
-                                              ? ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          Adaptor.px(50.0)),
-                                                  child: Image.network(
-                                                      userStore.userInfo.avatar,
-                                                      width: Adaptor.px(100.0),
-                                                      height:
-                                                          Adaptor.px(100.0)))
+                                              ?
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(
+                                                    Adaptor.px(50.0)),
+                                            child: Image.network(
+                                                userStore.userInfo.avatar,
+                                                width: Adaptor.px(100.0),
+                                                height:
+                                                    Adaptor.px(100.0)))
                                               : Image.asset(
                                                   Assets.iconAvatar,
                                                   width: Adaptor.px(100.0),
