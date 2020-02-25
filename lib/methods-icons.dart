@@ -42,6 +42,17 @@ List<IconItem> _paymentIcons = [
   IconItem(icon: IconFont.iconCommon, type: 'p-31', desc: '其他')
 ];
 
+List<IconItem> _incomeIcons = [
+  IconItem(icon: IconFont.iconSalaryIncome, type: 'i-1', desc: '工资'),
+  IconItem(icon: IconFont.iconPluralismIncome, type: 'i-2', desc: '兼职'),
+  IconItem(icon: IconFont.iconFinancialIncome, type: 'i-3', desc: '理财'),
+  IconItem(icon: IconFont.iconRedPackageIncome, type: 'i-4', desc: '红包'),
+  IconItem(icon: IconFont.iconRetirementIncome, type: 'i-5', desc: '退款'),
+  IconItem(icon: IconFont.iconReimburseIncome, type: 'i-6', desc: '报销'),
+  IconItem(icon: IconFont.iconMinutesIncome, type: 'i-7', desc: '分红'),
+  IconItem(icon: IconFont.iconOtherIncome, type: 'i-8', desc: '其他')
+];
+
 List<IconItem> _circleTypes = [
   IconItem(icon: IconFont.iconDormRoom, type: 'g-1', desc: '寝室'),
   IconItem(icon: IconFont.iconOffice, type: 'g-2', desc: '办公室'),
@@ -55,16 +66,23 @@ List<IconItem> _circleTypes = [
 ];
 
 int _paymentIconsLength = _paymentIcons.length;
+int _incomeIconsLength = _incomeIcons.length;
 int _circleTypesLength = _circleTypes.length;
 
 class MethodsIcons {
   static List<IconItem> paymentIcons = _paymentIcons;
 
+  static List<IconItem> incomeIcons = _incomeIcons;
+
   static List<IconItem> circleTypes = _circleTypes;
 
   static int paymentLength = _paymentIconsLength;
 
+  static int incomeLength = _incomeIconsLength;
+
   static int circleTypesLength = _circleTypesLength;
 
   static int paymentRowLengthMax = (_paymentIconsLength ~/ 2).ceil();
+
+  static int incomeRowLengthMax = (_incomeIconsLength ~/ 2).ceil();
 }

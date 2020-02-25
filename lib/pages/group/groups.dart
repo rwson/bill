@@ -1,10 +1,15 @@
 import 'package:bill/adaptor.dart';
-import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/iconfont.dart';
+import 'package:bill/assets.dart';
+import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bill/bean/group.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/widgets/empty.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class GroupsPage extends StatefulWidget {
   @override
@@ -12,9 +17,12 @@ class GroupsPage extends StatefulWidget {
 }
 
 class GroupsState extends State<GroupsPage> {
+  final GroupStore groupStore = AppStores.groupStote;
+
   @override
   void initState() {
     super.initState();
+    groupStore.queryGroups();
   }
 
   void _createGroup() {
@@ -22,10 +30,150 @@ class GroupsState extends State<GroupsPage> {
   }
 
   void _editGroup(int id) {
-    AppRouter.toPage(context, 'create-group?id=${id.toString()}');
+    AppRouter.toPage(context, 'edit-group?id=${id}');
   }
 
   void _share() {}
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    bool current = ModalRoute.of(context).isCurrent;
+    if (current) {
+      groupStore.queryGroups();
+    }
+  }
+
+  IconItem _getGroup(type) {
+    IconItem _result;
+
+    int len = MethodsIcons.circleTypesLength;
+    IconItem _tmp;
+
+    for (int i = 0; i < len; i++) {
+      _tmp = MethodsIcons.circleTypes[i];
+      if (_tmp.type == type) {
+        _result = _tmp;
+        break;
+      }
+    }
+
+    return _result;
+  }
+
+  Widget _buildGroupIcon(GroupItem group) {
+    if (group.usage == '0') {
+      return Container(
+          width: Adaptor.px(100.0),
+          height: Adaptor.px(100.0),
+          margin: EdgeInsets.only(
+              right: Adaptor.px(18.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appYellow,
+              borderRadius: BorderRadius.all(
+                  Radius.circular(Adaptor.px(80.0))),
+              border: Border.all(
+                  width: Adaptor.px(4.0),
+                  color: AppColors.appBorder)),
+          child: Center(
+            child: Text(group.name.substring(0, 1), style: TextStyle(
+              fontSize: Adaptor.px(50.0),
+              color: AppColors.appWhite
+            ))),
+          );
+    }
+
+    IconItem groupItem = _getGroup(group.type);
+    return Container(
+          width: Adaptor.px(100.0),
+          height: Adaptor.px(100.0),
+          margin: EdgeInsets.only(
+              right: Adaptor.px(18.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appYellow,
+              borderRadius: BorderRadius.all(
+                  Radius.circular(Adaptor.px(80.0)))
+              ),
+          child: Icon(
+            groupItem.icon,
+            size: Adaptor.px(50.0),
+            color: AppColors.appWhite,
+          )
+          );
+  }
+
+  Widget _buildGroups() {
+    return Observer(
+        builder: (_) => Container(
+            width: Adaptor.screenW(),
+            child: (groupStore.groups != null && groupStore.groups.length > 0) ? SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.only(
+                    top: Adaptor.px(10.0),
+                    left: Adaptor.px(10.0),
+                    right: Adaptor.px(10.0),
+                    bottom: Adaptor.px(100)
+                    ),
+                child: Wrap(
+                  children: List.generate(groupStore.groups.length, (int i) {
+                    GroupItem _group = groupStore.groups[i];
+                    IconItem groupItem = _getGroup(_group.type);
+
+                      return GestureDetector(
+                        onTap: () => _editGroup(_group.id),
+                        child: Container(
+                        width: Adaptor.px(1040.0),
+                        margin: EdgeInsets.only(
+                            top: Adaptor.px(10.0),
+                            left: Adaptor.px(10.0),
+                            right: Adaptor.px(10.0),
+                            bottom: Adaptor.px(10.0)),
+                        padding: EdgeInsets.all(Adaptor.px(16.0)),
+                        decoration: BoxDecoration(
+                            color: AppColors.appWhite,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColors.appBlackShadow,
+                                  blurRadius: 5.0,
+                                  offset: Offset(0, 1.0))
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                _buildGroupIcon(_group),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(_group.usage == '0' ? '个人账单' : groupItem.desc,
+                                        style: TextStyle(
+                                            fontSize: Adaptor.px(32.0),
+                                            color: AppColors.appTextDark)),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: Adaptor.px(0)),
+                                      child: Text(_group.name,
+                                          style: TextStyle(
+                                              fontSize: Adaptor.px(28.0),
+                                              color: AppColors.appTextNormal))
+                                    )
+                                  ]
+                                )
+                              ],
+                            )
+                          ],
+                        ))
+                      );
+                  }).toList()
+                ),
+              ),
+            ) : Empty()
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,302 +185,24 @@ class GroupsState extends State<GroupsPage> {
         body: Container(
             height: double.infinity,
             child: Stack(children: <Widget>[
-              Container(
-                  child: SingleChildScrollView(
-                      child: Container(
-                          margin: EdgeInsets.only(
-                              top: Adaptor.px(10.0),
-                              left: Adaptor.px(10.0),
-                              right: Adaptor.px(10.0)),
-                          child: Wrap(
-                            children: <Widget>[
-                              Container(
-                                  width: Adaptor.px(1040.0),
-                                  margin: EdgeInsets.only(
-                                      top: Adaptor.px(10.0),
-                                      left: Adaptor.px(10.0),
-                                      right: Adaptor.px(10.0),
-                                      bottom: Adaptor.px(10.0)),
-                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.appWhite,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5.0)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: AppColors.appBlackShadow,
-                                            blurRadius: 5.0,
-                                            offset: Offset(0, 1.0))
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Container(
-                                              width: Adaptor.px(100.0),
-                                              height: Adaptor.px(100.0),
-                                              margin: EdgeInsets.only(
-                                                  right: Adaptor.px(18.0)),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .all(Radius.circular(
-                                                          Adaptor.px(80.0))),
-                                                  border: Border.all(
-                                                      width: Adaptor.px(4.0),
-                                                      color:
-                                                          AppColors.appBorder)),
-                                              child: ClipOval(
-                                                  child: Image.asset(
-                                                Assets.testImage,
-                                                width: Adaptor.px(100.0),
-                                                height: Adaptor.px(100.0),
-                                              ))),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('个人账单',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          Adaptor.px(32.0),
-                                                      color: AppColors
-                                                          .appTextDark)),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: Adaptor.px(0)),
-                                                child: Text('创建于 2019-11-21',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(28.0),
-                                                        color: AppColors
-                                                            .appTextNormal)),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )),
-                              Container(
-                                  width: Adaptor.px(1040.0),
-                                  margin: EdgeInsets.only(
-                                      top: Adaptor.px(10.0),
-                                      left: Adaptor.px(10.0),
-                                      right: Adaptor.px(10.0),
-                                      bottom: Adaptor.px(10.0)),
-                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.appWhite,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5.0)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: AppColors.appBlackShadow,
-                                            blurRadius: 5.0,
-                                            offset: Offset(0, 1.0))
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Container(
-                                              width: Adaptor.px(130.0),
-                                              height: Adaptor.px(130.0),
-                                              margin: EdgeInsets.only(
-                                                  right: Adaptor.px(18.0)),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .all(Radius.circular(
-                                                          Adaptor.px(80.0))),
-                                                  border: Border.all(
-                                                      width: Adaptor.px(4.0),
-                                                      color:
-                                                          AppColors.appBorder),
-                                                  color: AppColors.appBorder),
-                                              child: ClipOval(
-                                                  child: Image.asset(
-                                                Assets.testImage,
-                                                width: Adaptor.px(130.0),
-                                                height: Adaptor.px(130.0),
-                                              ))),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('合租',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          Adaptor.px(32.0),
-                                                      color: AppColors
-                                                          .appTextDark)),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: Adaptor.px(0)),
-                                                child: Text('创建于 2019-11-21',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(28.0),
-                                                        color: AppColors
-                                                            .appTextNormal)),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      Container(
-                                          width: Adaptor.px(40.0),
-                                          height: Adaptor.px(40.0),
-                                          child: FlatButton(
-                                              padding: EdgeInsets.all(0),
-                                              onPressed: _share,
-                                              child: Icon(
-                                                IconFont.iconShare,
-                                                size: Adaptor.px(40.0),
-                                                color: AppColors.appYellow,
-                                              )))
-                                    ],
-                                  )),
-                              Container(
-                                  width: Adaptor.px(1040.0),
-                                  margin: EdgeInsets.only(
-                                      top: Adaptor.px(10.0),
-                                      left: Adaptor.px(10.0),
-                                      right: Adaptor.px(10.0),
-                                      bottom: Adaptor.px(10.0)),
-                                  padding: EdgeInsets.all(Adaptor.px(16.0)),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.appWhite,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5.0)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: AppColors.appBlackShadow,
-                                            blurRadius: 5.0,
-                                            offset: Offset(0, 1.0))
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Container(
-                                              width: Adaptor.px(130.0),
-                                              height: Adaptor.px(130.0),
-                                              margin: EdgeInsets.only(
-                                                  right: Adaptor.px(18.0)),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .all(Radius.circular(
-                                                          Adaptor.px(80.0))),
-                                                  border: Border.all(
-                                                      width: Adaptor.px(4.0),
-                                                      color:
-                                                          AppColors.appBorder)),
-                                              child: ClipOval(
-                                                  child: Stack(
-                                                children: <Widget>[
-                                                  Positioned(
-                                                      left: 0,
-                                                      top: 0,
-                                                      child: Image.asset(
-                                                        Assets.testImage,
-                                                        width: Adaptor.px(60.0),
-                                                        height:
-                                                            Adaptor.px(60.0),
-                                                      )),
-                                                  Positioned(
-                                                      right: 0,
-                                                      top: 0,
-                                                      child: Image.asset(
-                                                        Assets.test2Image,
-                                                        width: Adaptor.px(60.0),
-                                                        height:
-                                                            Adaptor.px(60.0),
-                                                      )),
-                                                  Positioned(
-                                                      left: 0,
-                                                      bottom: 0,
-                                                      child: Image.asset(
-                                                        Assets.test3Image,
-                                                        width: Adaptor.px(60.0),
-                                                        height:
-                                                            Adaptor.px(60.0),
-                                                      )),
-                                                  Positioned(
-                                                      right: 0,
-                                                      bottom: 0,
-                                                      child: Image.asset(
-                                                        Assets.testImage,
-                                                        width: Adaptor.px(60.0),
-                                                        height:
-                                                            Adaptor.px(60.0),
-                                                      ))
-                                                ],
-                                              ))),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('宿舍',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          Adaptor.px(32.0),
-                                                      color: AppColors
-                                                          .appTextDark)),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: Adaptor.px(0)),
-                                                child: Text('创建于 2019-11-21',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Adaptor.px(28.0),
-                                                        color: AppColors
-                                                            .appTextNormal)),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      Container(
-                                          width: Adaptor.px(40.0),
-                                          height: Adaptor.px(40.0),
-                                          child: FlatButton(
-                                              padding: EdgeInsets.all(0),
-                                              onPressed: _share,
-                                              child: Icon(
-                                                IconFont.iconShare,
-                                                size: Adaptor.px(40.0),
-                                                color: AppColors.appYellow,
-                                              )))
-                                    ],
-                                  ))
-                            ],
-                          )))),
+              _buildGroups(),
               Positioned(
                   left: 0,
                   bottom: 0,
                   right: 0,
-                  child: Container(
+                  child: GestureDetector(
+                    onTap: _createGroup,
+                    child: Container(
                       height: Adaptor.px(80.0),
                       color: AppColors.appYellow,
                       child: Center(
-                          child: FlatButton(
-                              onPressed: _createGroup,
-                              child: Text('新建圈子',
+                        child: Text('创建记账圈子',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(28.0),
-                                      color: AppColors.appWhite))))))
+                                      color: AppColors.appWhite))
+                                      ))
+                  )
+                                      )
             ])));
   }
 }

@@ -20,10 +20,40 @@ class AppColors {
   static const Color appYellow = const Color(0xFFF4B742);
   static const Color appYellowLight = const Color(0xFFFED279);
   static const Color appYellowShadow = const Color(0x77F4B742);
+  static const MaterialColor appYellowMaterial = MaterialColor(
+    0xFFF4B742,
+    <int, Color>{
+       50: appYellow,
+      100: appYellow,
+      200: appYellow,
+      300: appYellow,
+      400: appYellow,
+      500: appYellow,
+      600: appYellow,
+      700: appYellow,
+      800: appYellow,
+      900: appYellow
+    },
+  );
 
   static const Color appGreen = const Color(0xFF03C789);
   static const Color appGreenLight = const Color(0xFF47E48B);
   static const Color appGreenShadow = const Color(0x7703C789);
+    static const MaterialColor appGreenMaterial = MaterialColor(
+    0xFF03C789,
+    <int, Color>{
+       50: appGreen,
+      100: appGreen,
+      200: appGreen,
+      300: appGreen,
+      400: appGreen,
+      500: appGreen,
+      600: appGreen,
+      700: appGreen,
+      800: appGreen,
+      900: appGreen
+    },
+  );
 
   static const Color appBlackShadow = const Color(0x1E000000);
 

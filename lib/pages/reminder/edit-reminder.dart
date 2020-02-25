@@ -548,11 +548,13 @@ class EditReminderState extends State<EditReminderPage> {
     );
   }
 
+  void _editGroup() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('修改存钱提醒',
+            title: Text('添加存钱提醒',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(
@@ -722,7 +724,9 @@ class EditReminderState extends State<EditReminderPage> {
                         ),
                       )
                     : Container(),
-                Container(
+                GestureDetector(
+                  onTap: _editGroup,
+                  child: Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),
                     padding: EdgeInsets.only(
@@ -735,13 +739,13 @@ class EditReminderState extends State<EditReminderPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: _modifyReminder,
-                        child: Text('修改',
+                    child: Center(
+                        child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(30.0),
                                 fontWeight: FontWeight.normal,
                                 color: AppColors.appTextDark))))
+                )
               ],
             )));
   }

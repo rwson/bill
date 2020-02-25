@@ -22,6 +22,14 @@ class IconFont {
 
   static IconData iconSalaryIncome = IconData(0xe65e, fontFamily: 'iconfont');
 
+  static IconData iconRedPackageIncome = IconData(0xe667, fontFamily: 'iconfont');
+
+  static IconData iconMinutesIncome = IconData(0xe60c, fontFamily: 'iconfont');
+
+  static IconData iconRetirementIncome = IconData(0xe62c, fontFamily: 'iconfont');
+
+  static IconData iconReimburseIncome = IconData(0xe653, fontFamily: 'iconfont');
+
   static IconData iconFinancial = IconData(0xe65d, fontFamily: 'iconfont');
 
   static IconData iconDonate = IconData(0xe65b, fontFamily: 'iconfont');

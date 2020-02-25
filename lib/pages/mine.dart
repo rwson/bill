@@ -8,6 +8,7 @@ import 'package:bill/stores/reminder.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/task.dart';
 import 'package:bill/stores/user.dart';
+import 'package:bill/stores/group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -21,6 +22,7 @@ class MineState extends State<MinePage> {
   final LimitStore limitStore = AppStores.limitStore;
   final ReminderStore reminderStore = AppStores.reminderStore;
   final TaskStore taskStore = AppStores.taskStore;
+  final GroupStore groupStore = AppStores.groupStote;
 
   @override
   initState() {
@@ -34,6 +36,7 @@ class MineState extends State<MinePage> {
       limitStore.queryLimit(false);
       reminderStore.queryReminder(false);
       taskStore.queryTask(false);
+      groupStore.queryGroups(false);
     }
   }
 
@@ -441,7 +444,11 @@ class MineState extends State<MinePage> {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '2个圈子',
+                                                  (groupStore.groups != null &&
+                                                  groupStore.groups.length >
+                                                      0)
+                                                  ? '你有${groupStore.groups.length}个圈子'
+                                                  : '暂未加入记账圈子',
                                                   style: TextStyle(
                                                       color: AppColors
                                                           .appTextLight,

@@ -177,5 +177,3 @@ abstract class _UserStore extends BaseStore with Store {
     return logined;
   }
 }
-
-UserStore userStore = new UserStore();

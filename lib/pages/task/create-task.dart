@@ -1,7 +1,9 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
+import 'package:bill/stores/task.dart';
 import 'package:bill/util.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -72,6 +74,8 @@ class CreateTaskState extends State<CreateTaskPage> {
   }).toList();
 
   MethodItem _selectedType;
+
+  final TaskStore taskStore = AppStores.taskStore;
 
   @override
   void initState() {

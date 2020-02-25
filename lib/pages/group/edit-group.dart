@@ -17,6 +17,10 @@ class GroupItem {
 }
 
 class EditGroupPage extends StatefulWidget {
+  EditGroupPage({@required this.id});
+
+  final String id;
+
   @override
   State<StatefulWidget> createState() => EditGroupState();
 }
@@ -52,7 +56,7 @@ class EditGroupState extends State<EditGroupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('添加记账圈子',
+            title: Text('编辑记账圈子',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(

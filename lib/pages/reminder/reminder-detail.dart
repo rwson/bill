@@ -46,43 +46,39 @@ class ReminderDetailState extends State<ReminderDetailPage> {
   }
 
   void _deleteReminder() {
-    try {
-      BotToast.showAnimationWidget(
-        onlyOne: true,
-        backgroundColor: Colors.black26,
-        animationDuration: Duration(milliseconds: 300),
-        toastBuilder: (cancelFunc) => AlertDialog(
-          title: Text('你确定要删除此存款提醒吗?',
-              style: TextStyle(
-                  fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                cancelFunc();
-              },
-              highlightColor: const Color(0x55FF8A80),
-              splashColor: const Color(0x99FF8A80),
-              child: const Text(
-                '取消',
-                style: TextStyle(color: AppColors.appWarning),
-              ),
+    BotToast.showAnimationWidget(
+      onlyOne: true,
+      backgroundColor: Colors.black26,
+      animationDuration: Duration(milliseconds: 300),
+      toastBuilder: (cancelFunc) => AlertDialog(
+        title: Text('你确定要删除此存款提醒吗?',
+            style: TextStyle(
+                fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              cancelFunc();
+            },
+            highlightColor: const Color(0x55FF8A80),
+            splashColor: const Color(0x99FF8A80),
+            child: const Text(
+              '取消',
+              style: TextStyle(color: AppColors.appWarning),
             ),
-            FlatButton(
-              onPressed: () {
-                cancelFunc();
-                _delete();
-              },
-              child: const Text(
-                '确定',
-                style: TextStyle(color: AppColors.appDanger),
-              ),
+          ),
+          FlatButton(
+            onPressed: () {
+              cancelFunc();
+              _delete();
+            },
+            child: const Text(
+              '确定',
+              style: TextStyle(color: AppColors.appDanger),
             ),
-          ],
-        ),
-      );
-    } catch (e) {
-      print(e.message);
-    }
+          ),
+        ],
+      ),
+    );
   }
 
   void _editReminder() {

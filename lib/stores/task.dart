@@ -117,5 +117,3 @@ abstract class _TaskStore extends BaseStore with Store {
     }
   }
 }
-
-TaskStore userStore = new TaskStore();

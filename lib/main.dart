@@ -26,7 +26,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+  } catch (e) {}
 
   Router router = new Router();
 
@@ -99,7 +101,9 @@ void main() {
   router.define('edit-group',
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-              EditGroupPage()),
+              EditGroupPage(id: (params['id'] != null && params['id'].length > 0)
+                      ? params['id'][0]
+                      : '')),
       transitionType: TransitionType.native);
   router.define('login',
       handler: Handler(
@@ -153,7 +157,9 @@ class BillApp extends StatelessWidget {
                   minWidth: double.infinity,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
+                  textTheme: ButtonTextTheme.accent
                 ),
+                accentColor: AppColors.appTextNormal,
                 scaffoldBackgroundColor: AppColors.appWhite,
                 primaryColor: Colors.white,
                 appBarTheme: AppBarTheme(elevation: 0 // app标题栏阴影

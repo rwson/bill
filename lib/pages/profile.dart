@@ -297,7 +297,9 @@ class ProfileState extends State<ProfilePage> {
                                           ))
                                     ]))
                           ])),
-                      Container(
+                      GestureDetector(
+                        onTap: _logout,
+                        child: Container(
                           width: Adaptor.px(1020.0),
                           height: Adaptor.px(80.0),
                           margin: EdgeInsets.only(
@@ -308,13 +310,15 @@ class ProfileState extends State<ProfilePage> {
                               color: AppColors.appYellow,
                               borderRadius: BorderRadius.all(
                                   Radius.circular(Adaptor.px(10.0)))),
-                          child: FlatButton(
-                              onPressed: _logout,
-                              child: Text('退出登录',
+                          child: Center(
+                            child: Text('退出登录',
                                   style: TextStyle(
                                       fontSize: Adaptor.px(32.0),
                                       fontWeight: FontWeight.normal,
-                                      color: AppColors.appTextDark))))
+                                      color: AppColors.appTextDark))
+                          )
+                                      )
+                      )
                     ])))));
   }
 }

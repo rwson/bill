@@ -144,7 +144,9 @@ class LoginState extends State<LoginPage> {
                               color: AppColors.appBorderDark,
                               width: Adaptor.onePx()))),
                 ),
-                Container(
+                GestureDetector(
+                  onTap: _toLogin,
+                  child: Container(
                     width: Adaptor.px(1040.0),
                     height: Adaptor.px(80.0),
                     margin: EdgeInsets.only(top: Adaptor.px(20.0)),
@@ -152,13 +154,15 @@ class LoginState extends State<LoginPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: _toLogin,
-                        child: Text('登录',
+                    child: Center(
+                      child: Text('登录',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,
-                                color: AppColors.appTextDark)))),
+                                color: AppColors.appTextDark))
+                    )
+                                )
+                ),
                 Container(
                     margin: EdgeInsets.only(top: Adaptor.px(20.0)),
                     child: Row(

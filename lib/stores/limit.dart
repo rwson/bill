@@ -55,5 +55,3 @@ abstract class _LimitStore extends BaseStore with Store {
     }
   }
 }
-
-LimitStore userStore = new LimitStore();

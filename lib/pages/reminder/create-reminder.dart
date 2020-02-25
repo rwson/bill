@@ -656,7 +656,9 @@ class CreateReminderState extends State<CreateReminderPage> {
                         ),
                       )
                     : Container(),
-                Container(
+                GestureDetector(
+                  onTap: _createReminder,
+                  child: Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),
                     padding: EdgeInsets.only(
@@ -669,13 +671,13 @@ class CreateReminderState extends State<CreateReminderPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: _createReminder,
+                    child: Center(
                         child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(30.0),
                                 fontWeight: FontWeight.normal,
                                 color: AppColors.appTextDark))))
+                )
               ],
             )));
   }

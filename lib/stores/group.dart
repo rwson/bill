@@ -1,28 +1,28 @@
 import 'package:bill/api.dart';
-import 'package:bill/bean/reminder.dart';
+import 'package:bill/bean/group.dart';
 import 'package:bill/http/http-util.dart';
 import 'package:bill/stores/base.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:mobx/mobx.dart';
 
-part 'reminder.g.dart';
+part 'group.g.dart';
 
-class ReminderStore = _ReminderStore with _$ReminderStore;
+class GroupStore = _GroupStore with _$GroupStore;
 
-abstract class _ReminderStore extends BaseStore with Store {
+abstract class _GroupStore extends BaseStore with Store {
   @observable
-  List<ReminderItem> reminder = new List();
+  List<GroupItem> groups = [];
 
   @observable
-  ReminderItem current;
+  GroupItem current;
 
   @action
-  Future<bool> createReminder(Map<String, dynamic> reminder) async {
+  Future<bool> createGroup(Map<String, dynamic> group) async {
     try {
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.createReminder, reminder, HttpUtil.POST);
+          await HttpUtil.request(Api.createGroup, group, HttpUtil.POST);
       HttpResponse data = new HttpResponse.formJson(resp);
 
       switchLoading(false);
@@ -58,20 +58,26 @@ abstract class _ReminderStore extends BaseStore with Store {
   }
 
   @action
-  Future<bool> queryReminder([bool toast = false]) async {
+  Future<bool> queryGroups([bool toast = false]) async {
     try {
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.queryReminder, {}, HttpUtil.GET);
+          await HttpUtil.request(Api.queryGroup, {}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
+
       if (data.success) {
-        reminder = new List();
+        groups = new List();
         data.data
             .toList()
-            .forEach((json) => {reminder.add(new ReminderItem.fromJson(json))});
+            .forEach((json) {
+              GroupItem item = new GroupItem.fromJson(json);
+              GroupItemUser itemUsers = new GroupItemUser.fromJson(json['uesrs']);
+              print(itemUsers);
+              groups.add(item);
+            });
       }
 
       switchLoading(false);
@@ -127,7 +133,7 @@ abstract class _ReminderStore extends BaseStore with Store {
       switchLoading(false);
 
       if (data.success) {
-        current = new ReminderItem.fromJson(data.data);
+        // current = new ReminderItem.fromJson(data.data);
       } else {
         BotToast.showText(text: data.message);
       }

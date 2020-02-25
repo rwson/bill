@@ -114,12 +114,6 @@ class ForgotState extends State<ForgotPage> {
     String mobile = _mobileController.text;
     String password = _passwordController.text;
     String passwordConfirm = _passwordConfirmController.text;
-    String model;
-
-    try {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      model = androidInfo.model;
-    } catch (e) {}
 
     if (password != passwordConfirm) {
       BotToast.showText(text: '两次密码不一致!');
@@ -172,21 +166,22 @@ class ForgotState extends State<ForgotPage> {
                   borderSide: BorderSide(
                       color: AppColors.appBorderDark, width: Adaptor.onePx()))),
         ),
-        Container(
-            width: Adaptor.px(1040.0),
-            height: Adaptor.px(80.0),
-            margin: EdgeInsets.only(top: Adaptor.px(20.0)),
-            decoration: BoxDecoration(
-                color: AppColors.appYellow,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
-            child: FlatButton(
-                onPressed: _initCodeUrl,
-                child: Text('下一步',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.normal,
-                        color: AppColors.appTextDark))))
+        GestureDetector(
+            onTap: _initCodeUrl,
+            child: Container(
+                width: Adaptor.px(1040.0),
+                height: Adaptor.px(80.0),
+                margin: EdgeInsets.only(top: Adaptor.px(20.0)),
+                decoration: BoxDecoration(
+                    color: AppColors.appYellow,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
+                child: Center(
+                    child: Text('下一步',
+                        style: TextStyle(
+                            fontSize: Adaptor.px(32.0),
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.appTextDark)))))
       ],
     );
   }
@@ -230,21 +225,22 @@ class ForgotState extends State<ForgotPage> {
                 ))),
           ],
         ),
-        Container(
-            width: Adaptor.px(1040.0),
-            height: Adaptor.px(80.0),
-            margin: EdgeInsets.only(top: Adaptor.px(20.0)),
-            decoration: BoxDecoration(
-                color: AppColors.appYellow,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
-            child: FlatButton(
-                onPressed: _validateCode,
-                child: Text('下一步',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.normal,
-                        color: AppColors.appTextDark))))
+        GestureDetector(
+            onTap: _validateCode,
+            child: Container(
+                width: Adaptor.px(1040.0),
+                height: Adaptor.px(80.0),
+                margin: EdgeInsets.only(top: Adaptor.px(20.0)),
+                decoration: BoxDecoration(
+                    color: AppColors.appYellow,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
+                child: Center(
+                    child: Text('下一步',
+                        style: TextStyle(
+                            fontSize: Adaptor.px(32.0),
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.appTextDark)))))
       ],
     );
   }
@@ -262,7 +258,7 @@ class ForgotState extends State<ForgotPage> {
                   top: Adaptor.px(30.0),
                   bottom: Adaptor.px(30.0),
                   left: Adaptor.px(20.0)),
-              hintText: '设置密码',
+              hintText: '设置密���',
               fillColor: AppColors.appWhite,
               filled: true,
               enabledBorder: UnderlineInputBorder(
@@ -294,21 +290,22 @@ class ForgotState extends State<ForgotPage> {
                   borderSide: BorderSide(
                       color: AppColors.appBorderDark, width: Adaptor.onePx()))),
         ),
-        Container(
-            width: Adaptor.px(1040.0),
-            height: Adaptor.px(80.0),
-            margin: EdgeInsets.only(top: Adaptor.px(20.0)),
-            decoration: BoxDecoration(
-                color: AppColors.appYellow,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
-            child: FlatButton(
-                onPressed: _resetPassword,
-                child: Text('确定',
-                    style: TextStyle(
-                        fontSize: Adaptor.px(32.0),
-                        fontWeight: FontWeight.normal,
-                        color: AppColors.appTextDark))))
+        GestureDetector(
+            onTap: _resetPassword,
+            child: Container(
+                width: Adaptor.px(1040.0),
+                height: Adaptor.px(80.0),
+                margin: EdgeInsets.only(top: Adaptor.px(20.0)),
+                decoration: BoxDecoration(
+                    color: AppColors.appYellow,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Adaptor.px(10.0)))),
+                child: Center(
+                    child: Text('确定',
+                        style: TextStyle(
+                            fontSize: Adaptor.px(32.0),
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.appTextDark)))))
       ],
     );
   }

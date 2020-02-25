@@ -3,9 +3,13 @@ import 'dart:math';
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
+import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/stores.dart';
 
 class GroupItem {
   String type;
@@ -22,6 +26,8 @@ class CreateGroupPage extends StatefulWidget {
 }
 
 class CreateGroupState extends State<CreateGroupPage> {
+  final GroupStore groupStore = AppStores.groupStote;
+
   final _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();
@@ -45,14 +51,45 @@ class CreateGroupState extends State<CreateGroupPage> {
   @override
   void dispose() {
     _nameController.dispose();
+    _focus.dispose();
     super.dispose();
+  }
+
+  void _createGroup() async {
+    _focus.unfocus();
+    int len = _groupItems.length;
+    GroupItem _selected;
+    GroupItem _tmp;
+
+    for (int i = 0; i < len; i++) {
+      _tmp = _groupItems[i];
+      if (_tmp.checked) {
+        _selected = _tmp;
+      }
+    }
+
+    if (_selected == null) {
+      BotToast.showText(text: '请选择圈子类型');
+      return;
+    }
+
+    bool createSuccess = await groupStore.createGroup({
+      'name': _nameController.text,
+      'type': _selected.type,
+      'usage': '1',
+      'desc': ''
+    });
+    
+    if (createSuccess) {
+      AppRouter.back(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('添加记账圈子',
+            title: Text('创建记账圈子',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(
@@ -80,31 +117,25 @@ class CreateGroupState extends State<CreateGroupPage> {
                                 children:
                                     List.generate(_subRow.length, (int i) {
                           GroupItem _item = _subRow[i];
-                          return Container(
-                            width: Adaptor.px(177.0),
-                            height: Adaptor.px(170.0),
-                            child: FlatButton(
-                                onPressed: () {
-                                  int position = (index * 8) + i;
-                                  setState(() {
-                                    _currentIndex = index;
-                                    _groupItems
-                                        .asMap()
-                                        .keys
-                                        .forEach((int cur) => {
-                                              if (cur == position)
-                                                {
-                                                  _groupItems[cur].checked =
-                                                      true
-                                                }
-                                              else
-                                                {
-                                                  _groupItems[cur].checked =
-                                                      false
-                                                }
-                                            });
-                                  });
-                                },
+                          return GestureDetector(
+                              onTap: () {
+                                int position = (index * 8) + i;
+                                setState(() {
+                                  _currentIndex = index;
+                                  _groupItems
+                                      .asMap()
+                                      .keys
+                                      .forEach((int cur) => {
+                                            if (cur == position)
+                                              {_groupItems[cur].checked = true}
+                                            else
+                                              {_groupItems[cur].checked = false}
+                                          });
+                                });
+                              },
+                              child: Container(
+                                width: Adaptor.px(177.0),
+                                height: Adaptor.px(170.0),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -129,8 +160,8 @@ class CreateGroupState extends State<CreateGroupPage> {
                                           style: TextStyle(
                                               fontSize: Adaptor.px(24.0),
                                               color: AppColors.appTextDark))
-                                    ])),
-                          );
+                                    ]),
+                              ));
                         }).toList()));
                       },
                       pagination: SwiperPagination(
@@ -188,7 +219,9 @@ class CreateGroupState extends State<CreateGroupPage> {
                     ],
                   ),
                 ),
-                Container(
+                GestureDetector(
+                  onTap: _createGroup,
+                  child: Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),
                     padding: EdgeInsets.only(
@@ -201,13 +234,13 @@ class CreateGroupState extends State<CreateGroupPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: () {},
+                    child: Center(
                         child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,
                                 color: AppColors.appTextDark))))
+                )
               ],
             )));
   }
