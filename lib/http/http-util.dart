@@ -38,7 +38,7 @@ class HttpUtil {
   static const String PATCH = 'patch';
   static const String DELETE = 'delete';
 
-  static const String UNKNOWN_ERROR = '发生未知错误';
+  static const String UNKNOWN_ERROR = '网络异常~';
   static const String CONNECT_ERROR = '服务器好像开小差了, 等会再试吧~';
 
   static Future<Map<String, dynamic>> request(String url,
@@ -67,7 +67,9 @@ class HttpUtil {
     } on DioError catch (e) {
       if (e.response != null) {
         result = e.response.data;
+        print(e.response.data);
       } else {
+        print(e);
         result = {
           'success': false,
           'message': UNKNOWN_ERROR

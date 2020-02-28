@@ -655,7 +655,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                           ],
                         ),
                       )
-                    : Container(),
+                    : SizedBox.shrink(),
                 GestureDetector(
                   onTap: _createReminder,
                   child: Container(

@@ -1,6 +1,6 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/assets.dart';
+import 'package:bill/util.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,8 +29,8 @@ class GroupsState extends State<GroupsPage> {
     AppRouter.toPage(context, 'create-group');
   }
 
-  void _editGroup(int id) {
-    AppRouter.toPage(context, 'edit-group?id=${id}');
+  void _toDetail(int id) {
+    AppRouter.toPage(context, 'group-detail?id=${id}');
   }
 
   void _share() {}
@@ -71,10 +71,7 @@ class GroupsState extends State<GroupsPage> {
           decoration: BoxDecoration(
               color: AppColors.appYellow,
               borderRadius: BorderRadius.all(
-                  Radius.circular(Adaptor.px(80.0))),
-              border: Border.all(
-                  width: Adaptor.px(4.0),
-                  color: AppColors.appBorder)),
+                  Radius.circular(Adaptor.px(80.0)))),
           child: Center(
             child: Text(group.name.substring(0, 1), style: TextStyle(
               fontSize: Adaptor.px(50.0),
@@ -83,7 +80,7 @@ class GroupsState extends State<GroupsPage> {
           );
     }
 
-    IconItem groupItem = _getGroup(group.type);
+    IconItem _groupItem = Util.getGroup(group.type);
     return Container(
           width: Adaptor.px(100.0),
           height: Adaptor.px(100.0),
@@ -95,7 +92,7 @@ class GroupsState extends State<GroupsPage> {
                   Radius.circular(Adaptor.px(80.0)))
               ),
           child: Icon(
-            groupItem.icon,
+            _groupItem.icon,
             size: Adaptor.px(50.0),
             color: AppColors.appWhite,
           )
@@ -120,7 +117,7 @@ class GroupsState extends State<GroupsPage> {
                     IconItem groupItem = _getGroup(_group.type);
 
                       return GestureDetector(
-                        onTap: () => _editGroup(_group.id),
+                        onTap: () => _toDetail(_group.id),
                         child: Container(
                         width: Adaptor.px(1040.0),
                         margin: EdgeInsets.only(

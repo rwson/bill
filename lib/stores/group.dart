@@ -37,11 +37,11 @@ abstract class _GroupStore extends BaseStore with Store {
     }
   }
 
-  Future<bool> updateReminder(Map<String, dynamic> reminder) async {
+  Future<bool> editGroup(Map<String, dynamic> group) async {
     try {
       switchLoading(true);
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.updateReminder, reminder, HttpUtil.PUT);
+          await HttpUtil.request(Api.updateGroup, group, HttpUtil.PUT);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -67,17 +67,11 @@ abstract class _GroupStore extends BaseStore with Store {
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
-
       if (data.success) {
         groups = new List();
         data.data
             .toList()
-            .forEach((json) {
-              GroupItem item = new GroupItem.fromJson(json);
-              GroupItemUser itemUsers = new GroupItemUser.fromJson(json['uesrs']);
-              print(itemUsers);
-              groups.add(item);
-            });
+            .forEach((json) => {groups.add(new GroupItem.fromJson(json))});
       }
 
       switchLoading(false);
@@ -121,25 +115,24 @@ abstract class _GroupStore extends BaseStore with Store {
   @action
   Future<bool> getDetail(String id) async {
     try {
-      current = null;
-
       switchLoading(true);
 
       Map<String, dynamic> resp =
-          await HttpUtil.request(Api.reminderDetail, {'id': id}, HttpUtil.GET);
+          await HttpUtil.request(Api.groupDetail, {'id': id}, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
       switchLoading(false);
 
       if (data.success) {
-        // current = new ReminderItem.fromJson(data.data);
+        current = new GroupItem.fromJson(data.data);
       } else {
         BotToast.showText(text: data.message);
       }
 
       return data.success;
     } catch (e) {
+      current = null;
       switchLoading(false);
       BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;

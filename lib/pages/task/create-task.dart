@@ -23,9 +23,9 @@ class CreateTaskPage extends StatefulWidget {
 class CreateTaskState extends State<CreateTaskPage> {
   final int _precision = 2;
 
-  final _amountController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
-  final _descController = TextEditingController();
+  final TextEditingController _descController = TextEditingController();
 
   bool _switchValue = false;
 

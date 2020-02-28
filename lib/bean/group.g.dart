@@ -28,12 +28,16 @@ GroupItem _$GroupItemFromJson(Map<String, dynamic> json) {
     json['desc'] as String,
     json['usage'] as String,
     json['type'] as String,
-    json['createdAt'] as String,
+    json['creatorId'] as int,
     (json['users'] as List)
         ?.map((e) => e == null
             ? null
             : GroupItemUser.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    json['isDefault'] as String,
+    json['creator'] == null
+        ? null
+        : GroupItemUser.fromJson(json['creator'] as Map<String, dynamic>),
   );
 }
 
@@ -43,6 +47,8 @@ Map<String, dynamic> _$GroupItemToJson(GroupItem instance) => <String, dynamic>{
       'desc': instance.desc,
       'usage': instance.usage,
       'type': instance.type,
-      'createdAt': instance.createdAt,
-      'users': instance.users?.map((e) => e?.toJson())?.toList(),
+      'creatorId': instance.creatorId,
+      'isDefault': instance.isDefault,
+      'creator': instance.creator,
+      'users': instance.users,
     };

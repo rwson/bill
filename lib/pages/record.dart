@@ -5,9 +5,12 @@ import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/bill.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/bean/group.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/pay-channels.dart';
 import 'package:bill/util.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
@@ -34,13 +37,21 @@ class RecordState extends State<RecordPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  TextEditingController _paymentInputController;
+  final TextEditingController _paymentInputController = TextEditingController();
 
-  TextEditingController _incomeInputController;
+  final FocusNode _paymentInputFocus = FocusNode();
 
-  TextEditingController _payMarkController;
+  final TextEditingController _incomeInputController = TextEditingController();
 
-  TextEditingController _incomeMarkController;
+  final FocusNode _incomeInputFocus = FocusNode();
+
+  final TextEditingController _payMarkController = TextEditingController();
+
+  final FocusNode _payMarkFocus = FocusNode();
+
+  final TextEditingController _incomeMarkController = TextEditingController();
+
+    final FocusNode _incomeMarkFocus = FocusNode();
 
   Color _mainColor = AppColors.appYellow;
 
@@ -50,13 +61,19 @@ class RecordState extends State<RecordPage>
 
   int _payChannelIndex = 0;
 
-  ChannelItem _selectedChannel;
+  ChannelItem _selectedChannel = PayChannels.payChannels[0];
 
   List<TypeItem> _payTypes = [];
 
   List<TypeItem> _incomeTypes = [];
 
   List<ChannelItem> _payChannels = [];
+
+  List<GroupItem> _groups = [];
+
+  GroupItem _groupItem;
+
+  int _groupIndex;
 
   final int _precision = 2;
 
@@ -65,6 +82,7 @@ class RecordState extends State<RecordPage>
   String _billDate = DayDart().format(fm: 'YYYY-MM-DD');
 
   final BillStore billStote = AppStores.billStore;
+  final GroupStore groupStore = AppStores.groupStote;
 
   @override
   void initState() {
@@ -73,10 +91,7 @@ class RecordState extends State<RecordPage>
     _tabController = TabController(vsync: this, length: 2);
     _tabController..addListener(_handleTabChange);
 
-    _paymentInputController = TextEditingController();
-    _incomeInputController = TextEditingController();
-    _payMarkController = TextEditingController();
-    _incomeMarkController = TextEditingController();
+    _initGroups();
 
     MethodsIcons.paymentIcons.forEach((item) {
       _payTypes.add(TypeItem(
@@ -93,13 +108,33 @@ class RecordState extends State<RecordPage>
     });
   }
 
+  void _initGroups() async {
+    bool querySuccess = await groupStore.queryGroups();
+
+    if (querySuccess) {
+      int _storeGroupsLength = groupStore.groups.length;
+      GroupItem _tmp;
+      for (var i = 0; i < _storeGroupsLength; i++) {
+        _tmp = groupStore.groups[i];
+        if (_tmp.isDefault == '1') {
+          setState(() {
+            _groupIndex = i;
+            _groupItem = _tmp;
+          });
+        }
+        _groups.add(_tmp);
+      }
+    } else {
+      BotToast.showText(text: '查询记账圈子失败!');
+      AppRouter.back(context);
+    }
+  }
+
   void _handleTabChange() {
+    _unFocus();
     if (_tabController.indexIsChanging) {
       setState(() {
         _currentIndex = _tabController.index;
-        _payChannelIndex = 0;
-        _selectedChannel = null;
-        _billDate = DayDart().format(fm: 'YYYY-MM-DD');
         _mainColor = (_tabController.index == 0)
             ? AppColors.appYellow
             : AppColors.appGreen;
@@ -114,6 +149,7 @@ class RecordState extends State<RecordPage>
   }
 
   void _showDatePicker(String type) async {
+    _unFocus();
     DateTime newDateTime = await showRoundedDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -133,6 +169,7 @@ class RecordState extends State<RecordPage>
   }
 
   void _payMethodSelect(BuildContext context) {
+    _unFocus();
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -202,10 +239,109 @@ class RecordState extends State<RecordPage>
                           ),
                           GestureDetector(
                             onTap: () {
+                              Navigator.of(context).pop();
                               setState(() {
                                 _selectedChannel =
                                     _payChannels[_payChannelIndex];
                               });
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '确定',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appWarning),
+                                ))),
+                          )
+                        ]))
+              ]));
+        });
+      },
+    );
+  }
+
+  void _groupSelect(BuildContext context) {
+    _unFocus();
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              width: Adaptor.screenW(),
+              decoration: BoxDecoration(
+                  color: AppColors.appWhite,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Adaptor.px(40.0)),
+                      topRight: Radius.circular(Adaptor.px(40.0)))),
+              padding: EdgeInsets.only(
+                  top: Adaptor.px(40.0),
+                  bottom: Adaptor.px(20.0),
+                  left: Adaptor.px(10.0)),
+              child: Wrap(children: <Widget>[
+                Container(
+                  child: Center(
+                      child: Text('选择记账圈子',
+                          style: TextStyle(
+                              fontSize: Adaptor.px(32.0),
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.appTextDark))),
+                ),
+                Wrap(
+                    children: List.generate(_groups.length, (int index) {
+                  return Container(
+                      child: RadioListTile(
+                          title: Text(_groups[index].name,
+                              style: TextStyle(
+                                  fontSize: Adaptor.px(32.0),
+                                  color: AppColors.appTextDark)),
+                          activeColor: AppColors.appYellow,
+                          value: index,
+                          groupValue: _groupIndex,
+                          onChanged: (int value) {
+                            setState(() {
+                              _groupIndex = value;
+                            });
+                          }));
+                }).toList()),
+                Container(
+                    padding: EdgeInsets.only(
+                        left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
+                    margin: EdgeInsets.only(top: Adaptor.px(30.0)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () => {Navigator.of(context).pop()},
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.sheetBtnBg,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Adaptor.px(45.0)))),
+                                width: Adaptor.px(280.0),
+                                height: Adaptor.px(90.0),
+                                child: Center(
+                                    child: Text(
+                                  '取消',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0),
+                                      color: AppColors.appDanger),
+                                ))),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _groupItem = _groups[_payChannelIndex];
+                              });
+                              Navigator.of(context).pop();
                             },
                             child: Container(
                                 decoration: BoxDecoration(
@@ -235,33 +371,88 @@ class RecordState extends State<RecordPage>
     _tabController.dispose();
 
     _paymentInputController.dispose();
+    _paymentInputFocus.dispose();
     _incomeInputController.dispose();
+    _incomeInputFocus.dispose();
     _payMarkController.dispose();
+    _payMarkFocus.dispose();
     _incomeMarkController.dispose();
+    _incomeMarkFocus.dispose();
 
     super.dispose();
   }
 
-  void _createBill(type) async {
-    bool createSuccess;
-    if (type == 'income') {
-      createSuccess = await billStote.createIncomeBill({
-        'date': _billDate,
-        'amount': _incomeInputController.text,
-        'remark': _payMarkController.text,
-        'recordType': '0',
-        'groupId': 0
-      });
+  void _unFocus() {
+    if (_currentIndex == 0) {
+      _paymentInputFocus.unfocus();
+      _payMarkFocus.unfocus();
     } else {
-      createSuccess = await billStote.createPaymentBill({
-        'date': _billDate,
-        'amount': _paymentInputController.text,
-        'remark': _payMarkController.text,
-        'channel': _selectedChannel.type,
-        'recordType': '0',
-        'groupId': 0
-      });
+      _incomeInputFocus.unfocus();
+      _incomeMarkFocus.unfocus();
     }
+  }
+
+  void _createBill(type) async {
+    int _length;
+    Map<String, dynamic> _bill;
+    TypeItem _tmp;
+    TypeItem _category;
+
+    _unFocus();
+
+    if (type == 'income') {
+      if (_incomeInputController.text.length == 0) {
+        BotToast.showText(text: '变动金额不能为空');
+        return;
+      }
+
+      _length = _incomeTypes.length;
+
+      for(int i = 0; i < _length; i ++) {
+        _tmp = _incomeTypes[i];
+        if (_tmp.checked) {
+          _category = _tmp;
+          break;
+        }
+      }
+      
+      _bill = {
+        'amount': int.parse(_incomeInputController.text) * 100,
+        'billType': '1',
+        'category': _category.type,
+        'billDate': _billDate,
+        'remark': _payMarkController.text
+      };
+    } else {
+      if (_paymentInputController.text.length == 0) {
+        BotToast.showText(text: '变动金额不能为空');
+        return;
+      }
+
+      _length = _payTypes.length;
+
+      for(int i = 0; i < _length; i ++) {
+        _tmp = _payTypes[i];
+        if (_tmp.checked) {
+          _category = _tmp;
+          break;
+        }
+      }
+
+      _bill = {
+        'amount': int.parse(_paymentInputController.text) * 100,
+        'billType': '0',
+        'category': _category.type,
+        'billDate': _billDate,
+        'groupId': _groupItem.id,
+        'payMethod': _selectedChannel.type,
+        'remark': _payMarkController.text
+      };
+    }
+
+    print(_bill);
+
+    bool createSuccess = await billStote.createBill(_bill);
 
     if (createSuccess) {
       AppRouter.back(context);
@@ -269,13 +460,15 @@ class RecordState extends State<RecordPage>
   }
 
   Widget _buildPayment(BuildContext context) {
-    return Container(
-        child: Wrap(
+    return SingleChildScrollView(
+        child: Container(
+            child: Wrap(
       children: <Widget>[
         Container(
           decoration: BoxDecoration(color: AppColors.appYellow),
           child: TextField(
               controller: _paymentInputController,
+              focusNode: _paymentInputFocus,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(Adaptor.px(20.0)),
                   hintText: '请输入支出金额',
@@ -313,6 +506,7 @@ class RecordState extends State<RecordPage>
                     TypeItem _item = _subRow[i];
                     return GestureDetector(
                         onTap: () {
+                          _unFocus();
                           int position = (index * 8) + i;
                           setState(() {
                             _selectedIndex = index;
@@ -344,7 +538,9 @@ class RecordState extends State<RecordPage>
                                       child: Icon(
                                         _item.icon,
                                         size: Adaptor.px(50.0),
-                                        color: _item.checked ? AppColors.appWhite : AppColors.appTextDark,
+                                        color: _item.checked
+                                            ? AppColors.appWhite
+                                            : AppColors.appTextDark,
                                       )),
                                   Text(_item.desc,
                                       style: TextStyle(
@@ -400,7 +596,51 @@ class RecordState extends State<RecordPage>
                         onTap: () => _payMethodSelect(context),
                         child: Align(
                             alignment: Alignment.centerRight,
-                            child: Text(_selectedChannel != null ? _selectedChannel.desc : '请选择付款方式',
+                            child: Text(
+                                _selectedChannel != null
+                                    ? _selectedChannel.desc
+                                    : '请选择付款方式',
+                                style: TextStyle(
+                                    color: AppColors.appTextDark,
+                                    fontSize: Adaptor.px(28.0),
+                                    fontWeight: FontWeight.normal)))))
+              ]),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+              top: Adaptor.px(16.0),
+              bottom: Adaptor.px(16.0),
+              left: Adaptor.px(20.0),
+              right: Adaptor.px(32.0)),
+          height: Adaptor.px(100.0),
+          decoration: BoxDecoration(
+              border: Border(
+            top: BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
+            bottom:
+                BorderSide(width: Adaptor.onePx(), color: AppColors.appBorder),
+          )),
+          child: Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                    child: Text(
+                  '记账圈子',
+                  style: TextStyle(
+                    fontSize: Adaptor.px(28.0),
+                    color: AppColors.appTextDark,
+                  ),
+                )),
+                Expanded(
+                    child: GestureDetector(
+                        onTap: () => _groupSelect(context),
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                                _groupItem != null
+                                    ? _groupItem.name
+                                    : '请选择记账圈子',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0),
@@ -474,6 +714,7 @@ class RecordState extends State<RecordPage>
                         padding: EdgeInsets.only(left: Adaptor.px(40.0)),
                         child: TextField(
                             controller: _payMarkController,
+                            focusNode: _payMarkFocus,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
                                 hintText: '请输入账单备注',
@@ -492,7 +733,7 @@ class RecordState extends State<RecordPage>
               ]),
         ),
         GestureDetector(
-            onTap: () => _createBill('income'),
+            onTap: () => _createBill('payment'),
             child: Container(
                 width: Adaptor.px(1000.0),
                 height: Adaptor.px(80.0),
@@ -513,17 +754,19 @@ class RecordState extends State<RecordPage>
                             fontWeight: FontWeight.normal,
                             color: AppColors.appTextDark)))))
       ],
-    ));
+    )));
   }
 
   Widget _buildInCome(BuildContext context) {
-    return Container(
-        child: Wrap(
+    return SingleChildScrollView(
+        child: Container(
+            child: Wrap(
       children: <Widget>[
         Container(
           decoration: BoxDecoration(color: AppColors.appGreen),
           child: TextField(
               controller: _incomeInputController,
+              focusNode: _incomeInputFocus,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(Adaptor.px(20.0)),
                   hintText: '请输入收入金额',
@@ -560,6 +803,7 @@ class RecordState extends State<RecordPage>
                         height: Adaptor.px(170.0),
                         child: GestureDetector(
                             onTap: () {
+                              _unFocus();
                               setState(() {
                                 _incomeTypes.asMap().keys.forEach((int cur) => {
                                       if (cur == i)
@@ -586,7 +830,9 @@ class RecordState extends State<RecordPage>
                                       child: Icon(
                                         _item.icon,
                                         size: Adaptor.px(50.0),
-                                        color: _item.checked ? AppColors.appWhite : AppColors.appTextDark,
+                                        color: _item.checked
+                                            ? AppColors.appWhite
+                                            : AppColors.appTextDark,
                                       )),
                                   Text(_item.desc,
                                       style: TextStyle(
@@ -631,7 +877,9 @@ class RecordState extends State<RecordPage>
                                       child: Icon(
                                         _item.icon,
                                         size: Adaptor.px(50.0),
-                                        color: _item.checked ? AppColors.appWhite : AppColors.appTextDark,
+                                        color: _item.checked
+                                            ? AppColors.appWhite
+                                            : AppColors.appTextDark,
                                       )),
                                   Text(_item.desc,
                                       style: TextStyle(
@@ -709,6 +957,7 @@ class RecordState extends State<RecordPage>
                         padding: EdgeInsets.only(left: Adaptor.px(40.0)),
                         child: TextField(
                             controller: _incomeMarkController,
+                            focusNode: _incomeMarkFocus,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
                                 hintText: '请输入账单备注',
@@ -727,7 +976,7 @@ class RecordState extends State<RecordPage>
               ]),
         ),
         GestureDetector(
-            onTap: () => _createBill('payment'),
+            onTap: () => _createBill('income'),
             child: Container(
                 width: Adaptor.px(1000.0),
                 height: Adaptor.px(80.0),
@@ -748,7 +997,7 @@ class RecordState extends State<RecordPage>
                             fontWeight: FontWeight.normal,
                             color: AppColors.appTextDark)))))
       ],
-    ));
+    )));
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:bill/api.dart';
+import 'package:bill/bean/bill.dart';
 import 'package:bill/http/http-util.dart';
 import 'package:bill/stores/base.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -9,47 +10,52 @@ part 'bill.g.dart';
 class BillStore = _BillStore with _$BillStore;
 
 abstract class _BillStore extends BaseStore with Store {
-  @observable
-  int limit = 0;
+  List<BillItem> homeBills = [];
 
   @action
-  Future<bool> createPaymentBill(Map<String, dynamic> bill) async {
+  Future<bool> createBill(Map<String, dynamic> bill) async {
     try {
       switchLoading(true);
-      // Map<String, dynamic> resp = await HttpUtil.request(
-      //     Api.limitSet, {'limit': amount}, HttpUtil.POST);
-      // switchLoading(false);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.createBill, bill, HttpUtil.POST);
+      switchLoading(false);
 
-      // HttpResponse data = new HttpResponse.formJson(resp);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-      // if (data.success) {
-      //   limit = amount;
-      // }
+      BotToast.showText(text: data.message);
 
-      return true;
+      return data.success;
     } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;
     }
   }
 
+
   @action
-  Future<bool> createIncomeBill(Map<String, dynamic> bill) async {
+  Future<void> getMonthBills([String month]) async {
     try {
       switchLoading(true);
-      // Map<String, dynamic> resp = await HttpUtil.request(
-      //     Api.limitSet, {'limit': amount}, HttpUtil.POST);
-      // switchLoading(false);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.monthBills, {
+        'month': month
+      }, HttpUtil.GET);
+      switchLoading(false);
 
-      // HttpResponse data = new HttpResponse.formJson(resp);
+      HttpResponse data = new HttpResponse.formJson(resp);
 
-      // if (data.success) {
-      //   limit = amount;
-      // }
-
-      return true;
+      if (data.success) {
+        homeBills = new List();
+        data.data
+            .toList()
+            .forEach((json) => {homeBills.add(new BillItem.fromJson(json))});
+      } else {
+        BotToast.showText(text: data.message);
+      }
     } catch (e) {
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;
     }
-  }  
+  }
 
 }

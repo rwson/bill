@@ -51,13 +51,142 @@ class AnalysisPage extends StatefulWidget {
 class AnalysisState extends State<AnalysisPage> {
   int touchedIndex;
 
+  final List<int> showIndexes = const [];
+
+  bool showAvg = false;
+
+  List<Color> gradientColors = [
+    Color(0xffEEF3FE),
+    Color(0xffEEF3FE),
+  ];
+
   @override
   void initState() {
     super.initState();
   }
 
+  LineChartData mainData() {
+    return LineChartData(
+      rangeAnnotations: RangeAnnotations(
+        verticalRangeAnnotations: [
+          VerticalRangeAnnotation(
+            x1: 2,
+            x2: 5,
+            color: Color(0xffD5DAE5),
+          ),
+          VerticalRangeAnnotation(
+            x1: 8,
+            x2: 9,
+            color: Color(0xffD5DAE5),
+          ),
+        ],
+        horizontalRangeAnnotations: [
+          HorizontalRangeAnnotation(
+            y1: 2,
+            y2: 3,
+            color: Color(0xffEEF3FE),
+          ),
+        ],
+      ),
+      // uncomment to see ExtraLines with RangeAnnotations
+      gridData: FlGridData(
+          show: true, drawVerticalLine: false, drawHorizontalLine: false, verticalInterval: 1),
+      titlesData: FlTitlesData(
+        show: true,
+        bottomTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 22,
+          textStyle: TextStyle(color: Colors.black87, fontSize: 10),
+          interval: 2,
+          margin: 8,
+        ),
+        leftTitles: SideTitles(
+          interval: 2,
+          showTitles: true,
+          textStyle: TextStyle(
+            color: Colors.black87,
+            fontSize: 10,
+          ),
+          reservedSize: 28,
+          margin: 12,
+        ),
+      ),
+      lineTouchData: LineTouchData(
+        // fullHeightTouchLine: true,
+        getTouchedSpotIndicator: (LineChartBarData barData, List<int> spotIndexes) {
+          return spotIndexes.map((spotIndex) {
+            final FlSpot spot = barData.spots[spotIndex];
+            if (spot.x == 0 || spot.x == 6) {
+              return null;
+            }
+            return TouchedSpotIndicatorData(
+              const FlLine(color: Colors.orange, strokeWidth: 3),
+              const FlDotData(dotSize: 8, dotColor: Colors.deepOrange),
+            );
+          }).toList();
+        },
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: AppColors.appYellow
+        ),
+      ),
+      borderData: FlBorderData(show: true, border: Border.all(color: Color(0xffecf1fe), width: 1)),
+      minX: 0,
+      maxX: 11,
+      minY: 0,
+      maxY: 6,
+      lineBarsData: [
+        LineChartBarData(
+          spots: const [
+            FlSpot(0, 1),
+            FlSpot(2, 1),
+            FlSpot(4.9, 5),
+            FlSpot(6.8, 5),
+            FlSpot(8, 1),
+            FlSpot(9.5, 2),
+            FlSpot(11, 4),
+          ],
+          // dashArray: [2, 4],
+          isCurved: true,
+          colors: [Color(0xff0F2BF6)],
+          barWidth: 2,
+          isStrokeCapRound: true,
+          dotData: const FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: false,
+            colors: gradientColors.map((color) => color.withOpacity(0.5)).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final lineBarsData = [
+      LineChartBarData(
+        showingIndicators: showIndexes,
+        spots: [
+          FlSpot(0, 1),
+          FlSpot(1, 2),
+          FlSpot(2, 1),
+          FlSpot(3, 3),
+          FlSpot(4, 3),
+          FlSpot(5, 5),
+          FlSpot(6, 8),
+        ],
+        isCurved: true,
+        barWidth: 1,
+        belowBarData: BarAreaData(
+          show: true,
+        ),
+        dotData: FlDotData(show: false),
+      ),
+    ];
+
+    final LineChartBarData tooltipsOnBar = lineBarsData[0];
+
     return Scaffold(
         appBar: AppBar(
             title: Text('分析',
@@ -147,19 +276,19 @@ class AnalysisState extends State<AnalysisPage> {
                                           getTitles: (double value) {
                                             switch (value.toInt()) {
                                               case 0:
-                                                return '周一';
+                                                return '02-21';
                                               case 1:
-                                                return '周二';
+                                                return '02-22';
                                               case 2:
-                                                return '周三';
+                                                return '02-23';
                                               case 3:
-                                                return '周四';
+                                                return '02-24';
                                               case 4:
-                                                return '周五';
+                                                return '02-25';
                                               case 5:
-                                                return '周六';
+                                                return '02-26';
                                               case 6:
-                                                return '周日';
+                                                return '02-27';
                                               default:
                                                 return '';
                                             }
@@ -180,7 +309,7 @@ class AnalysisState extends State<AnalysisPage> {
                                         ]),
                                         BarChartGroupData(x: 1, barRods: [
                                           BarChartRodData(
-                                              y: 10,
+                                              y: 0,
                                               color: Colors.lightBlueAccent)
                                         ], showingTooltipIndicators: [
                                           0
@@ -216,7 +345,18 @@ class AnalysisState extends State<AnalysisPage> {
                                       ]),
                                 ),
                               ),
-                            )
+                            ),
+        AspectRatio(
+          aspectRatio: 1.70,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
+              child: LineChart(
+                mainData(),
+              ),
+            ),
+          ),
+        )
                           ],
                         ),
                       ),
@@ -380,4 +520,5 @@ class AnalysisState extends State<AnalysisPage> {
       }
     });
   }
+
 }

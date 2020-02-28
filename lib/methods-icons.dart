@@ -12,7 +12,7 @@ class IconItem {
 
 List<IconItem> _paymentIcons = [
   IconItem(icon: IconFont.iconSesameCredit, type: 'p-1', desc: '花呗'),
-  IconItem(icon: IconFont.iconDonate, type: 'p-2', desc: '信用卡'),
+  IconItem(icon: IconFont.iconCreditCard, type: 'p-2', desc: '信用卡'),
   IconItem(icon: IconFont.iconGiftMoney, type: 'p-3', desc: '礼金'),
   IconItem(icon: IconFont.iconGift, type: 'p-4', desc: '礼物'),
   IconItem(icon: IconFont.iconParents, type: 'p-5', desc: '孝敬长辈'),
@@ -42,6 +42,8 @@ List<IconItem> _paymentIcons = [
   IconItem(icon: IconFont.iconCommon, type: 'p-31', desc: '其他')
 ];
 
+Map<String, IconItem> _paymentIconMaps = { for (var v in _paymentIcons) v.type: v };
+
 List<IconItem> _incomeIcons = [
   IconItem(icon: IconFont.iconSalaryIncome, type: 'i-1', desc: '工资'),
   IconItem(icon: IconFont.iconPluralismIncome, type: 'i-2', desc: '兼职'),
@@ -52,6 +54,8 @@ List<IconItem> _incomeIcons = [
   IconItem(icon: IconFont.iconMinutesIncome, type: 'i-7', desc: '分红'),
   IconItem(icon: IconFont.iconOtherIncome, type: 'i-8', desc: '其他')
 ];
+
+Map<String, IconItem> _incomeIconMaps = { for (var v in _incomeIcons) v.type: v };
 
 List<IconItem> _circleTypes = [
   IconItem(icon: IconFont.iconDormRoom, type: 'g-1', desc: '寝室'),
@@ -65,6 +69,8 @@ List<IconItem> _circleTypes = [
   IconItem(icon: IconFont.iconSkirt, type: 'g-9', desc: '姐妹淘')
 ];
 
+Map<String, IconItem> _circleTypeMaps = { for (var v in _circleTypes) v.type: v };
+
 int _paymentIconsLength = _paymentIcons.length;
 int _incomeIconsLength = _incomeIcons.length;
 int _circleTypesLength = _circleTypes.length;
@@ -72,9 +78,15 @@ int _circleTypesLength = _circleTypes.length;
 class MethodsIcons {
   static List<IconItem> paymentIcons = _paymentIcons;
 
+  static Map<String, IconItem> paymentIconMaps = _paymentIconMaps;
+
   static List<IconItem> incomeIcons = _incomeIcons;
 
+  static Map<String, IconItem> incomeIconMaps = _incomeIconMaps;
+
   static List<IconItem> circleTypes = _circleTypes;
+
+  static Map<String, IconItem> circleTypeMaps = _circleTypeMaps;
 
   static int paymentLength = _paymentIconsLength;
 

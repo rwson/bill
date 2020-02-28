@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daydart/flutter_daydart.dart';
 
+import 'package:bill/methods-icons.dart';
+
 RegExp mobileReg = new RegExp(
     '^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$');
 
@@ -110,4 +112,22 @@ class Util {
 
     return res;
   }
+
+  static IconItem getGroup(type) {
+    IconItem _result;
+
+    int len = MethodsIcons.circleTypesLength;
+    IconItem _tmp;
+
+    for (int i = 0; i < len; i++) {
+      _tmp = MethodsIcons.circleTypes[i];
+      if (_tmp.type == type) {
+        _result = _tmp;
+        break;
+      }
+    }
+
+    return _result;
+  }
+
 }

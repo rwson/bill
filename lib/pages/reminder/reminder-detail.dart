@@ -34,7 +34,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
     super.deactivate();
     bool current = ModalRoute.of(context).isCurrent;
     if (current) {
-      reminderStore.queryReminder();
+      reminderStore.getDetail(widget.id);
     }
   }
 
@@ -51,7 +51,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
       backgroundColor: Colors.black26,
       animationDuration: Duration(milliseconds: 300),
       toastBuilder: (cancelFunc) => AlertDialog(
-        title: Text('你确定要删除此存款提醒吗?',
+        title: Text('您确定要删除此存款提醒吗?',
             style: TextStyle(
                 fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)),
         actions: <Widget>[
@@ -230,7 +230,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                           ],
                         ),
                       )
-                    : Container(),
+                    : SizedBox.shrink(),
                 Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(100.0),

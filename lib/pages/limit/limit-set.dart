@@ -3,7 +3,7 @@ import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/stores.dart';
-import 'package:bill/util.dart';
+import 'package:flutter/services.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +14,7 @@ class LimitSetPage extends StatefulWidget {
 }
 
 class LimitSetState extends State<LimitSetPage> {
-  final int _precision = 2;
-
-  final _amountController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
   final FocusNode _limitFocus = FocusNode();
 
@@ -44,7 +42,12 @@ class LimitSetState extends State<LimitSetPage> {
 
   Future<void> _saveLimit() async {
     _limitFocus.unfocus();
-    final data = await limitStore.setLimit(int.parse(_amountController.text));
+    if (_amountController.text.length == 0) {
+      BotToast.showText(text: '预算金额不能为空');
+      return;
+    }
+
+    final data = await limitStore.setLimit(int.parse(_amountController.text) * 100);
     BotToast.showText(text: data.message);
     if (data.success) {
       AppRouter.back(context);
@@ -87,11 +90,14 @@ class LimitSetState extends State<LimitSetPage> {
                         decoration: InputDecoration(
                             hintText: '请输入金额',
                             fillColor: Colors.transparent,
+                            counterText: '',
+                            counterStyle: TextStyle(fontSize: 0),
                             filled: true,
                             border: InputBorder.none),
-                        inputFormatters: [PrecisionLimitFormatter(_precision)],
+                        maxLength: 8,
+                        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                         keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
+                            TextInputType.number,
                         style: TextStyle(
                             fontSize: Adaptor.px(28.0),
                             color: AppColors.appTextDark),
@@ -100,7 +106,9 @@ class LimitSetState extends State<LimitSetPage> {
                         cursorColor: AppColors.appTextDark,
                         textAlign: TextAlign.center,
                         controller: _amountController)),
-                Container(
+                GestureDetector(
+                  onTap: _saveLimit,
+                  child: Container(
                     width: Adaptor.px(1040.0),
                     height: Adaptor.px(80.0),
                     margin: EdgeInsets.only(top: Adaptor.px(20.0)),
@@ -108,13 +116,13 @@ class LimitSetState extends State<LimitSetPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: _saveLimit,
+                    child: Center(
                         child: Text('保存',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,
                                 color: AppColors.appTextDark))))
+                )
               ],
             )));
   }

@@ -16,18 +16,19 @@ class GroupItemUser {
   Map<String, dynamic> toJson() => _$GroupItemUserToJson(this);
 }
 
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class GroupItem {
   final int id;
   final String name;
   final String desc;
   final String usage;
   final String type;
-  final String createdAt;
+  final int creatorId;
+  final String isDefault;
+  final GroupItemUser creator;
   final List<GroupItemUser> users;
 
-  GroupItem(this.id, this.name, this.desc, this.usage, this.type, this.createdAt, this.users);
+  GroupItem(this.id, this.name, this.desc, this.usage, this.type, this.creatorId, this.users, this.isDefault, this.creator);
 
   factory GroupItem.fromJson(Map<String, dynamic> json) =>
       _$GroupItemFromJson(json);

@@ -61,6 +61,15 @@ class MineState extends State<MinePage> {
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+    bool current = ModalRoute.of(context).isCurrent;
+    if (current) {
+      _initPage();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -447,7 +456,7 @@ class MineState extends State<MinePage> {
                                                   (groupStore.groups != null &&
                                                   groupStore.groups.length >
                                                       0)
-                                                  ? '你有${groupStore.groups.length}个圈子'
+                                                  ? '您有${groupStore.groups.length}个圈子'
                                                   : '暂未加入记账圈子',
                                                   style: TextStyle(
                                                       color: AppColors

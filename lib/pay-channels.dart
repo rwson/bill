@@ -12,7 +12,11 @@ List<ChannelItem> _payChannels = [
   ChannelItem(type: 'pc-4', desc: '其他')
 ];
 
+Map<String, ChannelItem> _payChannelMaps = { for (var v in _payChannels) v.type: v };
+
 class PayChannels {
   static List<ChannelItem> payChannels = _payChannels;
+
+  static Map<String, ChannelItem> payChannelMaps = _payChannelMaps;
 }
 

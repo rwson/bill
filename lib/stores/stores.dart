@@ -4,6 +4,7 @@ import 'package:bill/stores/reminder.dart';
 import 'package:bill/stores/task.dart';
 import 'package:bill/stores/user.dart';
 import 'package:bill/stores/group.dart';
+import 'package:bill/stores/statistics.dart';
 
 BillStore _billStore;
 LimitStore _limitStore;
@@ -11,6 +12,7 @@ ReminderStore _reminderStore;
 TaskStore _taskStore;
 UserStore _userStore;
 GroupStore _groupStore;
+StatisticsStore _statisticsStore;
 
 class AppStores {
   static get userStore => _userStore;
@@ -25,6 +27,8 @@ class AppStores {
 
   static get groupStote => _groupStore;
 
+  static get statisticsStore => _statisticsStore;
+
   static initStores() {
     _userStore = new UserStore();
     _limitStore = new LimitStore();
@@ -32,6 +36,7 @@ class AppStores {
     _reminderStore = new ReminderStore();
     _billStore = new BillStore();
     _groupStore = new GroupStore();
+    _statisticsStore = new StatisticsStore();
 
     _userStore.ensureLogin();
   }

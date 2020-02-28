@@ -61,5 +61,13 @@ class Api {
 
   static const String groupDetail = 'group/detail/:id';
 
-  
+  //  记账相关
+
+  static const String createBill = 'bill/create';
+
+  static const String monthBills = 'bill/monthly';
+
+  //  统计相关
+  static const String compareLastMonth = 'statistics/compare-lastmonth';
+
 }

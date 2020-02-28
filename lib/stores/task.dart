@@ -92,8 +92,6 @@ abstract class _TaskStore extends BaseStore with Store {
   @action
   Future<bool> getDetail(String id) async {
     try {
-      current = null;
-
       switchLoading(true);
 
       Map<String, dynamic> resp =
@@ -111,6 +109,7 @@ abstract class _TaskStore extends BaseStore with Store {
 
       return data.success;
     } catch (e) {
+      current = null;
       switchLoading(false);
       BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;

@@ -30,11 +30,7 @@ class IconFont {
 
   static IconData iconReimburseIncome = IconData(0xe653, fontFamily: 'iconfont');
 
-  static IconData iconFinancial = IconData(0xe65d, fontFamily: 'iconfont');
-
-  static IconData iconDonate = IconData(0xe65b, fontFamily: 'iconfont');
-
-  static IconData iconPayBack = IconData(0xe65a, fontFamily: 'iconfont');
+  static IconData iconCreditCard = IconData(0xe683, fontFamily: 'iconfont');
 
   static IconData iconGiftMoney = IconData(0xe659, fontFamily: 'iconfont');
 
@@ -105,12 +101,6 @@ class IconFont {
   static IconData iconRight = IconData(0xe600, fontFamily: 'iconfont');
 
   static IconData iconUp = IconData(0xe6ee, fontFamily: 'iconfont');
-
-  static IconData iconLeft = IconData(0xe6ed, fontFamily: 'iconfont');
-
-  static IconData iconMore = IconData(0xe61a, fontFamily: 'iconfont');
-
-  static IconData iconCalendar = IconData(0xe662, fontFamily: 'iconfont');
 
   static IconData iconCircle = IconData(0xe626, fontFamily: 'iconfont');
 

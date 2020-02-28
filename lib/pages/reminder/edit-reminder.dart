@@ -723,7 +723,7 @@ class EditReminderState extends State<EditReminderPage> {
                           ],
                         ),
                       )
-                    : Container(),
+                    : SizedBox.shrink(),
                 GestureDetector(
                   onTap: _editGroup,
                   child: Container(

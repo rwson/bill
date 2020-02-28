@@ -3,6 +3,7 @@ import 'package:bill/colors.dart';
 import 'package:bill/pages/forgot.dart';
 import 'package:bill/pages/group/create-group.dart';
 import 'package:bill/pages/group/edit-group.dart';
+import 'package:bill/pages/group/group-detail.dart';
 import 'package:bill/pages/group/groups.dart';
 import 'package:bill/pages/limit/limit-set.dart';
 import 'package:bill/pages/login.dart';
@@ -102,6 +103,13 @@ void main() {
       handler: Handler(
           handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
               EditGroupPage(id: (params['id'] != null && params['id'].length > 0)
+                      ? params['id'][0]
+                      : '')),
+      transitionType: TransitionType.native);
+  router.define('group-detail',
+      handler: Handler(
+          handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+              GroupDetailPage(id: (params['id'] != null && params['id'].length > 0)
                       ? params['id'][0]
                       : '')),
       transitionType: TransitionType.native);

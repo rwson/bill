@@ -9,36 +9,17 @@ part of 'bill.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$BillStore on _BillStore, Store {
-  final _$limitAtom = Atom(name: '_BillStore.limit');
+  final _$createBillAsyncAction = AsyncAction('createBill');
 
   @override
-  int get limit {
-    _$limitAtom.context.enforceReadPolicy(_$limitAtom);
-    _$limitAtom.reportObserved();
-    return super.limit;
+  Future<bool> createBill(Map<String, dynamic> bill) {
+    return _$createBillAsyncAction.run(() => super.createBill(bill));
   }
 
-  @override
-  set limit(int value) {
-    _$limitAtom.context.conditionallyRunInAction(() {
-      super.limit = value;
-      _$limitAtom.reportChanged();
-    }, _$limitAtom, name: '${_$limitAtom.name}_set');
-  }
-
-  final _$createPaymentBillAsyncAction = AsyncAction('createPaymentBill');
+  final _$getMonthBillsAsyncAction = AsyncAction('getMonthBills');
 
   @override
-  Future<bool> createPaymentBill(Map<String, dynamic> bill) {
-    return _$createPaymentBillAsyncAction
-        .run(() => super.createPaymentBill(bill));
-  }
-
-  final _$createIncomeBillAsyncAction = AsyncAction('createIncomeBill');
-
-  @override
-  Future<bool> createIncomeBill(Map<String, dynamic> bill) {
-    return _$createIncomeBillAsyncAction
-        .run(() => super.createIncomeBill(bill));
+  Future<void> getMonthBills([String month]) {
+    return _$getMonthBillsAsyncAction.run(() => super.getMonthBills(month));
   }
 }

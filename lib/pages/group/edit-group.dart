@@ -3,8 +3,12 @@ import 'dart:math';
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
+import 'package:bill/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/user.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class GroupItem {
@@ -26,30 +30,81 @@ class EditGroupPage extends StatefulWidget {
 }
 
 class EditGroupState extends State<EditGroupPage> {
-  final _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();
 
-  List<GroupItem> _groupItems = [];
+  List<GroupItem> _groupItems =     MethodsIcons.circleTypes.map((item) {
+      return GroupItem(
+          checked: false,
+          icon: item.icon,
+          desc: item.desc,
+          type: item.type);
+    }).toList();
 
   int _currentIndex = 0;
+
+  final GroupStore groupStore = AppStores.groupStote;
+
+  final UserStore userStore = AppStores.userStore;
 
   @override
   void initState() {
     super.initState();
-    MethodsIcons.circleTypes.forEach((item) => {
-          _groupItems.add(GroupItem(
-              checked: false,
-              icon: item.icon,
-              desc: item.desc,
-              type: item.type))
-        });
+    _queryDetail();
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _focus.dispose();
     super.dispose();
+  }
+
+  _queryDetail() async {
+    bool querySuccess = await groupStore.getDetail(widget.id);
+
+    if (querySuccess) {
+      _nameController.text = groupStore.current.name;
+
+      setState(() {
+          String _type = groupStore.current.type;
+          _groupItems = _groupItems.map((item) {
+            if (item.type == _type) {
+              item.checked = true;
+            }
+            return item;
+          }).toList();
+        });
+    } else {
+      AppRouter.back(context);
+    }
+  }
+
+  _editGroup() async {
+    _focus.unfocus();
+    int len = _groupItems.length;
+    GroupItem _selected;
+    GroupItem _tmp;
+
+    for (int i = 0; i < len; i++) {
+      _tmp = _groupItems[i];
+      if (_tmp.checked) {
+        _selected = _tmp;
+      }
+    }
+
+    bool editSuccess = await groupStore.editGroup({
+      'id': widget.id,
+      'name': _nameController.text,
+      'type': _selected.type,
+      'usage': '1',
+      'desc': ''
+    });
+    
+    if (editSuccess) {
+      AppRouter.back(context);
+    }
   }
 
   @override
@@ -192,7 +247,9 @@ class EditGroupState extends State<EditGroupPage> {
                     ],
                   ),
                 ),
-                Container(
+                GestureDetector(
+                  onTap: _editGroup,
+                  child: Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),
                     padding: EdgeInsets.only(
@@ -205,13 +262,13 @@ class EditGroupState extends State<EditGroupPage> {
                         color: AppColors.appYellow,
                         borderRadius: BorderRadius.all(
                             Radius.circular(Adaptor.px(10.0)))),
-                    child: FlatButton(
-                        onPressed: () {},
+                    child: Center(
                         child: Text('确定',
                             style: TextStyle(
                                 fontSize: Adaptor.px(32.0),
                                 fontWeight: FontWeight.normal,
                                 color: AppColors.appTextDark))))
+                )
               ],
             )));
   }

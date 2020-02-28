@@ -28,24 +28,23 @@ class CreateGroupPage extends StatefulWidget {
 class CreateGroupState extends State<CreateGroupPage> {
   final GroupStore groupStore = AppStores.groupStote;
 
-  final _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();
 
-  List<GroupItem> _groupItems = [];
+  List<GroupItem> _groupItems =  MethodsIcons.circleTypes.map((item) {
+      return GroupItem(
+          checked: false,
+          icon: item.icon,
+          desc: item.desc,
+          type: item.type);
+    }).toList();
 
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    MethodsIcons.circleTypes.forEach((item) => {
-          _groupItems.add(GroupItem(
-              checked: false,
-              icon: item.icon,
-              desc: item.desc,
-              type: item.type))
-        });
   }
 
   @override
