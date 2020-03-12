@@ -1,14 +1,13 @@
 import 'package:bill/adaptor.dart';
+import 'package:bill/bean/group.dart';
 import 'package:bill/colors.dart';
-import 'package:bill/util.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/widgets/empty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bill/bean/group.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/stores/group.dart';
-import 'package:bill/widgets/empty.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class GroupsPage extends StatefulWidget {
@@ -44,23 +43,6 @@ class GroupsState extends State<GroupsPage> {
     }
   }
 
-  IconItem _getGroup(type) {
-    IconItem _result;
-
-    int len = MethodsIcons.circleTypesLength;
-    IconItem _tmp;
-
-    for (int i = 0; i < len; i++) {
-      _tmp = MethodsIcons.circleTypes[i];
-      if (_tmp.type == type) {
-        _result = _tmp;
-        break;
-      }
-    }
-
-    return _result;
-  }
-
   Widget _buildGroupIcon(GroupItem group) {
     if (group.usage == '0') {
       return Container(
@@ -80,7 +62,7 @@ class GroupsState extends State<GroupsPage> {
           );
     }
 
-    IconItem _groupItem = Util.getGroup(group.type);
+    IconItem _groupItem = MethodsIcons.circleTypeMaps[group.type];
     return Container(
           width: Adaptor.px(100.0),
           height: Adaptor.px(100.0),
@@ -114,7 +96,7 @@ class GroupsState extends State<GroupsPage> {
                 child: Wrap(
                   children: List.generate(groupStore.groups.length, (int i) {
                     GroupItem _group = groupStore.groups[i];
-                    IconItem groupItem = _getGroup(_group.type);
+                    IconItem groupItem = MethodsIcons.circleTypeMaps[_group.type];
 
                       return GestureDetector(
                         onTap: () => _toDetail(_group.id),

@@ -29,3 +29,16 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'mobile': instance.mobile,
       'registrationId': instance.registrationId,
     };
+
+UserBillCount _$UserBillCountFromJson(Map<String, dynamic> json) {
+  return UserBillCount(
+    json['days'] as int,
+    json['counts'] as int,
+  );
+}
+
+Map<String, dynamic> _$UserBillCountToJson(UserBillCount instance) =>
+    <String, dynamic>{
+      'days': instance.days,
+      'counts': instance.counts,
+    };

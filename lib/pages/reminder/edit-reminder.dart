@@ -356,6 +356,9 @@ class EditReminderState extends State<EditReminderPage> {
                                               _selectedTime.add(_clocks[i]);
                                             }
                                           });
+
+                                          _clockController = FixedExtentScrollController(
+                                            initialItem: _clocks.indexOf(_clocks[i]));
                                         },
                                         children: List.generate(_clocks.length,
                                             (int index) {
@@ -389,6 +392,9 @@ class EditReminderState extends State<EditReminderPage> {
                                               _selectedTime[1] = _minutes[i];
                                             }
                                           });
+
+                                          _minutesController = FixedExtentScrollController(
+                                            initialItem: _minutes.indexOf(_minutes[i]));
                                         },
                                         children: List.generate(_minutes.length,
                                             (int index) {
@@ -548,13 +554,11 @@ class EditReminderState extends State<EditReminderPage> {
     );
   }
 
-  void _editGroup() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('添加存钱提醒',
+            title: Text('编辑存钱提醒',
                 style: TextStyle(
                     fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
         body: Container(
@@ -689,7 +693,7 @@ class EditReminderState extends State<EditReminderPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text('回头天数',
+                            Text('折返天数',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0))),
@@ -711,7 +715,7 @@ class EditReminderState extends State<EditReminderPage> {
                                       contentPadding: EdgeInsets.only(
                                           top: Adaptor.px(30.0),
                                           bottom: Adaptor.px(30.0)),
-                                      hintText: '请输入回头天数',
+                                      hintText: '请输入折返天数',
                                       fillColor: AppColors.appWhite,
                                       filled: true,
                                       enabledBorder: UnderlineInputBorder(
@@ -725,7 +729,7 @@ class EditReminderState extends State<EditReminderPage> {
                       )
                     : SizedBox.shrink(),
                 GestureDetector(
-                  onTap: _editGroup,
+                  onTap: _modifyReminder,
                   child: Container(
                     width: Adaptor.px(1000.0),
                     height: Adaptor.px(80.0),

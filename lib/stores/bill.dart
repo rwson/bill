@@ -33,11 +33,11 @@ abstract class _BillStore extends BaseStore with Store {
 
 
   @action
-  Future<void> getMonthBills([String month]) async {
+  Future<void> getMonthBills(Map<String, dynamic> param) async {
     try {
       switchLoading(true);
       Map<String, dynamic> resp = await HttpUtil.request(Api.monthBills, {
-        'month': month
+        'month': param['month']
       }, HttpUtil.GET);
       switchLoading(false);
 
@@ -49,12 +49,15 @@ abstract class _BillStore extends BaseStore with Store {
             .toList()
             .forEach((json) => {homeBills.add(new BillItem.fromJson(json))});
       } else {
-        BotToast.showText(text: data.message);
+        if (param['toast']) {
+          BotToast.showText(text: data.message);
+        }
       }
     } catch (e) {
       switchLoading(false);
-      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
-      return false;
+      if (param['toast']) {
+        BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      }
     }
   }
 

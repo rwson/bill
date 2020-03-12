@@ -1,10 +1,10 @@
 import 'package:bill/stores/bill.dart';
+import 'package:bill/stores/group.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/reminder.dart';
+import 'package:bill/stores/statistics.dart';
 import 'package:bill/stores/task.dart';
 import 'package:bill/stores/user.dart';
-import 'package:bill/stores/group.dart';
-import 'package:bill/stores/statistics.dart';
 
 BillStore _billStore;
 LimitStore _limitStore;

@@ -35,6 +35,7 @@ GroupItem _$GroupItemFromJson(Map<String, dynamic> json) {
             : GroupItemUser.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['isDefault'] as String,
+    json['isPersonal'] as String,
     json['creator'] == null
         ? null
         : GroupItemUser.fromJson(json['creator'] as Map<String, dynamic>),
@@ -49,6 +50,7 @@ Map<String, dynamic> _$GroupItemToJson(GroupItem instance) => <String, dynamic>{
       'type': instance.type,
       'creatorId': instance.creatorId,
       'isDefault': instance.isDefault,
+      'isPersonal': instance.isPersonal,
       'creator': instance.creator,
       'users': instance.users,
     };

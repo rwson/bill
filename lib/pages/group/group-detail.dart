@@ -1,10 +1,10 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
+import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/group.dart';
-import 'package:bill/stores/user.dart';
 import 'package:bill/stores/stores.dart';
-import 'package:bill/util.dart';
+import 'package:bill/stores/user.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -143,9 +143,20 @@ class GroupDetailState extends State<GroupDetailPage> {
 
   Widget _buildDetail() {
     return Observer(builder: (_) {
-      bool _isAdmin = false;
+      bool _isAdmin = true;
+      bool _isPersonal = false;
+      bool _isDefault = false;
+
       if (groupStote.current != null) {
         _isAdmin = userStore.userInfo.id == groupStote.current.creatorId;
+      }
+
+      IconItem _groupType;
+
+      if (groupStote.current != null) {
+        _groupType = MethodsIcons.circleTypeMaps[groupStote.current.type];
+        _isPersonal = groupStote.current.isPersonal == '1';
+        _isDefault = groupStote.current.isDefault == '1';
       }
 
       return Wrap(children: <Widget>[
@@ -207,7 +218,8 @@ class GroupDetailState extends State<GroupDetailPage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                           groupStote.current != null
-                              ? Util.getGroup(groupStote.current.type).desc
+                              ? _isPersonal ?
+                              '私人圈子'  : _groupType.desc
                               : '',
                           style: TextStyle(
                               color: AppColors.appTextNormal,
@@ -285,6 +297,41 @@ class GroupDetailState extends State<GroupDetailPage> {
             ],
           ),
         ),
+        Container(
+          width: Adaptor.px(1060.0),
+          height: Adaptor.px(100.0),
+          padding:
+              EdgeInsets.only(left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
+          margin:
+              EdgeInsets.only(left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appWhite,
+              border: Border(
+                  bottom: BorderSide(
+                      width: Adaptor.onePx(), color: AppColors.appBorder))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text('默认圈子',
+                  style: TextStyle(
+                      color: AppColors.appTextDark,
+                      fontSize: Adaptor.px(28.0))),
+              Expanded(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                          _isDefault ? '是' : '否',
+                          style: TextStyle(
+                              color: AppColors.appTextNormal,
+                              fontSize: Adaptor.px(28.0),
+                              fontWeight: FontWeight.normal))))
+            ],
+          ),
+        ),
+        _isPersonal ?
+        SizedBox.shrink()
+        :
         _isAdmin
             ? Container(
                 width: Adaptor.px(1000.0),

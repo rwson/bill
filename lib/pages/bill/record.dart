@@ -1,23 +1,23 @@
 import 'dart:math';
 
 import 'package:bill/adaptor.dart';
-import 'package:bill/colors.dart';
-import 'package:bill/router.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/stores/bill.dart';
-import 'package:bill/stores/group.dart';
 import 'package:bill/bean/group.dart';
+import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/pay-channels.dart';
+import 'package:bill/router.dart';
+import 'package:bill/stores/bill.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/stores.dart';
 import 'package:bill/util.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_daydart/flutter_daydart.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-import 'package:flutter_daydart/flutter_daydart.dart';
-import 'package:flutter/cupertino.dart';
 
 class TypeItem {
   String type;
@@ -51,7 +51,7 @@ class RecordState extends State<RecordPage>
 
   final TextEditingController _incomeMarkController = TextEditingController();
 
-    final FocusNode _incomeMarkFocus = FocusNode();
+  final FocusNode _incomeMarkFocus = FocusNode();
 
   Color _mainColor = AppColors.appYellow;
 
@@ -67,7 +67,7 @@ class RecordState extends State<RecordPage>
 
   List<TypeItem> _incomeTypes = [];
 
-  List<ChannelItem> _payChannels = [];
+  List<ChannelItem> _payChannels = List.from(PayChannels.payChannels);
 
   List<GroupItem> _groups = [];
 
@@ -101,10 +101,6 @@ class RecordState extends State<RecordPage>
     MethodsIcons.incomeIcons.forEach((item) {
       _incomeTypes.add(TypeItem(
           icon: item.icon, type: item.type, desc: item.desc, checked: false));
-    });
-
-    PayChannels.payChannels.forEach((item) {
-      _payChannels.add(ChannelItem(type: item.type, desc: item.desc));
     });
   }
 
@@ -166,6 +162,13 @@ class RecordState extends State<RecordPage>
     setState(() {
       _billDate = DayDart.fromDateTime(newDateTime).format(fm: 'YYYY-MM-DD');
     });
+  }
+
+  void _payMethodSelectOk() {
+    setState(() {
+      _selectedChannel = _payChannels[_payChannelIndex];
+    });
+    Navigator.of(context).pop();
   }
 
   void _payMethodSelect(BuildContext context) {
@@ -238,13 +241,7 @@ class RecordState extends State<RecordPage>
                                 ))),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              setState(() {
-                                _selectedChannel =
-                                    _payChannels[_payChannelIndex];
-                              });
-                            },
+                            onTap: _payMethodSelectOk,
                             child: Container(
                                 decoration: BoxDecoration(
                                     color: AppColors.sheetBtnBg,
@@ -265,6 +262,13 @@ class RecordState extends State<RecordPage>
         });
       },
     );
+  }
+
+  void _groupSelectOk() {
+    setState(() {
+      _groupItem = _groups[_groupIndex];
+    });
+    Navigator.of(context).pop();
   }
 
   void _groupSelect(BuildContext context) {
@@ -295,23 +299,27 @@ class RecordState extends State<RecordPage>
                               fontWeight: FontWeight.w400,
                               color: AppColors.appTextDark))),
                 ),
-                Wrap(
-                    children: List.generate(_groups.length, (int index) {
-                  return Container(
-                      child: RadioListTile(
-                          title: Text(_groups[index].name,
-                              style: TextStyle(
-                                  fontSize: Adaptor.px(32.0),
-                                  color: AppColors.appTextDark)),
-                          activeColor: AppColors.appYellow,
-                          value: index,
-                          groupValue: _groupIndex,
-                          onChanged: (int value) {
-                            setState(() {
-                              _groupIndex = value;
-                            });
-                          }));
-                }).toList()),
+                Container(
+                  height: Adaptor.px(450),
+                  child: SingleChildScrollView(
+                      child: Wrap(
+                          children: List.generate(_groups.length, (int index) {
+                    return Container(
+                        child: RadioListTile(
+                            title: Text(_groups[index].name,
+                                style: TextStyle(
+                                    fontSize: Adaptor.px(32.0),
+                                    color: AppColors.appTextDark)),
+                            activeColor: AppColors.appYellow,
+                            value: index,
+                            groupValue: _groupIndex,
+                            onChanged: (int value) {
+                              setState(() {
+                                _groupIndex = value;
+                              });
+                            }));
+                  }).toList())),
+                ),
                 Container(
                     padding: EdgeInsets.only(
                         left: Adaptor.px(30.0), right: Adaptor.px(46.0)),
@@ -337,12 +345,7 @@ class RecordState extends State<RecordPage>
                                 ))),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _groupItem = _groups[_payChannelIndex];
-                              });
-                              Navigator.of(context).pop();
-                            },
+                            onTap: _groupSelectOk,
                             child: Container(
                                 decoration: BoxDecoration(
                                     color: AppColors.sheetBtnBg,
@@ -408,16 +411,16 @@ class RecordState extends State<RecordPage>
 
       _length = _incomeTypes.length;
 
-      for(int i = 0; i < _length; i ++) {
+      for (int i = 0; i < _length; i++) {
         _tmp = _incomeTypes[i];
         if (_tmp.checked) {
           _category = _tmp;
           break;
         }
       }
-      
+
       _bill = {
-        'amount': int.parse(_incomeInputController.text) * 100,
+        'amount': _incomeInputController.text,
         'billType': '1',
         'category': _category.type,
         'billDate': _billDate,
@@ -431,7 +434,7 @@ class RecordState extends State<RecordPage>
 
       _length = _payTypes.length;
 
-      for(int i = 0; i < _length; i ++) {
+      for (int i = 0; i < _length; i++) {
         _tmp = _payTypes[i];
         if (_tmp.checked) {
           _category = _tmp;
@@ -440,7 +443,7 @@ class RecordState extends State<RecordPage>
       }
 
       _bill = {
-        'amount': int.parse(_paymentInputController.text) * 100,
+        'amount': _paymentInputController.text,
         'billType': '0',
         'category': _category.type,
         'billDate': _billDate,

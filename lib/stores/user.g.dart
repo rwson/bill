@@ -43,6 +43,23 @@ mixin _$UserStore on _UserStore, Store {
     }, _$userInfoAtom, name: '${_$userInfoAtom.name}_set');
   }
 
+  final _$billCountAtom = Atom(name: '_UserStore.billCount');
+
+  @override
+  UserBillCount get billCount {
+    _$billCountAtom.context.enforceReadPolicy(_$billCountAtom);
+    _$billCountAtom.reportObserved();
+    return super.billCount;
+  }
+
+  @override
+  set billCount(UserBillCount value) {
+    _$billCountAtom.context.conditionallyRunInAction(() {
+      super.billCount = value;
+      _$billCountAtom.reportChanged();
+    }, _$billCountAtom, name: '${_$billCountAtom.name}_set');
+  }
+
   final _$ensureLoginAsyncAction = AsyncAction('ensureLogin');
 
   @override
@@ -79,6 +96,13 @@ mixin _$UserStore on _UserStore, Store {
   @override
   Future<bool> forgot(String mobile, String password) {
     return _$forgotAsyncAction.run(() => super.forgot(mobile, password));
+  }
+
+  final _$getBillCountAsyncAction = AsyncAction('getBillCount');
+
+  @override
+  Future<bool> getBillCount() {
+    return _$getBillCountAsyncAction.run(() => super.getBillCount());
   }
 
   final _$_UserStoreActionController = ActionController(name: '_UserStore');

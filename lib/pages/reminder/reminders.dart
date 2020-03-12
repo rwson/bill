@@ -142,7 +142,7 @@ class RemindersState extends State<RemindersPage> with WidgetsBindingObserver {
                               )));
                     }).toList()),
                   ))
-                : Empty()));
+                : Empty(text: '暂无存钱提醒, 快去添加一个吧~')));
   }
 
   @override

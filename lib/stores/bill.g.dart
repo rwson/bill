@@ -19,7 +19,7 @@ mixin _$BillStore on _BillStore, Store {
   final _$getMonthBillsAsyncAction = AsyncAction('getMonthBills');
 
   @override
-  Future<void> getMonthBills([String month]) {
-    return _$getMonthBillsAsyncAction.run(() => super.getMonthBills(month));
+  Future<void> getMonthBills(Map<String, dynamic> param) {
+    return _$getMonthBillsAsyncAction.run(() => super.getMonthBills(param));
   }
 }

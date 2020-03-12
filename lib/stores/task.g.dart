@@ -63,4 +63,11 @@ mixin _$TaskStore on _TaskStore, Store {
   Future<bool> getDetail(String id) {
     return _$getDetailAsyncAction.run(() => super.getDetail(id));
   }
+
+  final _$deleteTaskAsyncAction = AsyncAction('deleteTask');
+
+  @override
+  Future<bool> deleteTask(String id) {
+    return _$deleteTaskAsyncAction.run(() => super.deleteTask(id));
+  }
 }

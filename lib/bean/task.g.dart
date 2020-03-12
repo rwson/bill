@@ -11,11 +11,12 @@ TaskItem _$TaskItemFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['frequency'] as String,
     json['time'] as String,
-    json['amount'] as int,
+    json['amount'] as String,
     json['billType'] as String,
     json['category'] as String,
     json['remark'] as String,
     json['confirm'] as String,
+    json['payMethod'] as String,
   );
 }
 
@@ -28,4 +29,5 @@ Map<String, dynamic> _$TaskItemToJson(TaskItem instance) => <String, dynamic>{
       'category': instance.category,
       'remark': instance.remark,
       'confirm': instance.confirm,
+      'payMethod': instance.payMethod,
     };

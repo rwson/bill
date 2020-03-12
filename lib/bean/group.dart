@@ -25,10 +25,11 @@ class GroupItem {
   final String type;
   final int creatorId;
   final String isDefault;
+  final String isPersonal;
   final GroupItemUser creator;
   final List<GroupItemUser> users;
 
-  GroupItem(this.id, this.name, this.desc, this.usage, this.type, this.creatorId, this.users, this.isDefault, this.creator);
+  GroupItem(this.id, this.name, this.desc, this.usage, this.type, this.creatorId, this.users, this.isDefault, this.isPersonal, this.creator);
 
   factory GroupItem.fromJson(Map<String, dynamic> json) =>
       _$GroupItemFromJson(json);

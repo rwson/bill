@@ -27,3 +27,17 @@ class User {
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
+
+@JsonSerializable()
+class UserBillCount {
+  final int days;
+  final int counts;
+
+  UserBillCount([this.days, this.counts]);
+
+  factory UserBillCount.fromJson(Map<String, dynamic> json) => _$UserBillCountFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserBillCountToJson(this);
+}
+
+

@@ -10,6 +10,9 @@ abstract class _BaseStore with Store {
 
   @action
   bool switchLoading(bool isLoading) {
+    // if (isLoading) {
+    //   LoadingFlipping.circle();
+    // }
     if (isLoading != loading) {
       loading = isLoading;
     }

@@ -7,11 +7,12 @@ class TaskItem {
   final int id;
   final String frequency;
   final String time;
-  final int amount;
+  final String amount;
   final String billType;
   final String category;
   final String remark;
   final String confirm;
+  final String payMethod;
 
   TaskItem([this.id,
       this.frequency,
@@ -20,7 +21,8 @@ class TaskItem {
       this.billType,
       this.category,
       this.remark,
-      this.confirm]);
+      this.confirm,
+      this.payMethod]);
 
   factory TaskItem.fromJson(Map<String, dynamic> json) => _$TaskItemFromJson(json);
 

@@ -11,7 +11,7 @@ class TaskStore = _TaskStore with _$TaskStore;
 
 abstract class _TaskStore extends BaseStore with Store {
   @observable
-  List<TaskItem> tasks = new List();
+  List<TaskItem> tasks;
 
   @observable
   TaskItem current;
@@ -110,6 +110,29 @@ abstract class _TaskStore extends BaseStore with Store {
       return data.success;
     } catch (e) {
       current = null;
+      switchLoading(false);
+      BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
+      return false;
+    }
+  }
+
+  @action
+  Future<bool> deleteTask(String id) async {
+    try {
+      switchLoading(true);
+
+      Map<String, dynamic> resp =
+      await HttpUtil.request(Api.deleteTask, {
+        'id': id
+      }, HttpUtil.DELETE);
+
+      HttpResponse data = new HttpResponse.formJson(resp);
+
+      switchLoading(false);
+
+      BotToast.showText(text: data.message);
+      return data.success;
+    } catch (e) {
       switchLoading(false);
       BotToast.showText(text: HttpUtil.UNKNOWN_ERROR);
       return false;

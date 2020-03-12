@@ -4,12 +4,12 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:bill/stores/group.dart';
-import 'package:bill/stores/stores.dart';
 
 class GroupItem {
   String type;
@@ -31,6 +31,8 @@ class CreateGroupState extends State<CreateGroupPage> {
   final TextEditingController _nameController = TextEditingController();
 
   final FocusNode _focus = FocusNode();
+
+  bool _switchValue = false;
 
   List<GroupItem> _groupItems =  MethodsIcons.circleTypes.map((item) {
       return GroupItem(
@@ -76,6 +78,7 @@ class CreateGroupState extends State<CreateGroupPage> {
       'name': _nameController.text,
       'type': _selected.type,
       'usage': '1',
+      'isDefault': _switchValue ? '1' : '0',
       'desc': ''
     });
     
@@ -175,7 +178,7 @@ class CreateGroupState extends State<CreateGroupPage> {
                 ),
                 Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(100.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -192,7 +195,7 @@ class CreateGroupState extends State<CreateGroupPage> {
                       Text('圈子名称',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(28.0))),
                       Expanded(
                           flex: 1,
                           child: Container(
@@ -207,7 +210,7 @@ class CreateGroupState extends State<CreateGroupPage> {
                                   autocorrect: false,
                                   keyboardType: TextInputType.text,
                                   style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
+                                    fontSize: Adaptor.px(28.0),
                                     color: AppColors.appTextDark,
                                   ),
                                   cursorWidth: 1.0,
@@ -215,6 +218,41 @@ class CreateGroupState extends State<CreateGroupPage> {
                                   textAlign: TextAlign.right,
                                   focusNode: _focus,
                                   controller: _nameController)))
+                    ],
+                  ),
+                ),
+                Container(
+                  width: Adaptor.px(1060.0),
+                  height: Adaptor.px(100.0),
+                  padding: EdgeInsets.only(
+                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
+                  margin: EdgeInsets.only(
+                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
+                  decoration: BoxDecoration(
+                      color: AppColors.appWhite,
+                      border: Border(
+                          bottom: BorderSide(
+                              width: Adaptor.onePx(),
+                              color: AppColors.appBorder))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('设为默认',
+                          style: TextStyle(
+                              color: AppColors.appTextDark,
+                              fontSize: Adaptor.px(28.0))),
+                      Container(
+                          child: Switch.adaptive(
+                              value: _switchValue,
+                              activeColor: AppColors.appYellow,
+                              activeTrackColor: AppColors.appYellowLight,
+                              inactiveThumbColor: AppColors.appTextNormal,
+                              inactiveTrackColor: AppColors.appTextLight,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _switchValue = value;
+                                });
+                              }))
                     ],
                   ),
                 ),

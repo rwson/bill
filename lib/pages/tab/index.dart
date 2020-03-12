@@ -1,14 +1,18 @@
 import 'package:bill/adaptor.dart';
+import 'package:bill/bean/bill.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
+import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:bill/bean/bill.dart';
-import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/bill.dart';
 import 'package:bill/stores/statistics.dart';
-import 'package:bill/methods-icons.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/user.dart';
+import 'package:bill/widgets/empty.dart';
+import 'package:bill/widgets/pop-menu.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class IndexPage extends StatefulWidget {
@@ -19,6 +23,7 @@ class IndexPage extends StatefulWidget {
 class IndexState extends State<IndexPage> {
   final BillStore billStore = AppStores.billStore;
   final StatisticsStore statisticsStore = AppStores.statisticsStore;
+  final UserStore userStore = AppStores.userStore;
 
   @override
   void initState() {
@@ -28,7 +33,9 @@ class IndexState extends State<IndexPage> {
 
   void _initPage() {
     statisticsStore.compareLast();
-    billStore.getMonthBills();
+    billStore.getMonthBills({
+      'toast': false
+    });
   }
 
   @override
@@ -44,18 +51,127 @@ class IndexState extends State<IndexPage> {
     AppRouter.toPage(context, 'record');
   }
 
+    void _toLogin(context) {
+    AppRouter.toPage(context, 'record');
+  }
+
   void _toLimitset(context) {
     AppRouter.toPage(context, 'limit-set');
   }
 
   Widget _buildBills() {
+    if (billStore.homeBills == null || billStore.homeBills.length == 0) {
+      return Empty(
+        top: Adaptor.px(200.0),
+        child: userStore.logined ? Wrap(
+          children: <Widget>[
+            Text('暂无月度账单数据,', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+            Text('快去', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+            GestureDetector(
+              onTap: () => _toRecord(context),
+              child: Text('记一笔', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appYellow
+            )),
+            ),
+            Text('吧~', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+          ],
+        ) : Wrap(
+          children: <Widget>[
+            Text('暂未登录,', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+            Text('快去', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+            GestureDetector(
+              onTap: () => _toLogin(context),
+              child: Text('登录/注册', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appYellow
+            )),
+            ),
+            Text('吧~', style: TextStyle(
+              fontSize: Adaptor.px(24.0),
+              color: AppColors.appTextLight
+            )),
+          ],
+        )
+      );
+    }
     return Container(
         child: Expanded(
             child: ListView.builder(
                 itemCount: billStore.homeBills.length,
                 itemBuilder: (BuildContext context, int index) {
                   BillItem _currentBill = billStore.homeBills[index];
-                  return Container(
+                  return PopupMenu(
+                    callback: (String val) => {
+                      if (val == '1') {
+                          BotToast.showAnimationWidget(
+                            onlyOne: true,
+                            backgroundColor: Colors.black26,
+                            animationDuration: Duration(milliseconds: 300),
+                            toastBuilder: (cancelFunc) => AlertDialog(
+                              title: Text('您确定要删除此条账单吗?',
+                                  style: TextStyle(
+                                      fontSize: Adaptor.px(32.0), color: AppColors.appTextDark)),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () {
+                                    cancelFunc();
+                                  },
+                                  highlightColor: const Color(0x55FF8A80),
+                                  splashColor: const Color(0x99FF8A80),
+                                  child: const Text(
+                                    '取消',
+                                    style: TextStyle(color: AppColors.appWarning),
+                                  ),
+                                ),
+                                FlatButton(
+                                  onPressed: () {
+                                    cancelFunc();
+                                  },
+                                  child: const Text(
+                                    '确定',
+                                    style: TextStyle(color: AppColors.appDanger),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                      } else {
+                        
+                      }
+                    },
+                    menus: [
+                      PopupMenuItem(
+                        value: '0',
+                        child: Text('复制', style: TextStyle(
+                          fontSize: Adaptor.px(28.0),
+                          color: AppColors.appTextDark
+                        )),
+                      ),
+                      PopupMenuItem(
+                        value: '1',
+                        child: Text('删除', style: TextStyle(
+                          fontSize: Adaptor.px(28.0),
+                          color: AppColors.appDanger
+                        )),
+                      )
+                    ],
+                    child: Container(
                       margin: EdgeInsets.only(
                           left: Adaptor.px(6.0),
                           right: Adaptor.px(6.0),
@@ -202,7 +318,8 @@ class IndexState extends State<IndexPage> {
                                     ]));
                           }).toList()
                         ])
-                      ]));
+                      ]))
+                  );
                 })));
   }
 
@@ -306,9 +423,18 @@ class IndexState extends State<IndexPage> {
   }
 
   Widget _buildIncomePayment() {
-    if (statisticsStore.compared == null) {
-      return SizedBox.shrink();
+    double totalPay = 0;
+    double totalPayCompare = 0;
+    double totalIncome = 0;
+    double totalIncomeCompare = 0;
+
+    if (statisticsStore.compared != null) {
+      totalPay = statisticsStore.compared.totalPay;
+      totalPayCompare = statisticsStore.compared.totalPayCompare;
+      totalIncome = statisticsStore.compared.totalIncome;
+      totalIncomeCompare = statisticsStore.compared.totalIncomeCompare;
     }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -346,13 +472,13 @@ class IndexState extends State<IndexPage> {
                       Padding(
                         padding: EdgeInsets.only(
                             top: Adaptor.px(6.0), bottom: Adaptor.px(6.0)),
-                        child: Text(statisticsStore.compared.totalPay,
+                        child: Text('${totalPay}',
                             style: TextStyle(
                                 color: AppColors.appWhite,
                                 fontSize: Adaptor.px(34.0),
                                 fontWeight: FontWeight.w500)),
                       ),
-                      Text('比上月多${statisticsStore.compared.totalPayCompare}',
+                      Text('比上月多${totalPayCompare}',
                           style: TextStyle(
                               color: AppColors.appWhite,
                               fontSize: Adaptor.px(26.0))),
@@ -390,14 +516,14 @@ class IndexState extends State<IndexPage> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: Adaptor.px(6.0), bottom: Adaptor.px(6.0)),
-                          child: Text(statisticsStore.compared.totalIncome,
+                          child: Text('${totalIncome}',
                               style: TextStyle(
                                   color: AppColors.appWhite,
                                   fontSize: Adaptor.px(34.0),
                                   fontWeight: FontWeight.w500)),
                         ),
                         Text(
-                            '比上月多${statisticsStore.compared.totalIncomeCompare}',
+                            '比上月多${totalIncomeCompare}',
                             style: TextStyle(
                               color: AppColors.appWhite,
                               fontSize: Adaptor.px(26.0),
@@ -418,7 +544,9 @@ class IndexState extends State<IndexPage> {
             child: Column(children: <Widget>[
               _buildIncomePayment(),
               _buildProgress(),
-              Container(
+              GestureDetector(
+                onTap: () => _toRecord(context),
+                child: Container(
                   margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
                   width: Adaptor.px(1020.0),
                   height: Adaptor.px(80.0),
@@ -431,9 +559,7 @@ class IndexState extends State<IndexPage> {
                             blurRadius: 5.0,
                             offset: Offset(0, 1.0))
                       ]),
-                  child: GestureDetector(
-                      onTap: () => _toRecord(context),
-                      child: Row(
+                  child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

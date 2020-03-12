@@ -3,12 +3,12 @@ import 'package:bill/assets.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/iconfont.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/group.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/reminder.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/task.dart';
 import 'package:bill/stores/user.dart';
-import 'package:bill/stores/group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -33,6 +33,7 @@ class MineState extends State<MinePage> {
   Future<void> _initPage() async {
     bool logined = userStore.logined;
     if (logined) {
+      userStore.getBillCount();
       limitStore.queryLimit(false);
       reminderStore.queryReminder(false);
       taskStore.queryTask(false);
@@ -143,7 +144,7 @@ class MineState extends State<MinePage> {
                                                 userStore.logined
                                                     ? userStore
                                                         .userInfo.nickname
-                                                    : '未登录',
+                                                    : '登录/注册',
                                                 style: TextStyle(
                                                     fontSize: Adaptor.px(30.0),
                                                     color:
@@ -159,7 +160,7 @@ class MineState extends State<MinePage> {
                                 children: <Widget>[
                                   Column(
                                     children: <Widget>[
-                                      Text('0',
+                                      Text(userStore.billCount != null ? '${userStore.billCount.days}' : '0',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(48.0),
                                               fontWeight: FontWeight.w500,
@@ -178,7 +179,7 @@ class MineState extends State<MinePage> {
                                   ),
                                   Column(
                                     children: <Widget>[
-                                      Text('0',
+                                      Text(userStore.billCount != null ? '${userStore.billCount.counts}' : '0',
                                           style: TextStyle(
                                               fontSize: Adaptor.px(48.0),
                                               fontWeight: FontWeight.w500,

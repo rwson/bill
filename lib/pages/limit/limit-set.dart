@@ -3,10 +3,10 @@ import 'package:bill/colors.dart';
 import 'package:bill/router.dart';
 import 'package:bill/stores/limit.dart';
 import 'package:bill/stores/stores.dart';
-import 'package:flutter/services.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LimitSetPage extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class LimitSetState extends State<LimitSetPage> {
       return;
     }
 
-    final data = await limitStore.setLimit(int.parse(_amountController.text) * 100);
+    final data = await limitStore.setLimit(int.parse(_amountController.text));
     BotToast.showText(text: data.message);
     if (data.success) {
       AppRouter.back(context);

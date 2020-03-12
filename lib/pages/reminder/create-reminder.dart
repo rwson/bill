@@ -21,6 +21,10 @@ class CreateReminderPage extends StatefulWidget {
 }
 
 class CreateReminderState extends State<CreateReminderPage> {
+  FixedExtentScrollController _clockController;
+
+  FixedExtentScrollController _minutesController;
+
   String _frequencyStr = '请选择';
 
   String _timeStr = '09:00';
@@ -85,10 +89,18 @@ class CreateReminderState extends State<CreateReminderPage> {
     _frequencyStr = '请选择';
     _timeStr = '09:00';
     _selectedIndex = 0;
+
+    _clockController = FixedExtentScrollController(
+        initialItem: _clocks.indexOf('09'));
+    _minutesController = FixedExtentScrollController(
+        initialItem: _clocks.indexOf('00'));
   }
 
   @override
   void dispose() {
+    _clockController.dispose();
+    _minutesController.dispose();
+
     _backController.dispose();
     _backFocus.dispose();
 
@@ -258,6 +270,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                                   Container(
                                       width: Adaptor.px(180.0),
                                       child: CupertinoPicker(
+                                        scrollController: _clockController,
                                         looping: true,
                                         itemExtent: Adaptor.px(64.0),
                                         backgroundColor: Colors.white,
@@ -269,6 +282,9 @@ class CreateReminderState extends State<CreateReminderPage> {
                                               _selectedTime.add(_clocks[i]);
                                             }
                                           });
+
+                                          _clockController = FixedExtentScrollController(
+                                            initialItem: _clocks.indexOf(_clocks[i]));
                                         },
                                         children: List.generate(_clocks.length,
                                             (int index) {
@@ -286,6 +302,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                                   Container(
                                       width: Adaptor.px(180.0),
                                       child: CupertinoPicker(
+                                        scrollController: _minutesController,
                                         looping: true,
                                         itemExtent: Adaptor.px(64.0),
                                         backgroundColor: Colors.white,
@@ -297,6 +314,9 @@ class CreateReminderState extends State<CreateReminderPage> {
                                               _selectedTime[1] = _minutes[i];
                                             }
                                           });
+
+                                          _minutesController = FixedExtentScrollController(
+                                            initialItem: _minutes.indexOf(_minutes[i]));
                                         },
                                         children: List.generate(_minutes.length,
                                             (int index) {
@@ -621,7 +641,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text('回头天数',
+                            Text('折返天数',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0))),
@@ -643,7 +663,7 @@ class CreateReminderState extends State<CreateReminderPage> {
                                       contentPadding: EdgeInsets.only(
                                           top: Adaptor.px(30.0),
                                           bottom: Adaptor.px(30.0)),
-                                      hintText: '请输入回头天数',
+                                      hintText: '请输入折返天数',
                                       fillColor: AppColors.appWhite,
                                       filled: true,
                                       enabledBorder: UnderlineInputBorder(
@@ -652,8 +672,8 @@ class CreateReminderState extends State<CreateReminderPage> {
                                       focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide.none),
                                     )))
-                          ],
-                        ),
+                          ]
+                        )
                       )
                     : SizedBox.shrink(),
                 GestureDetector(

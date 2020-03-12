@@ -19,6 +19,9 @@ abstract class _UserStore extends BaseStore with Store {
   @observable
   User userInfo;
 
+  @observable
+  UserBillCount billCount;
+
   Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -54,6 +57,7 @@ abstract class _UserStore extends BaseStore with Store {
       userInfo = new User.fromJson(data.data);
       await setToken(userInfo.token);
     } else {
+      removeToken();
       logined = false;
     }
 
@@ -168,6 +172,31 @@ abstract class _UserStore extends BaseStore with Store {
   }
 
   @action
+  Future<bool> getBillCount() async {
+    try {
+      switchLoading(true);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.billCount, {}, HttpUtil.GET);
+
+      HttpResponse data = new HttpResponse.formJson(resp);
+
+      if (data.success) {
+        billCount = new UserBillCount.fromJson(data.data);
+      } else {
+        billCount = null;
+      }
+
+      switchLoading(false);
+
+      return data.success;
+    } catch (e) {
+      billCount = null;
+      switchLoading(false);
+
+      return false;
+    }
+  }
+
+  @action
   bool logout() {
     removeToken();
     logined = false;
@@ -176,4 +205,5 @@ abstract class _UserStore extends BaseStore with Store {
     });
     return logined;
   }
+
 }

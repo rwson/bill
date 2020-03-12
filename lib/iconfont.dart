@@ -124,5 +124,5 @@ class IconFont {
 
   static IconData iconSkirt = IconData(0xe66a, fontFamily: 'iconfont');
 
-  static IconData iconEmpty = IconData(0xe696, fontFamily: 'iconfont');
+  static IconData iconEmpty = IconData(0xe65a, fontFamily: 'iconfont');
 }

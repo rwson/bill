@@ -214,7 +214,7 @@ class ReminderDetailState extends State<ReminderDetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text('回头天数',
+                            Text('折返天数',
                                 style: TextStyle(
                                     color: AppColors.appTextDark,
                                     fontSize: Adaptor.px(28.0))),

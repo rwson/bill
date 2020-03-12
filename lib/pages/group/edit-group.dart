@@ -4,11 +4,11 @@ import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
 import 'package:bill/methods-icons.dart';
 import 'package:bill/router.dart';
+import 'package:bill/stores/group.dart';
+import 'package:bill/stores/stores.dart';
+import 'package:bill/stores/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bill/stores/stores.dart';
-import 'package:bill/stores/group.dart';
-import 'package:bill/stores/user.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class GroupItem {
@@ -48,6 +48,8 @@ class EditGroupState extends State<EditGroupPage> {
 
   final UserStore userStore = AppStores.userStore;
 
+  bool _switchValue = false;
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +77,8 @@ class EditGroupState extends State<EditGroupPage> {
             }
             return item;
           }).toList();
+
+          _switchValue = groupStore.current.isDefault == '1';
         });
     } else {
       AppRouter.back(context);
@@ -99,6 +103,7 @@ class EditGroupState extends State<EditGroupPage> {
       'name': _nameController.text,
       'type': _selected.type,
       'usage': '1',
+      'isDefault': _switchValue ? '1' : '0',
       'desc': ''
     });
     
@@ -204,7 +209,7 @@ class EditGroupState extends State<EditGroupPage> {
                 ),
                 Container(
                   width: Adaptor.px(1060.0),
-                  height: Adaptor.px(80.0),
+                  height: Adaptor.px(100.0),
                   padding: EdgeInsets.only(
                       left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
                   margin: EdgeInsets.only(
@@ -221,7 +226,7 @@ class EditGroupState extends State<EditGroupPage> {
                       Text('圈子名称',
                           style: TextStyle(
                               color: AppColors.appTextDark,
-                              fontSize: Adaptor.px(24.0))),
+                              fontSize: Adaptor.px(28.0))),
                       Expanded(
                           flex: 1,
                           child: Container(
@@ -236,7 +241,7 @@ class EditGroupState extends State<EditGroupPage> {
                                   autocorrect: false,
                                   keyboardType: TextInputType.text,
                                   style: TextStyle(
-                                    fontSize: Adaptor.px(24.0),
+                                    fontSize: Adaptor.px(28.0),
                                     color: AppColors.appTextDark,
                                   ),
                                   cursorWidth: 1.0,
@@ -244,6 +249,41 @@ class EditGroupState extends State<EditGroupPage> {
                                   textAlign: TextAlign.right,
                                   focusNode: _focus,
                                   controller: _nameController)))
+                    ],
+                  ),
+                ),
+                                Container(
+                  width: Adaptor.px(1060.0),
+                  height: Adaptor.px(100.0),
+                  padding: EdgeInsets.only(
+                      left: Adaptor.px(16.0), right: Adaptor.px(16.0)),
+                  margin: EdgeInsets.only(
+                      left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
+                  decoration: BoxDecoration(
+                      color: AppColors.appWhite,
+                      border: Border(
+                          bottom: BorderSide(
+                              width: Adaptor.onePx(),
+                              color: AppColors.appBorder))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('设为默认',
+                          style: TextStyle(
+                              color: AppColors.appTextDark,
+                              fontSize: Adaptor.px(28.0))),
+                      Container(
+                          child: Switch.adaptive(
+                              value: _switchValue,
+                              activeColor: AppColors.appYellow,
+                              activeTrackColor: AppColors.appYellowLight,
+                              inactiveThumbColor: AppColors.appTextNormal,
+                              inactiveTrackColor: AppColors.appTextLight,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _switchValue = value;
+                                });
+                              }))
                     ],
                   ),
                 ),

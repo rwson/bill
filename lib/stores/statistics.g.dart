@@ -26,10 +26,58 @@ mixin _$StatisticsStore on _StatisticsStore, Store {
     }, _$comparedAtom, name: '${_$comparedAtom.name}_set');
   }
 
+  final _$yearsAtom = Atom(name: '_StatisticsStore.years');
+
+  @override
+  List<String> get years {
+    _$yearsAtom.context.enforceReadPolicy(_$yearsAtom);
+    _$yearsAtom.reportObserved();
+    return super.years;
+  }
+
+  @override
+  set years(List<String> value) {
+    _$yearsAtom.context.conditionallyRunInAction(() {
+      super.years = value;
+      _$yearsAtom.reportChanged();
+    }, _$yearsAtom, name: '${_$yearsAtom.name}_set');
+  }
+
+  final _$yearlyAnalyzeAtom = Atom(name: '_StatisticsStore.yearlyAnalyze');
+
+  @override
+  YearlyAnalyze get yearlyAnalyze {
+    _$yearlyAnalyzeAtom.context.enforceReadPolicy(_$yearlyAnalyzeAtom);
+    _$yearlyAnalyzeAtom.reportObserved();
+    return super.yearlyAnalyze;
+  }
+
+  @override
+  set yearlyAnalyze(YearlyAnalyze value) {
+    _$yearlyAnalyzeAtom.context.conditionallyRunInAction(() {
+      super.yearlyAnalyze = value;
+      _$yearlyAnalyzeAtom.reportChanged();
+    }, _$yearlyAnalyzeAtom, name: '${_$yearlyAnalyzeAtom.name}_set');
+  }
+
   final _$compareLastAsyncAction = AsyncAction('compareLast');
 
   @override
   Future<void> compareLast() {
     return _$compareLastAsyncAction.run(() => super.compareLast());
+  }
+
+  final _$getBillYearsAsyncAction = AsyncAction('getBillYears');
+
+  @override
+  Future<void> getBillYears() {
+    return _$getBillYearsAsyncAction.run(() => super.getBillYears());
+  }
+
+  final _$getYearlyBillsAsyncAction = AsyncAction('getYearlyBills');
+
+  @override
+  Future<void> getYearlyBills(Map<String, dynamic> param) {
+    return _$getYearlyBillsAsyncAction.run(() => super.getYearlyBills(param));
   }
 }
