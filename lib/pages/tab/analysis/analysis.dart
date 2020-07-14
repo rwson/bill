@@ -1,214 +1,368 @@
 import 'package:bill/adaptor.dart';
 import 'package:bill/colors.dart';
+import 'package:bill/iconfont.dart';
 import 'package:bill/stores/statistics.dart';
 import 'package:bill/stores/stores.dart';
 import 'package:bill/stores/user.dart';
 import 'package:flutter/material.dart';
+import 'package:bill/bean/statistics.dart';
+import 'package:bill/methods-icons.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
-import './tooltip.dart';
-
-class SelectionLineHighlight extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-
-  SelectionLineHighlight(this.seriesList, {this.animate});
-
-  factory SelectionLineHighlight.withSampleData() {
-    return new SelectionLineHighlight(
-      _createSampleData(),
-      animate: false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new charts.LineChart(
-      seriesList,
-      animate: animate,
-      defaultRenderer: charts.LineRendererConfig(
-        includeArea: true,
-        includePoints: false,
-        includeLine: false,
-        stacked: true,
-      ),
-      behaviors: [
-        new charts.LinePointHighlighter(
-            symbolRenderer: CustomCircleSymbolRenderer()),
-        new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag)
-      ],
-      selectionModels: [
-        charts.SelectionModelConfig(
-            changedListener: (charts.SelectionModel model) {
-          if (model.hasDatumSelection) {
-            int index = model.selectedSeries[0].measureFn(model.selectedDatum[0].index);
-            int len = seriesList.length;
-
-            for (int i = 0; i < len; i ++) {
-              charts.Series _tmp = seriesList[i];
-
-              print(_tmp.data.length);
-            }
-
-            ToolTipMgr.setTitle({
-              'title': '${model.selectedSeries[0].measureFn(model.selectedDatum[0].index)}',
-              'subTitle': '111133'
-            });
-//            print(${model.selectedSeries[0].measureFn(model.selectedDatum[0].datum.year)});
-          }
-        })
-      ]
-    );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      new LinearSales(0, 5),
-      new LinearSales(1, 25),
-      new LinearSales(2, 1000),
-      new LinearSales(3, 75),
-      new LinearSales(4, 75),
-      new LinearSales(6, 100)
-    ];
-
-    return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
-  }
-}
-
-class PieOutsideLabelChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  PieOutsideLabelChart(this.seriesList, {this.animate});
-
-  /// Creates a [PieChart] with sample data and no transition.
-  factory PieOutsideLabelChart.withSampleData() {
-    return new PieOutsideLabelChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new charts.PieChart(seriesList,
-        animate: animate,
-        // Add an [ArcLabelDecorator] configured to render labels outside of the
-        // arc with a leader line.
-        //
-        // Text style for inside / outside can be controlled independently by
-        // setting [insideLabelStyleSpec] and [outsideLabelStyleSpec].
-        //
-        // Example configuring different styles for inside/outside:
-        //       new charts.ArcLabelDecorator(
-        //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
-        //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-        defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
-          new charts.ArcLabelDecorator(
-              labelPosition: charts.ArcLabelPosition.outside)
-        ]));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      new LinearSales(0, 10),
-      new LinearSales(1, 75),
-      new LinearSales(2, 25),
-      new LinearSales(3, 5),
-    ];
-
-    return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-        labelAccessorFn: (LinearSales row, _) => '购物: ￥${row.sales}',
-      )
-    ];
-  }
-}
-
-class LinearSales {
-  final int year;
-  final int sales;
-
-  LinearSales(this.year, this.sales);
-}
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_daydart/flutter_daydart.dart';
 
 class AnalysisPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => AnalysisState();
 }
 
-class AnalysisState extends State<AnalysisPage> {
+class AnalysisState extends State<AnalysisPage>
+    with SingleTickerProviderStateMixin {
+  final UserStore userStore = AppStores.userStore;
+
+  final StatisticsStore statisticsStore = AppStores.statisticsStore;
+
+  TabController _tabController;
+
+  int _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
+
+    _tabController = TabController(vsync: this, length: 3);
+    _tabController..addListener(_handleTabChange);
+
+    _initPage();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: Text('分析',
-                style: TextStyle(
-                    fontSize: Adaptor.px(32.0), color: AppColors.appTextDark))),
-        body: Container(
-            padding: EdgeInsets.only(
-                left: Adaptor.px(10.0), right: Adaptor.px(10.0)),
-            child: SingleChildScrollView(
-                child: Container(
-                    margin: EdgeInsets.only(
-                        top: Adaptor.px(10.0),
-                        left: Adaptor.px(10.0),
-                        right: Adaptor.px(10.0)),
-                    child: Wrap(children: <Widget>[
-                      Container(
-                        width: Adaptor.px(1060),
-                        padding: EdgeInsets.only(bottom: Adaptor.px(40.0)),
-                        child: Text('每日支出',
-                            style: TextStyle(
-                                fontSize: Adaptor.px(28.0),
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.appTextDark)),
-                      ),
-                      Container(
-                        width: Adaptor.px(1040),
-                        height: Adaptor.px(450),
-                        child: SelectionLineHighlight(
-                            SelectionLineHighlight._createSampleData(),
-                            animate: true),
-                      ),
-                      Container(
-                        width: Adaptor.px(1060),
-                        padding: EdgeInsets.only(
-                            top: Adaptor.px(40.0), bottom: Adaptor.px(40.0)),
-                        child: Text('支出分类',
-                            style: TextStyle(
-                                fontSize: Adaptor.px(28.0),
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.appTextDark)),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: Adaptor.px(60.0)),
-                        width: Adaptor.px(1040),
-                        height: Adaptor.px(400),
-                        child: PieOutsideLabelChart(
-                            PieOutsideLabelChart._createSampleData(),
-                            animate: true),
+  void deactivate() {
+    super.deactivate();
+    bool current = ModalRoute.of(context).isCurrent;
+    if (current) {
+      _initPage();
+    }
+  }
+
+  void _initPage() async {
+    if (userStore.logined) {
+      statisticsStore.getMonthAnalysis();
+    }
+  }
+
+  void _handleTabChange() {
+    if (_tabController.indexIsChanging) {
+      setState(() {
+        _currentIndex = _tabController.index;
+      });
+    }
+  }
+
+  Widget _buildWeeklyView() {
+    return SingleChildScrollView(
+        child: Container(
+            child: Wrap(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(
+            top: Adaptor.px(20.0),
+            left: Adaptor.px(20.0),
+            right: Adaptor.px(20.0)),
+        width: Adaptor.px(1020),
+        padding: EdgeInsets.all(Adaptor.px(20.0)),
+        decoration: BoxDecoration(
+            color: AppColors.appWhite,
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.appBlackShadow,
+                  blurRadius: 5.0,
+                  offset: Offset(0, 1.0))
+            ]),
+        child: Wrap(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text('本周',
+                    style: TextStyle(
+                        color: AppColors.appTextDark,
+                        fontSize: Adaptor.px(28.0),
+                        fontWeight: FontWeight.normal)),
+                GestureDetector(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('支出',
+                          style: TextStyle(
+                              color: AppColors.appTextDark,
+                              fontSize: Adaptor.px(28.0),
+                              fontWeight: FontWeight.normal)),
+                      Padding(
+                        padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                        child: Icon(IconFont.iconDown,
+                            size: Adaptor.px(16.0),
+                            color: AppColors.appTextDark),
                       )
-                    ])))));
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container()
+          ],
+        ),
+      ),
+      Container(
+          margin: EdgeInsets.only(
+              top: Adaptor.px(20.0),
+              left: Adaptor.px(20.0),
+              right: Adaptor.px(20.0)),
+          width: Adaptor.px(1020),
+          padding: EdgeInsets.all(Adaptor.px(20.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appWhite,
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              boxShadow: [
+                BoxShadow(
+                    color: AppColors.appBlackShadow,
+                    blurRadius: 5.0,
+                    offset: Offset(0, 1.0))
+              ]),
+          child: Wrap(
+            children: <Widget>[
+              Text('支出排行榜',
+                  style: TextStyle(
+                      color: AppColors.appTextDark,
+                      fontSize: Adaptor.px(28.0),
+                      fontWeight: FontWeight.normal))
+            ],
+          ))
+    ])));
+  }
+
+  Widget _buildMonthlyView() {
+    return SingleChildScrollView(
+        child: Container(
+            child: Wrap(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(
+            top: Adaptor.px(20.0),
+            left: Adaptor.px(20.0),
+            right: Adaptor.px(20.0)),
+        width: Adaptor.px(1020),
+        padding: EdgeInsets.all(Adaptor.px(20.0)),
+        decoration: BoxDecoration(
+            color: AppColors.appWhite,
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.appBlackShadow,
+                  blurRadius: 5.0,
+                  offset: Offset(0, 1.0))
+            ]),
+        child: Wrap(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text('本月',
+                    style: TextStyle(
+                        color: AppColors.appTextDark,
+                        fontSize: Adaptor.px(28.0),
+                        fontWeight: FontWeight.normal)),
+                GestureDetector(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('支出',
+                          style: TextStyle(
+                              color: AppColors.appTextDark,
+                              fontSize: Adaptor.px(28.0),
+                              fontWeight: FontWeight.normal)),
+                      Padding(
+                        padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                        child: Icon(IconFont.iconDown,
+                            size: Adaptor.px(16.0),
+                            color: AppColors.appTextDark),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container()
+          ],
+        ),
+      ),
+      Container(
+          margin: EdgeInsets.only(
+              top: Adaptor.px(20.0),
+              left: Adaptor.px(20.0),
+              right: Adaptor.px(20.0)),
+          width: Adaptor.px(1020),
+          padding: EdgeInsets.all(Adaptor.px(20.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appWhite,
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              boxShadow: [
+                BoxShadow(
+                    color: AppColors.appBlackShadow,
+                    blurRadius: 5.0,
+                    offset: Offset(0, 1.0))
+              ]),
+          child: Wrap(
+            children: <Widget>[
+              Text('支出排行榜',
+                  style: TextStyle(
+                      color: AppColors.appTextDark,
+                      fontSize: Adaptor.px(28.0),
+                      fontWeight: FontWeight.normal))
+            ],
+          ))
+    ])));
+  }
+
+  Widget _buildYearlyView() {
+    return SingleChildScrollView(
+        child: Container(
+            child: Wrap(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(
+            top: Adaptor.px(20.0),
+            left: Adaptor.px(20.0),
+            right: Adaptor.px(20.0)),
+        width: Adaptor.px(1020),
+        padding: EdgeInsets.all(Adaptor.px(20.0)),
+        decoration: BoxDecoration(
+            color: AppColors.appWhite,
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.appBlackShadow,
+                  blurRadius: 5.0,
+                  offset: Offset(0, 1.0))
+            ]),
+        child: Wrap(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text('本月',
+                    style: TextStyle(
+                        color: AppColors.appTextDark,
+                        fontSize: Adaptor.px(28.0),
+                        fontWeight: FontWeight.normal)),
+                GestureDetector(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('支出',
+                          style: TextStyle(
+                              color: AppColors.appTextDark,
+                              fontSize: Adaptor.px(28.0),
+                              fontWeight: FontWeight.normal)),
+                      Padding(
+                        padding: EdgeInsets.only(left: Adaptor.px(4.0)),
+                        child: Icon(IconFont.iconDown,
+                            size: Adaptor.px(16.0),
+                            color: AppColors.appTextDark),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container()
+          ],
+        ),
+      ),
+      Container(
+          margin: EdgeInsets.only(
+              top: Adaptor.px(20.0),
+              left: Adaptor.px(20.0),
+              right: Adaptor.px(20.0)),
+          width: Adaptor.px(1020),
+          padding: EdgeInsets.all(Adaptor.px(20.0)),
+          decoration: BoxDecoration(
+              color: AppColors.appWhite,
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              boxShadow: [
+                BoxShadow(
+                    color: AppColors.appBlackShadow,
+                    blurRadius: 5.0,
+                    offset: Offset(0, 1.0))
+              ]),
+          child: Wrap(
+            children: <Widget>[
+              Text('支出排行榜',
+                  style: TextStyle(
+                      color: AppColors.appTextDark,
+                      fontSize: Adaptor.px(28.0),
+                      fontWeight: FontWeight.normal))
+            ],
+          ))
+    ])));
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text('分析',
+                  style: TextStyle(
+                      fontSize: Adaptor.px(32.0),
+                      color: AppColors.appTextDark)),
+              bottom: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.transparent,
+                tabs: <Widget>[
+                  Tab(
+                      child: Text('周',
+                          style: TextStyle(
+                              color: _currentIndex == 0
+                                  ? AppColors.appYellow
+                                  : AppColors.appTextDark,
+                              fontSize:
+                                  Adaptor.px(_currentIndex == 0 ? 32.0 : 28.0),
+                              fontWeight: _currentIndex == 0
+                                  ? FontWeight.w500
+                                  : FontWeight.w400))),
+                  Tab(
+                      child: Text('月',
+                          style: TextStyle(
+                              color: _currentIndex == 1
+                                  ? AppColors.appYellow
+                                  : AppColors.appTextDark,
+                              fontSize:
+                                  Adaptor.px(_currentIndex == 1 ? 32.0 : 28.0),
+                              fontWeight: _currentIndex == 1
+                                  ? FontWeight.w500
+                                  : FontWeight.w400))),
+                  Tab(
+                      child: Text('年',
+                          style: TextStyle(
+                              color: _currentIndex == 2
+                                  ? AppColors.appYellow
+                                  : AppColors.appTextDark,
+                              fontSize:
+                                  Adaptor.px(_currentIndex == 2 ? 32.0 : 28.0),
+                              fontWeight: _currentIndex == 2
+                                  ? FontWeight.w500
+                                  : FontWeight.w400))),
+                ],
+              ),
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              physics: NeverScrollableScrollPhysics(),
+              children: <Widget>[_buildWeeklyView(), _buildMonthlyView(), _buildYearlyView()],
+            )));
   }
 }

@@ -79,3 +79,44 @@ Map<String, dynamic> _$YearlyAnalyzeToJson(YearlyAnalyze instance) =>
       'yearlyAmounts': instance.yearlyAmounts,
       'monthlyAmounts': instance.monthlyAmounts,
     };
+
+BillAmountsRow _$BillAmountsRowFromJson(Map<String, dynamic> json) {
+  return BillAmountsRow(
+    (json['totalAmount'] as num)?.toDouble(),
+    json['category'] as String,
+  );
+}
+
+Map<String, dynamic> _$BillAmountsRowToJson(BillAmountsRow instance) =>
+    <String, dynamic>{
+      'totalAmount': instance.totalAmount,
+      'category': instance.category,
+    };
+
+DayAmountsRow _$DayAmountsRowFromJson(Map<String, dynamic> json) {
+  return DayAmountsRow(
+    (json['totalAmount'] as num)?.toDouble(),
+    json['billDate'] as String,
+  );
+}
+
+Map<String, dynamic> _$DayAmountsRowToJson(DayAmountsRow instance) =>
+    <String, dynamic>{
+      'totalAmount': instance.totalAmount,
+      'billDate': instance.billDate,
+    };
+
+MonthAnalysis _$MonthAnalysisFromJson(Map<String, dynamic> json) {
+  return MonthAnalysis(
+    (json['monthDayAmount'] as List)
+        ?.map((e) => e == null
+            ? null
+            : DayAmountsRow.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$MonthAnalysisToJson(MonthAnalysis instance) =>
+    <String, dynamic>{
+      'monthDayAmount': instance.monthDayAmount,
+    };

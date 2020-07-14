@@ -29,7 +29,7 @@ class ToolTipMgr {
 }
 
 class CustomCircleSymbolRenderer extends CircleSymbolRenderer {
-  double height = Adaptor.px(450.0);
+  double maxLeft = Adaptor.px(1060);
 
   @override
   void paint(ChartCanvas canvas, Rectangle<num> bounds,
@@ -48,21 +48,50 @@ class CustomCircleSymbolRenderer extends CircleSymbolRenderer {
 
     String subTitle = ToolTipMgr.subTitle;
 
-    canvas.drawRRect(
-        Rectangle(bounds.left - 5, bounds.top, bounds.width + 100, bounds.height + 10),
-        fill: MaterialPalette.blue.shadeDefault,
-        radius: Adaptor.px(10.0),
-        roundTopLeft: true,
-        roundBottomLeft: true,
-        roundTopRight: true,
-        roundBottomRight: true);
+    // print(title);
+    // print(subTitle);
 
-    ChartStyle.TextStyle textStyle = ChartStyle.TextStyle();
+    if (title != null && title.length > 0 && subTitle != null && subTitle.length > 0) {
 
-    textStyle.color = Color.white;
-    textStyle.fontSize = 15;
 
-    canvas.drawText(ChartText.TextElement(ToolTipMgr.title, style: textStyle),
-        (bounds.left).round(), (bounds.top + 2).round());
+      double top = -4;
+      int titleFontSize = Adaptor.px(24).round();
+      int subTitleFontSize = Adaptor.px(18).round();
+      int titleWidth = (title.length * titleFontSize / 2).round();
+      int subTitleWidth = (subTitle.length * subTitleFontSize / 2).round();
+
+      int maxWidth = titleWidth;
+      int left = bounds.left.ceil();
+
+      int _titleLeft;
+      int _subTitleLeft;
+
+      if (subTitleWidth > maxWidth) {
+        maxWidth = subTitleWidth;
+      }
+
+      _titleLeft = left + (((maxWidth - titleWidth) / 2)).round();
+      _subTitleLeft = left + (((maxWidth - subTitleWidth) / 2)).round();
+
+      canvas.drawRRect(
+          Rectangle(left, top, maxWidth + 10, 26),
+          fill: MaterialPalette.blue.shadeDefault,
+          radius: Adaptor.px(6.0),
+          roundTopLeft: true,
+          roundBottomLeft: true,
+          roundTopRight: true,
+          roundBottomRight: true
+          );
+
+      ChartStyle.TextStyle titleTextStyle = ChartStyle.TextStyle();
+      titleTextStyle.color = Color.white;
+      titleTextStyle.fontSize = Adaptor.px(24).toInt();
+      canvas.drawText(ChartText.TextElement(title, style: titleTextStyle), _titleLeft + 8, (top + 3).round());
+
+      ChartStyle.TextStyle subTitleTextStyle = ChartStyle.TextStyle();
+      subTitleTextStyle.color = Color.white;
+      subTitleTextStyle.fontSize = Adaptor.px(18).toInt();
+      canvas.drawText(ChartText.TextElement(subTitle, style: subTitleTextStyle), _subTitleLeft, (top + 15).round());
+    }
   }
 }

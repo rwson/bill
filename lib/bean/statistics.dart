@@ -62,3 +62,41 @@ class YearlyAnalyze {
   Map<String, dynamic> toJson() => _$YearlyAnalyzeToJson(this);
 }
 
+@JsonSerializable()
+class BillAmountsRow {
+  final double totalAmount;
+  final String category;
+
+  BillAmountsRow(this.totalAmount, this.category);
+
+  factory BillAmountsRow.fromJson(Map<String, dynamic> json) =>
+      _$BillAmountsRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BillAmountsRowToJson(this);
+}
+
+@JsonSerializable()
+class DayAmountsRow {
+  final double totalAmount;
+  final String billDate;
+
+  DayAmountsRow(this.totalAmount, this.billDate);
+
+  factory DayAmountsRow.fromJson(Map<String, dynamic> json) =>
+      _$DayAmountsRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DayAmountsRowToJson(this);
+}
+
+@JsonSerializable()
+class MonthAnalysis {
+  // final List<BillAmountsRow> monthRanks;
+  final List<DayAmountsRow> monthDayAmount;
+
+  MonthAnalysis(this.monthDayAmount);
+
+  factory MonthAnalysis.fromJson(Map<String, dynamic> json) =>
+      _$MonthAnalysisFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MonthAnalysisToJson(this);
+}

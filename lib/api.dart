@@ -1,5 +1,5 @@
 class Api {
-  static const String base = 'http://192.168.1.42:3000/';
+  static const String base = 'http://192.168.1.56:3000/';
 
   //  用户相关
 
@@ -73,6 +73,8 @@ class Api {
   static const String compareLastMonth = 'statistics/compare-lastmonth';
 
   static const String billYears = 'statistics/years';
+
+  static const String monthAnalyze = 'statistics/analyze';
 
   static const String yearlyBills = 'statistics/yearly-bills?year=:year';
 

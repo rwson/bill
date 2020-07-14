@@ -145,8 +145,8 @@ class RegisterState extends State<RegisterPage> {
     String mobile = _mobileController.text;
     String vCode = _vCodeController.text;
 
-    if (vCode.length != 6) {
-      BotToast.showText(text: '验证码为6位!');
+    if (vCode.length != 4) {
+      BotToast.showText(text: '验证码为4位!');
       return;
     }
 

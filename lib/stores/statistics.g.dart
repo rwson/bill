@@ -60,6 +60,23 @@ mixin _$StatisticsStore on _StatisticsStore, Store {
     }, _$yearlyAnalyzeAtom, name: '${_$yearlyAnalyzeAtom.name}_set');
   }
 
+  final _$monthAnalysisAtom = Atom(name: '_StatisticsStore.monthAnalysis');
+
+  @override
+  MonthAnalysis get monthAnalysis {
+    _$monthAnalysisAtom.context.enforceReadPolicy(_$monthAnalysisAtom);
+    _$monthAnalysisAtom.reportObserved();
+    return super.monthAnalysis;
+  }
+
+  @override
+  set monthAnalysis(MonthAnalysis value) {
+    _$monthAnalysisAtom.context.conditionallyRunInAction(() {
+      super.monthAnalysis = value;
+      _$monthAnalysisAtom.reportChanged();
+    }, _$monthAnalysisAtom, name: '${_$monthAnalysisAtom.name}_set');
+  }
+
   final _$compareLastAsyncAction = AsyncAction('compareLast');
 
   @override
@@ -79,5 +96,12 @@ mixin _$StatisticsStore on _StatisticsStore, Store {
   @override
   Future<void> getYearlyBills(Map<String, dynamic> param) {
     return _$getYearlyBillsAsyncAction.run(() => super.getYearlyBills(param));
+  }
+
+  final _$getMonthAnalysisAsyncAction = AsyncAction('getMonthAnalysis');
+
+  @override
+  Future<bool> getMonthAnalysis() {
+    return _$getMonthAnalysisAsyncAction.run(() => super.getMonthAnalysis());
   }
 }

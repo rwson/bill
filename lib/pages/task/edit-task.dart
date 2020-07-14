@@ -791,7 +791,7 @@ class EditTaskState extends State<EditTaskPage> {
     );
   }
 
-  void _createTask() async {
+  void _editTask() async {
     List<int> frequency = [];
 
     int len = _frequencies.length;
@@ -1160,7 +1160,7 @@ class EditTaskState extends State<EditTaskPage> {
                       ),
                     ),
                     GestureDetector(
-                        onTap: _createTask,
+                        onTap: _editTask,
                         child: Container(
                             width: Adaptor.px(1000.0),
                             height: Adaptor.px(100.0),

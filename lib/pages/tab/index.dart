@@ -348,7 +348,7 @@ class IndexState extends State<IndexPage> {
     return Container(
         margin: EdgeInsets.only(top: Adaptor.px(20.0)),
         width: Adaptor.px(1020),
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(Adaptor.px(20.0)),
         decoration: BoxDecoration(
             color: AppColors.appWhite,
             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
@@ -540,7 +540,7 @@ class IndexState extends State<IndexPage> {
         appBar: AppBar(title: Text('首页', style: TextStyle(fontSize: 16.0))),
         body: Observer(builder: (_) {
           return Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Adaptor.px(16.0)),
             child: Column(children: <Widget>[
               _buildIncomePayment(),
               _buildProgress(),

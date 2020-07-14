@@ -19,6 +19,9 @@ abstract class _StatisticsStore extends BaseStore with Store {
   @observable
   YearlyAnalyze yearlyAnalyze;
 
+  @observable
+  MonthAnalysis monthAnalysis;
+
   @action
   Future<void> compareLast() async {
     try {
@@ -72,8 +75,7 @@ abstract class _StatisticsStore extends BaseStore with Store {
     try {
       switchLoading(true);
 
-      Map<String, dynamic> resp =
-          await HttpUtil.request(Api.yearlyBills, param, HttpUtil.GET);
+      Map<String, dynamic> resp = await HttpUtil.request(Api.yearlyBills, param, HttpUtil.GET);
 
       HttpResponse data = new HttpResponse.formJson(resp);
 
@@ -85,6 +87,30 @@ abstract class _StatisticsStore extends BaseStore with Store {
 
     } catch (e) {
       switchLoading(false);
+    }
+  }
+
+  @action
+  Future<bool> getMonthAnalysis() async {
+    try {
+      switchLoading(true);
+
+      Map<String, dynamic> resp =
+          await HttpUtil.request(Api.monthAnalyze, {}, HttpUtil.GET);
+
+      HttpResponse data = new HttpResponse.formJson(resp);
+
+      switchLoading(false);
+
+      if (data.success) {
+        monthAnalysis = new MonthAnalysis.fromJson(data.data);
+      }
+
+      return data.success;
+    } catch (e) {
+      switchLoading(false);
+
+      return false;
     }
   }
 

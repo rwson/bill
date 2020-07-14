@@ -286,7 +286,7 @@ class WealthState extends State<WealthPage> {
                                                             Adaptor.px(16.0)),
                                                     child: Icon(
                                                         IconFont.iconDown,
-                                                        size: Adaptor.px(20.0),
+                                                        size: Adaptor.px(16.0),
                                                         color: AppColors
                                                             .appTextDark),
                                                   )
